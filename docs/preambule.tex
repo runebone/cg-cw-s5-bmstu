@@ -1,0 +1,70 @@
+\documentclass[14pt]{extarticle}
+
+\usepackage[a4paper, left=3cm, right=1.5cm, top=2.0cm, bottom=2cm]{geometry}
+% \usepackage[a4paper, left=3cm, right=1.0cm, top=2.0cm, bottom=2cm]{geometry}
+\setlength{\parindent}{1.25cm}
+\linespread{1.5}
+
+\usepackage[normalem]{ulem} % \uline
+
+\usepackage{setspace} % Use \setstretch command
+
+\usepackage{amsmath}
+\renewcommand{\underset}[2]{\ensuremath{\mathop{\mbox{#2}}\limits_{\mbox{\scriptsize #1}}}} % Use \underset in normal environment, not only in math
+
+\usepackage{xparse} % \NewDocumentCommand for creating custom commands
+
+% Write stuff under underlined text
+\NewDocumentCommand{\ulinetext}{O{3cm} O{c} m m} % O - optional; m - mandatory
+{\underset{#3}{\uline{\makebox[#1][#2]{#4}}}}
+
+% Test bold underline
+\NewDocumentCommand{\bolduline}{}{\bgroup\markoverwith
+{\rule[-0.5ex]{2pt}{2pt}}\ULon}
+
+% Display numberless sections in toc
+\NewDocumentCommand{\snumberless}{m}
+{\section*{#1}\addcontentsline{toc}{section}{#1}}
+
+\usepackage{tabularx}
+
+% Make sections also use dotted lines; normal font instead of bold in toc
+\usepackage{tocloft}
+\renewcommand{\cftsecdotsep}{\cftdotsep}
+\renewcommand{\cftsecfont}{\normalfont}
+\renewcommand{\cftsecpagefont}{\normalfont}
+
+\setlength{\cftsecindent}{0pt}% Remove indent for \section
+\setlength{\cftsubsecindent}{0pt}% Remove indent for \subsection
+\setlength{\cftsubsubsecindent}{0pt}% Remove indent for \subsubsection
+
+% Center "Contents" title
+% \renewcommand{\cfttoctitlefont}{\hfill\Large\bfseries}
+% \renewcommand{\cftaftertoctitle}{\hfill\hfill}
+
+% Remove page number from table of contents
+\tocloftpagestyle{empty}
+
+% Localization
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+
+% Font configuration
+\usepackage{fontspec}
+\setmainfont{Liberation Serif} % Liberation Serif} % ~ Times New Roman
+\setsansfont{Roboto} % Liberation Sans} % ~ Arial
+\setmonofont{Liberation Mono} % ~ Courier New
+
+% Other packages
+\usepackage{xcolor}
+\usepackage{blindtext} % Lorem ipsum
+\usepackage{graphicx} % \includegraphics
+\usepackage{xurl}
+\usepackage{multicol}
+\usepackage{hyperref}
+\hypersetup{
+    % colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    % linkcolor=blue,  %choose some color if you want links to stand out
+}
