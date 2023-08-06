@@ -1,0 +1,7 @@
+CompileFlags:
+    Add:
+    - -I/nix/var/nix/profiles/per-user/human/profile/include
+    - -I/home/human/University/cg-cw-s4-bmstu/code/deps/GLFW
+    - -I/home/human/University/cg-cw-s4-bmstu/code/deps/OpenGL/glad
+    - -I/home/human/University/cg-cw-s4-bmstu/code/deps/ImGui
+    - -std=c++20
