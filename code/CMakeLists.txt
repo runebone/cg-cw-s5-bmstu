@@ -8,7 +8,8 @@ set(LIBS_DIR /nix/var/nix/profiles/per-user/human/profile/lib)
 set(INCS_DIR /nix/var/nix/profiles/per-user/human/profile/include)
 
 set(SOURCE
-    # ${SOURCE_DIR}/algorithm.cpp
+    ${SOURCE_DIR}/type_aliases.h
+    ${SOURCE_DIR}/main_globals.h
     )
 
 
