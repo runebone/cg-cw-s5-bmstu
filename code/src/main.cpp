@@ -195,12 +195,15 @@ void process_input(GLFWwindow* window) {
     }
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-        cameraPos += cameraSpeed * cameraFront;
-        cameraPos.y -= cameraSpeed * cameraFront.y;
+        auto k = -cameraFront.y / cameraUp.y;
+        // cameraForward always points forward in Front-Up plane || to the ground
+        auto cameraForward = glm::normalize(cameraFront + k * cameraUp);
+        cameraPos += cameraSpeed * cameraForward;
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-        cameraPos -= cameraSpeed * cameraFront;
-        cameraPos.y += cameraSpeed * cameraFront.y;
+        auto k = -cameraFront.y / cameraUp.y;
+        auto cameraForward = glm::normalize(cameraFront + k * cameraUp);
+        cameraPos -= cameraSpeed * cameraForward;
     }
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
         cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
