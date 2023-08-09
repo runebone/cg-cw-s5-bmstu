@@ -6,22 +6,29 @@
 #include <glm/glm.hpp>
 
 #include "type_aliases.h"
-#include "vertex.h"
+
+#include "shader.h"
+
+/* typedef glm::fvec3 Vertex; */
+
+struct Vertex {
+    glm::vec3 Position;
+};
 
 struct Mesh {
-    std::vector<vertex_t> vertices;
-    std::vector<glm::ivec3> indices;
+    std::vector<Vertex> vertices;
+    std::vector<u32> indices;
 
-    i32 __init();
+    i32 init();
     i32 load_from_obj(std::string filename);
-    void render_legacy(const glm::mat4& mvp, const glm::vec4& color);
-    void render(const glm::vec4& color);
+    void render_legacy(const glm::mat4 &mvp, const glm::vec4 &color);
+    void render(Shader &shader);
 
     face_t get_face(u32 index);
 
     u32 VAO, VBO, EBO;
 };
 
-void print_face(const face_t& face);
+void print_face(const face_t &face);
 
 #endif // __MESH_H__

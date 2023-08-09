@@ -12,19 +12,20 @@
 #define __MAIN__
 #include "main_globals.h"
 
+#include "shader.h"
 #include "mesh.h"
 
-void process_input(GLFWwindow* window);
-void mouse_callback(GLFWwindow* window, f64 xpos, f64 ypos);
+void process_input(GLFWwindow *window);
+void mouse_callback(GLFWwindow *window, f64 xpos, f64 ypos);
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
     glViewport(0, 0, width, height);
 }
 
 int main() {
     glfwInit();
     /* GLFWwindow* window = glfwCreateWindow(800, 600, "Window", NULL, NULL); */
-    GLFWwindow* window = glfwCreateWindow(1200, 900, "Window", NULL, NULL);
+    GLFWwindow *window = glfwCreateWindow(1200, 900, "Window", NULL, NULL);
 
     glfwMakeContextCurrent(window);
 
@@ -55,6 +56,12 @@ int main() {
 
     /* glEnable(GL_CULL_FACE); */
 
+    Shader ourShader("/home/human/University/cg-cw-s4-bmstu/code/src/shaders/shader.vert",
+            "/home/human/University/cg-cw-s4-bmstu/code/src/shaders/shader.frag");
+
+    ourShader.use();
+    ourShader.setVec3("color", color);
+
     // Main loop
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
@@ -75,7 +82,14 @@ int main() {
         view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         mvp = projection * view * model;
 
-        triangle.render_legacy(mvp, color);
+        /* triangle.render_legacy(mvp, color); */
+        /* teapot.render_legacy(mvp, color); */
+        /* triangle.render(ourShader); */
+
+        ourShader.setMat4("model", model);
+        ourShader.setMat4("view", view);
+        ourShader.setMat4("projection", projection);
+        teapot.render(ourShader);
 
         glfwSwapBuffers(window);
     }
@@ -84,7 +98,7 @@ int main() {
     return 0;
 }
 
-void process_input(GLFWwindow* window) {
+void process_input(GLFWwindow *window) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, GLFW_TRUE);
     }
@@ -125,7 +139,7 @@ void process_input(GLFWwindow* window) {
     }
 }
 
-void mouse_callback(GLFWwindow* window, f64 xpos, f64 ypos) {
+void mouse_callback(GLFWwindow *window, f64 xpos, f64 ypos) {
     if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED) {
         if (firstMouse) {
             lastX = xpos;

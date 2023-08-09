@@ -5,22 +5,22 @@
 #include <sstream>
 
 face_t Mesh::get_face(u32 index) {
-    auto f = indices[index];
+    auto f = indices[3 * index];
 
-    auto v1 = vertices[f.x];
-    auto v2 = vertices[f.y];
-    auto v3 = vertices[f.z];
+    auto v1 = vertices[f + 0];
+    auto v2 = vertices[f + 1];
+    auto v3 = vertices[f + 2];
 
     face_t face;
 
-    face.x = v1;
-    face.y = v2;
-    face.z = v3;
+    face.x = v1.Position;
+    face.y = v2.Position;
+    face.z = v3.Position;
 
     return face;
 }
 
-void print_face(const face_t& face) {
+void print_face(const face_t &face) {
     std::cout << "v1: " << face.x.x << ' ' << face.x.y << ' ' << face.x.z << std::endl;
     std::cout << "v2: " << face.y.x << ' ' << face.y.y << ' ' << face.y.z << std::endl;
     std::cout << "v3: " << face.z.x << ' ' << face.z.y << ' ' << face.z.z << std::endl;
@@ -44,6 +44,8 @@ i32 Mesh::load_from_obj(std::string filename) {
     vertices.clear();
     indices.clear();
 
+    Vertex v;
+
     while (std::getline(ss, line)) {
         std::istringstream iss(line);
 
@@ -51,22 +53,25 @@ i32 Mesh::load_from_obj(std::string filename) {
 
         if (prefix == "v") {
             if (iss >> x >> y >> z) {
-                vertices.push_back(glm::vec3(x, y, z));
+                v.Position = glm::vec3(x, y, z);
+                vertices.push_back(v); // XXX: std::move(v) ?
             }
         } else if (prefix == "f") {
             if (iss >> a >> b >> c) {
                 // Start indexing from 0, not from 1.
-                indices.push_back(glm::vec3(a - 1, b - 1, c - 1));
+                indices.push_back(a - 1);
+                indices.push_back(b - 1);
+                indices.push_back(c - 1);
             }
         }
     }
 
-    return 0;
+    return init();
 }
 
 #include "glad.h"
 
-void Mesh::render_legacy(const glm::mat4& mvp, const glm::vec4& color) {
+void Mesh::render_legacy(const glm::mat4 &mvp, const glm::vec4 &color) {
     glBegin(GL_TRIANGLES);
 
     glColor4f(color.x, color.y, color.z, color.w);
@@ -95,27 +100,29 @@ void Mesh::render_legacy(const glm::mat4& mvp, const glm::vec4& color) {
     glEnd();
 }
 
-i32 Mesh::__init() {
-    if (vertices.size() <= 0) { return -1; }
+void Mesh::render(Shader &shader) {
+    glBindVertexArray(VAO);
+    /* glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); */
+    glDrawElements(GL_TRIANGLES, static_cast<u32>(indices.size()), GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
+}
 
-    vertices.reserve(15'000);
-    indices.reserve(5'000);
+i32 Mesh::init() {
+    if (vertices.size() <= 0) { return -1; }
 
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
 
+    glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBindVertexArray(VAO);
 
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(f32), &vertices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(u32), &indices[0], GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(f32), (void*)(0));
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(f32), (void*)(0));
     glEnableVertexAttribArray(0);
-
-    glBindVertexArray(VAO);
 
     return 0;
 }
