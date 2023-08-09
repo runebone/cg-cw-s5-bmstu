@@ -69,8 +69,6 @@ i32 Mesh::load_from_obj(std::string filename) {
     return init();
 }
 
-#include "glad.h"
-
 void Mesh::render_legacy(const glm::mat4 &mvp, const glm::vec4 &color) {
     glBegin(GL_TRIANGLES);
 
@@ -100,10 +98,27 @@ void Mesh::render_legacy(const glm::mat4 &mvp, const glm::vec4 &color) {
     glEnd();
 }
 
+static f32 r() {
+    return (f32)rand() / (f32)RAND_MAX;
+}
+
 void Mesh::render(Shader &shader) {
     glBindVertexArray(VAO);
-    /* glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); */
-    glDrawElements(GL_TRIANGLES, static_cast<u32>(indices.size()), GL_UNSIGNED_INT, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+
+    auto rc = glm::vec3(r(), r(), r());
+    rc = glm::vec3(1.0, 0.5, 0.3);
+    shader.setVec3("vColor", rc);
+
+    /* glDrawElements(GL_TRIANGLES, static_cast<u32>(indices.size()), GL_UNSIGNED_INT, 0); */
+
+    /* for (u32 i = 0; i < indices.size(); i += 3) { */
+        /* shader.setVec3("vColor", glm::vec3(r(), r(), r())); */
+        /* glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, &indices[0] + i); */
+        /* glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)(i)); */
+    /* } */
+
+    glDrawElements(*drawing_mode, static_cast<u32>(indices.size()), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
 

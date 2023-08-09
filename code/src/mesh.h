@@ -5,11 +5,9 @@
 #include <string>
 #include <glm/glm.hpp>
 
+#include "glad.h"
 #include "type_aliases.h"
-
 #include "shader.h"
-
-/* typedef glm::fvec3 Vertex; */
 
 struct Vertex {
     glm::vec3 Position;
@@ -27,6 +25,8 @@ struct Mesh {
     face_t get_face(u32 index);
 
     u32 VAO, VBO, EBO;
+
+    GLenum *drawing_mode;
 };
 
 void print_face(const face_t &face);
