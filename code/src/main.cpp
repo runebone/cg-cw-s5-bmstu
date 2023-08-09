@@ -45,6 +45,11 @@ int main() {
     plane.load_from_obj("../../assets/objects/plane.obj");
     triangle.load_from_obj("../../assets/objects/triangle.obj");
 
+    teapot.drawing_mode = &drawing_mode;
+    /* cube.drawing_mode = &drawing_mode; */
+    /* plane.drawing_mode = &drawing_mode; */
+    /* triangle.drawing_mode = &drawing_mode; */
+
     f32 aspect_ratio;
     i32 width, height;
 
@@ -82,10 +87,6 @@ int main() {
         view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         mvp = projection * view * model;
 
-        /* triangle.render_legacy(mvp, color); */
-        /* teapot.render_legacy(mvp, color); */
-        /* triangle.render(ourShader); */
-
         ourShader.setMat4("model", model);
         ourShader.setMat4("view", view);
         ourShader.setMat4("projection", projection);
@@ -99,13 +100,39 @@ int main() {
 }
 
 void process_input(GLFWwindow *window) {
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS
+            || glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, GLFW_TRUE);
     }
 
     float cameraSpeed = static_cast<float>(5 * deltaTime);
     if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
         cameraSpeed *= 2;
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS) {
+        drawing_mode = GL_POINTS;
+    }
+    if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
+        drawing_mode = GL_LINES;
+    }
+    if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
+        drawing_mode = GL_LINE_LOOP;
+    }
+    if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) {
+        drawing_mode = GL_LINE_STRIP;
+    }
+    if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) {
+        drawing_mode = GL_TRIANGLES;
+    }
+    if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS) {
+        drawing_mode = GL_TRIANGLE_STRIP;
+    }
+    if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS) {
+        drawing_mode = GL_TRIANGLE_FAN;
+    }
+    if (glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS) {
+        drawing_mode = GL_QUADS;
     }
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {

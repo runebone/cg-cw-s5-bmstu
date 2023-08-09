@@ -20,4 +20,6 @@ f32 fov = 90.0f / 2;
 f32 deltaTime = 0.0f; // time between current frame and last frame
 f32 lastFrame = 0.0f;
 
+GLenum drawing_mode = GL_TRIANGLES;
+
 #endif
