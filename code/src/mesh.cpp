@@ -4,6 +4,8 @@
 #include <fstream>
 #include <sstream>
 
+#include "gl_call.h"
+
 face_t Mesh::get_face(u32 index) {
     auto f = indices[3 * index];
 
@@ -70,9 +72,9 @@ i32 Mesh::load_from_obj(std::string filename) {
 }
 
 void Mesh::render_legacy(const glm::mat4 &mvp, const glm::vec4 &color) {
-    glBegin(GL_TRIANGLES);
+    GL_CALL(glBegin(GL_TRIANGLES));
 
-    glColor4f(color.x, color.y, color.z, color.w);
+    GL_CALL(glColor4f(color.x, color.y, color.z, color.w));
 
     for (u32 i = 0; i < indices.size(); i++) {
         auto f = get_face(i);
@@ -90,12 +92,12 @@ void Mesh::render_legacy(const glm::mat4 &mvp, const glm::vec4 &color) {
         /* if (v2.w != 0.0f) */ v2.z = v2.z / v2.w;
         /* if (v3.w != 0.0f) */ v3.z = v3.z / v3.w;
 
-        glVertex3f(v1.x, v1.y, v1.z);
-        glVertex3f(v2.x, v2.y, v2.z);
-        glVertex3f(v3.x, v3.y, v3.z);
+        GL_CALL(glVertex3f(v1.x, v1.y, v1.z));
+        GL_CALL(glVertex3f(v2.x, v2.y, v2.z));
+        GL_CALL(glVertex3f(v3.x, v3.y, v3.z));
     }
 
-    glEnd();
+    GL_CALL(glEnd());
 }
 
 static f32 r() {
@@ -103,8 +105,8 @@ static f32 r() {
 }
 
 void Mesh::render(Shader &shader) {
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    GL_CALL(glBindVertexArray(VAO));
+    GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO));
 
     auto rc = glm::vec3(r(), r(), r());
     rc = glm::vec3(1.0, 0.5, 0.3);
@@ -118,26 +120,26 @@ void Mesh::render(Shader &shader) {
         /* glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)(i)); */
     /* } */
 
-    glDrawElements(*drawing_mode, static_cast<u32>(indices.size()), GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
+    GL_CALL(glDrawElements(*drawing_mode, static_cast<u32>(indices.size()), GL_UNSIGNED_INT, 0));
+    GL_CALL(glBindVertexArray(0));
 }
 
 i32 Mesh::init() {
     if (vertices.size() <= 0) { return -1; }
 
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
+    GL_CALL(glGenVertexArrays(1, &VAO));
+    GL_CALL(glGenBuffers(1, &VBO));
+    GL_CALL(glGenBuffers(1, &EBO));
 
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    GL_CALL(glBindVertexArray(VAO));
+    GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, VBO));
+    GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO));
 
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(u32), &indices[0], GL_STATIC_DRAW);
+    GL_CALL(glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW));
+    GL_CALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(u32), &indices[0], GL_STATIC_DRAW));
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(f32), (void*)(0));
-    glEnableVertexAttribArray(0);
+    GL_CALL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(f32), (void*)(0)));
+    GL_CALL(glEnableVertexAttribArray(0));
 
     return 0;
 }
