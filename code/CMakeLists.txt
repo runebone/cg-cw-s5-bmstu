@@ -14,6 +14,8 @@ set(SOURCE
     ${SOURCE_DIR}/shader.h
     ${SOURCE_DIR}/mesh.cpp 
     ${SOURCE_DIR}/mesh.h
+    ${SOURCE_DIR}/ui.cpp
+    ${SOURCE_DIR}/ui.h
     )
 
 
