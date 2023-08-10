@@ -1,12 +1,14 @@
 #include <iostream>
 
 #include "glad.h"
+#include "gl_call.h"
 #include "GLFW/glfw3.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "ui.h"
 #include "type_aliases.h"
 
 #define __MAIN__
@@ -30,6 +32,8 @@ int main() {
     glfwMakeContextCurrent(window);
 
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+
+    init_imgui(window);
 
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetCursorPosCallback(window, mouse_callback);
@@ -67,6 +71,12 @@ int main() {
     ourShader.use();
     ourShader.setVec3("color", color);
 
+    UI menu(window);
+    bool show_demo_window = true;
+    ImGuiIO &io = ImGui::GetIO();
+
+    /* io.WantCaptureMouse = false; */
+
     // Main loop
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
@@ -80,8 +90,8 @@ int main() {
         glfwGetWindowSize(window, &width, &height);
         aspect_ratio = (float)(width) / height;
 
-        glClearColor(cc.x, cc.y, cc.z, cc.w);
-        glClear(GL_COLOR_BUFFER_BIT);
+        GL_CALL(glClearColor(cc.x, cc.y, cc.z, cc.w));
+        GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
 
         projection = glm::perspective(glm::radians(fov), aspect_ratio, 0.1f, 100.0f);
         view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
@@ -91,6 +101,8 @@ int main() {
         ourShader.setMat4("view", view);
         ourShader.setMat4("projection", projection);
         teapot.render(ourShader);
+
+        menu.render(show_demo_window, clear_color, io);
 
         glfwSwapBuffers(window);
     }
@@ -167,6 +179,7 @@ void process_input(GLFWwindow *window) {
 }
 
 void mouse_callback(GLFWwindow *window, f64 xpos, f64 ypos) {
+    ImGui_ImplGlfw_CursorPosCallback(window, xpos, ypos);
     if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED) {
         if (firstMouse) {
             lastX = xpos;
