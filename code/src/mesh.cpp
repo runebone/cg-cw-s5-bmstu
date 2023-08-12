@@ -115,7 +115,7 @@ void Mesh::render(Shader &shader) {
     for (u32 i = 0; i < indices.size(); i += 3) {
         auto rc = glm::vec3(r(), r(), r());
         shader.setVec3("vColor", rc);
-        GL_CALL(glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)(sizeof(GLuint)*i)));
+        GL_CALL(glDrawElements(*drawing_mode, 3, GL_UNSIGNED_INT, (void*)(sizeof(GLuint)*i)));
     }
 
     /* GL_CALL(glDrawElements(*drawing_mode, static_cast<u32>(indices.size()), GL_UNSIGNED_INT, 0)); */
