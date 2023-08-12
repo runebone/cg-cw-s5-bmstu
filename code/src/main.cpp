@@ -26,6 +26,10 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
 
 int main() {
     glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
     /* GLFWwindow* window = glfwCreateWindow(800, 600, "Window", NULL, NULL); */
     GLFWwindow *window = glfwCreateWindow(1200, 900, "Window", NULL, NULL);
 
@@ -37,6 +41,8 @@ int main() {
 
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetCursorPosCallback(window, mouse_callback);
+
+    glfwSwapInterval(0); // Disable VSync
 
     glm::vec4 clear_color = glm::vec4(0.3f, 0.3f, 0.3f, 1.0f);
     glm::vec4 color = glm::vec4(1.0f, 0.5f, 0.3f, 1.0f);
@@ -102,11 +108,13 @@ int main() {
         ourShader.setMat4("projection", projection);
         teapot.render(ourShader);
 
-        menu.render(show_demo_window, clear_color, io);
+        menu.render(show_demo_window, cc, io);
 
         glfwSwapBuffers(window);
     }
     glfwTerminate();
+
+    // TODO: clean up
 
     return 0;
 }
