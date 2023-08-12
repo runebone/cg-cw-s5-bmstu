@@ -16,6 +16,10 @@ set(SOURCE
     ${SOURCE_DIR}/mesh.h
     ${SOURCE_DIR}/ui.cpp
     ${SOURCE_DIR}/ui.h
+    ${SOURCE_DIR}/render.cpp
+    ${SOURCE_DIR}/render.h
+    ${SOURCE_DIR}/camera.cpp
+    ${SOURCE_DIR}/camera.h
     )
 
 
