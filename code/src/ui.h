@@ -20,7 +20,7 @@ public:
 
     ~UI() = default;
 
-    void render(bool &show_demo_window, glm::vec4 clear_color, ImGuiIO &io);
+    void render(bool &show_demo_window, glm::vec4 &clear_color, ImGuiIO &io);
 
 private:
     GLFWwindow *m_window;
