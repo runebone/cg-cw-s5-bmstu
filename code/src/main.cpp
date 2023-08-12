@@ -16,6 +16,7 @@
 
 #include "shader.h"
 #include "mesh.h"
+#include "render.h"
 
 void process_input(GLFWwindow *window);
 void mouse_callback(GLFWwindow *window, f64 xpos, f64 ypos);
@@ -56,9 +57,9 @@ int main() {
     triangle.load_from_obj("../../assets/objects/triangle.obj");
 
     teapot.drawing_mode = &drawing_mode;
-    /* cube.drawing_mode = &drawing_mode; */
-    /* plane.drawing_mode = &drawing_mode; */
-    /* triangle.drawing_mode = &drawing_mode; */
+    cube.drawing_mode = &drawing_mode;
+    plane.drawing_mode = &drawing_mode;
+    triangle.drawing_mode = &drawing_mode;
 
     f32 aspect_ratio;
     i32 width, height;
@@ -81,8 +82,6 @@ int main() {
     bool show_demo_window = true;
     ImGuiIO &io = ImGui::GetIO();
 
-    /* io.WantCaptureMouse = false; */
-
     // Main loop
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
@@ -98,15 +97,17 @@ int main() {
 
         GL_CALL(glClearColor(cc.x, cc.y, cc.z, cc.w));
         GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
+        /* GL_CALL(glClear(GL_DEPTH_BUFFER_BIT)); */
 
-        projection = glm::perspective(glm::radians(fov), aspect_ratio, 0.1f, 100.0f);
-        view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+        projection = glm::perspective(glm::radians(fpcam.fov), aspect_ratio, 0.1f, 100.0f);
+        view = glm::lookAt(fpcam.pos, fpcam.pos + fpcam.front, fpcam.up);
         mvp = projection * view * model;
 
         ourShader.setMat4("model", model);
         ourShader.setMat4("view", view);
         ourShader.setMat4("projection", projection);
-        teapot.render(ourShader);
+        render(teapot, fpcam, ourShader);
+        /* cube.render(ourShader); */
 
         menu.render(show_demo_window, cc, io);
 
@@ -156,27 +157,27 @@ void process_input(GLFWwindow *window) {
     }
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-        auto k = -cameraFront.y / cameraUp.y;
+        auto k = -fpcam.front.y / fpcam.up.y;
         // cameraForward always points forward in Front-Up plane || to the ground
-        auto cameraForward = glm::normalize(cameraFront + k * cameraUp);
-        cameraPos += cameraSpeed * cameraForward;
+        auto cameraForward = glm::normalize(fpcam.front + k * fpcam.up);
+        fpcam.pos += cameraSpeed * cameraForward;
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-        auto k = -cameraFront.y / cameraUp.y;
-        auto cameraForward = glm::normalize(cameraFront + k * cameraUp);
-        cameraPos -= cameraSpeed * cameraForward;
+        auto k = -fpcam.front.y / fpcam.up.y;
+        auto cameraForward = glm::normalize(fpcam.front + k * fpcam.up);
+        fpcam.pos -= cameraSpeed * cameraForward;
     }
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+        fpcam.pos -= glm::normalize(glm::cross(fpcam.front, fpcam.up)) * cameraSpeed;
     }
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+        fpcam.pos += glm::normalize(glm::cross(fpcam.front, fpcam.up)) * cameraSpeed;
     }
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-        cameraPos += cameraSpeed * cameraUp;
+        fpcam.pos += cameraSpeed * fpcam.up;
     }
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
-        cameraPos -= cameraSpeed * cameraUp;
+        fpcam.pos -= cameraSpeed * fpcam.up;
     }
     if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS) {
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -204,17 +205,17 @@ void mouse_callback(GLFWwindow *window, f64 xpos, f64 ypos) {
         xoffset *= sensitivity;
         yoffset *= sensitivity;
 
-        yaw   += xoffset;
-        pitch += yoffset;
+        fpcam.yaw   += xoffset;
+        fpcam.pitch += yoffset;
 
-        if (pitch > 89.0f) pitch = 89.0f;
-        if (pitch < -89.0f) pitch = -89.0f;
+        if (fpcam.pitch > 89.0f) fpcam.pitch = 89.0f;
+        if (fpcam.pitch < -89.0f) fpcam.pitch = -89.0f;
 
         glm::vec3 direction;
-        direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-        direction.y = sin(glm::radians(pitch));
-        direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-        cameraFront = glm::normalize(direction);
+        direction.x = cos(glm::radians(fpcam.yaw)) * cos(glm::radians(fpcam.pitch));
+        direction.y = sin(glm::radians(fpcam.pitch));
+        direction.z = sin(glm::radians(fpcam.yaw)) * cos(glm::radians(fpcam.pitch));
+        fpcam.front = glm::normalize(direction);
 
         /* glfwSetCursorPos(window, 960, 540); */
     }
