@@ -19,16 +19,12 @@ struct Mesh {
 
     i32 init();
     i32 load_from_obj(std::string filename);
-    void render_legacy(const glm::mat4 &mvp, const glm::vec4 &color);
-    void render(Shader &shader);
 
-    face_t get_face(u32 index);
+    face_t get_face(u32 index) const;
 
     u32 VAO, VBO, EBO;
 
     GLenum *drawing_mode;
 };
-
-void print_face(const face_t &face);
 
 #endif // __MESH_H__
