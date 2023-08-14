@@ -18,6 +18,8 @@
 #include "mesh.h"
 #include "render.h"
 
+#include "config.h"
+
 void process_input(GLFWwindow *window);
 void mouse_callback(GLFWwindow *window, f64 xpos, f64 ypos);
 
@@ -25,20 +27,26 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
     glViewport(0, 0, width, height);
 }
 
-int main() {
-    glfwInit();
+GLFWwindow *create_window(u32 width, u32 height, const char *title) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    /* GLFWwindow* window = glfwCreateWindow(800, 600, "Window", NULL, NULL); */
-    GLFWwindow *window = glfwCreateWindow(1200, 900, "Window", NULL, NULL);
+    GLFWwindow *window = glfwCreateWindow(width, height, title, NULL, NULL);
+
+    return window;
+}
+
+int main() {
+    glfwInit();
+
+    GLFWwindow *window = create_window(1200, 900, "Window");
 
     glfwMakeContextCurrent(window);
 
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
-    init_imgui(window);
+    UI::init_imgui(window);
 
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetCursorPosCallback(window, mouse_callback);
@@ -48,13 +56,13 @@ int main() {
     glm::vec4 clear_color = glm::vec4(0.3f, 0.3f, 0.3f, 1.0f);
     glm::vec4 color = glm::vec4(1.0f, 0.5f, 0.3f, 1.0f);
 
-    auto cc = clear_color;
+    auto &cc = clear_color;
 
     Mesh teapot, cube, plane, triangle;
-    teapot.load_from_obj("../../assets/objects/utah_teapot.obj");
-    cube.load_from_obj("../../assets/objects/cube.obj");
-    plane.load_from_obj("../../assets/objects/plane.obj");
-    triangle.load_from_obj("../../assets/objects/triangle.obj");
+    teapot.load_from_obj(OBJECTS_DIR "utah_teapot.obj");
+    cube.load_from_obj(OBJECTS_DIR "cube.obj");
+    plane.load_from_obj(OBJECTS_DIR "plane.obj");
+    triangle.load_from_obj(OBJECTS_DIR "triangle.obj");
 
     teapot.drawing_mode = &drawing_mode;
     cube.drawing_mode = &drawing_mode;
@@ -72,15 +80,13 @@ int main() {
 
     /* glEnable(GL_CULL_FACE); */
 
-    Shader ourShader("/home/human/University/cg-cw-s4-bmstu/code/src/shaders/shader.vert",
-            "/home/human/University/cg-cw-s4-bmstu/code/src/shaders/shader.frag");
+    Shader ourShader(SHADERS_DIR "shader.vert", SHADERS_DIR "shader.frag");
 
     ourShader.use();
     ourShader.setVec3("color", color);
 
-    UI menu(window);
-    bool show_demo_window = true;
     ImGuiIO &io = ImGui::GetIO();
+    UI menu(window, io, cc);
 
     // Main loop
     while (!glfwWindowShouldClose(window)) {
@@ -99,17 +105,19 @@ int main() {
         GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
         /* GL_CALL(glClear(GL_DEPTH_BUFFER_BIT)); */
 
+        auto m = glm::rotate(model, currentFrame, glm::vec3(1, 1, 1));
+
         projection = glm::perspective(glm::radians(fpcam.fov), aspect_ratio, 0.1f, 100.0f);
         view = glm::lookAt(fpcam.pos, fpcam.pos + fpcam.front, fpcam.up);
-        mvp = projection * view * model;
+        mvp = projection * view * m;
 
-        ourShader.setMat4("model", model);
+        ourShader.setMat4("model", m);
         ourShader.setMat4("view", view);
         ourShader.setMat4("projection", projection);
-        render(teapot, fpcam, ourShader);
+        render(teapot, fpcam, ourShader); //, mvp);
         /* cube.render(ourShader); */
 
-        menu.render(show_demo_window, cc, io);
+        menu.render();
 
         glfwSwapBuffers(window);
     }
