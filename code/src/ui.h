@@ -11,7 +11,7 @@
 
 class UI {
 public:
-    UI(GLFWwindow *window);
+    UI(GLFWwindow *window, ImGuiIO &io, glm::vec4 &clear_color);
 
     UI(UI &&) = delete;
     UI(const UI &) = delete;
@@ -20,13 +20,14 @@ public:
 
     ~UI() = default;
 
-    void render(bool &show_demo_window, glm::vec4 &clear_color, ImGuiIO &io);
+    void render();
+
+    static void init_imgui(GLFWwindow *window);
 
 private:
     GLFWwindow *m_window;
-    const char *font_filename = "../../assets/fonts/mononoki-Regular.ttf";
+    ImGuiIO &m_io = ImGui::GetIO();
+    glm::vec4 &m_cc;
 };
-
-void init_imgui(GLFWwindow *window);
 
 #endif // __MENU_H__
