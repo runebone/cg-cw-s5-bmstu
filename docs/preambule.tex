@@ -8,6 +8,7 @@
 \usepackage[normalem]{ulem} % \uline
 
 \usepackage{setspace} % Use \setstretch command
+\usepackage{indentfirst}
 
 \usepackage{amsmath}
 \renewcommand{\underset}[2]{\ensuremath{\mathop{\mbox{#2}}\limits_{\mbox{\scriptsize #1}}}} % Use \underset in normal environment, not only in math
@@ -34,9 +35,26 @@
 \renewcommand{\cftsecfont}{\normalfont}
 \renewcommand{\cftsecpagefont}{\normalfont}
 
+% \renewcommand{\cftsubsecdotsep}{\cftdotsep}
+% \renewcommand{\cftsubsecfont}{\normalfont}
+% \renewcommand{\cftsubsecpagefont}{\normalfont}
+
+% \renewcommand{\cftsubsubsecdotsep}{\cftdotsep}
+% \renewcommand{\cftsubsubsecfont}{\normalfont}
+% \renewcommand{\cftsubsubsecpagefont}{\normalfont}
+
 \setlength{\cftsecindent}{0pt}% Remove indent for \section
-\setlength{\cftsubsecindent}{0pt}% Remove indent for \subsection
-\setlength{\cftsubsubsecindent}{0pt}% Remove indent for \subsubsection
+\setlength{\cftsubsecindent}{0.5cm}% Remove indent for \subsection
+\setlength{\cftsubsubsecindent}{1cm}% Remove indent for \subsubsection
+
+% Dot after section numbers in toc
+\renewcommand{\cftsecaftersnum}{.}
+\renewcommand{\cftsubsecaftersnum}{.}
+\renewcommand{\cftsubsubsecaftersnum}{.}
+
+% Dot after section numbers
+\usepackage{titlesec}
+\titlelabel{\thetitle.\quad}
 
 % Center "Contents" title
 % \renewcommand{\cfttoctitlefont}{\hfill\Large\bfseries}
