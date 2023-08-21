@@ -82,9 +82,13 @@ int main() {
     glEnable(GL_DEPTH_TEST);
 
     Shader ourShader(SHADERS_DIR "shader.vert", SHADERS_DIR "shader.frag");
+    Shader cubeShader(SHADERS_DIR "shader.vert", SHADERS_DIR "shader.frag");
 
     ourShader.use();
     ourShader.setVec3("color", color);
+
+    cubeShader.use();
+    cubeShader.setVec3("color", color);
 
     ImGuiIO &io = ImGui::GetIO();
     UI menu(window, io, cc);
@@ -110,13 +114,21 @@ int main() {
 
         projection = glm::perspective(glm::radians(fpcam.fov), aspect_ratio, 0.1f, 100.0f);
         view = glm::lookAt(fpcam.pos, fpcam.pos + fpcam.front, fpcam.up);
-        mvp = projection * view * m;
+        /* mvp = projection * view * m; */
 
+        ourShader.use();
         ourShader.setMat4("model", m);
         ourShader.setMat4("view", view);
         ourShader.setMat4("projection", projection);
-        render(teapot, fpcam, ourShader); //, mvp);
+        /* render(teapot, fpcam, ourShader); //, mvp); */
+        render(teapot, fpcam, ourShader, m);
         /* cube.render(ourShader); */
+
+        cubeShader.use();
+        cubeShader.setMat4("model", glm::translate(glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10)), glm::vec3(0, -0.5, 0)));
+        cubeShader.setMat4("view", view);
+        cubeShader.setMat4("projection", projection);
+        render(cube, fpcam, cubeShader, model);
 
         menu.render();
 
