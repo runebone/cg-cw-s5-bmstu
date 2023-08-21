@@ -6,6 +6,7 @@
 #include "mesh.h"
 #include "camera.h"
 
-void render(const Mesh &mesh, const Camera &camera, Shader &shader); //, const glm::mat4 &mvp);
+/* void render(const Mesh &mesh, const Camera &camera, Shader &shader); //, const glm::mat4 &mvp); */
+void render(const Mesh &mesh, const Camera &camera, Shader &shader, const glm::mat4 &m);
 
 #endif // __RENDER_H__
