@@ -7,17 +7,25 @@
 #include "gl_call.h"
 
 face_t Mesh::get_face(u32 index) const {
-    auto f = indices[3 * index];
+    /* auto f = indices[3 * index]; */
 
-    auto v1 = vertices[f + 0];
-    auto v2 = vertices[f + 1];
-    auto v3 = vertices[f + 2];
+    /* auto v1 = vertices[f + 0]; */
+    /* auto v2 = vertices[f + 1]; */
+    /* auto v3 = vertices[f + 2]; */
+
+    auto v1 = vertices[indices[3 * index + 0]];
+    auto v2 = vertices[indices[3 * index + 1]];
+    auto v3 = vertices[indices[3 * index + 2]];
 
     face_t face;
 
-    face.x = v1.Position;
-    face.y = v2.Position;
-    face.z = v3.Position;
+    /* face.x = v1.Position; */
+    /* face.y = v2.Position; */
+    /* face.z = v3.Position; */
+
+    face.x = v1;
+    face.y = v2;
+    face.z = v3;
 
     return face;
 }
