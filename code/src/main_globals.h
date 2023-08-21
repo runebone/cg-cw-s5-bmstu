@@ -7,6 +7,7 @@
 #include "camera.h"
 
 Camera fpcam;
+f32 defaultFov = fpcam.fov;
 
 bool firstMouse = true;
 
