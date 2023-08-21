@@ -79,6 +79,7 @@ int main() {
     glm::mat4 mvp = glm::mat4(1.0f);
 
     /* glEnable(GL_CULL_FACE); */
+    glEnable(GL_DEPTH_TEST);
 
     Shader ourShader(SHADERS_DIR "shader.vert", SHADERS_DIR "shader.frag");
 
@@ -103,7 +104,7 @@ int main() {
 
         GL_CALL(glClearColor(cc.x, cc.y, cc.z, cc.w));
         GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
-        /* GL_CALL(glClear(GL_DEPTH_BUFFER_BIT)); */
+        GL_CALL(glClear(GL_DEPTH_BUFFER_BIT));
 
         auto m = glm::rotate(model, currentFrame, glm::vec3(1, 1, 1));
 
