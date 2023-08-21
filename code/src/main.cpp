@@ -149,7 +149,11 @@ void process_input(GLFWwindow *window) {
 
     float cameraSpeed = static_cast<float>(5 * deltaTime);
     if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
-        cameraSpeed *= 2;
+        cameraSpeed *= 3;
+        fpcam.fov = defaultFov * 1.05;
+    }
+    else if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_RELEASE) {
+        fpcam.fov = defaultFov;
     }
 
     if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS) {
