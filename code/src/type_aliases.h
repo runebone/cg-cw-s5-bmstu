@@ -14,6 +14,6 @@ typedef unsigned int       u32;
 typedef float              f32;
 typedef double             f64;
 
-typedef glm::vec<3, glm::fvec3> face_t;
+/* typedef glm::vec<3, glm::fvec3> face_t; */
 
 #endif // __TYPE_ALIASES_H__
