@@ -13,6 +13,8 @@ struct Vertex {
     glm::vec3 Position;
 };
 
+typedef glm::vec<3, Vertex> face_t;
+
 struct Mesh {
     std::vector<Vertex> vertices;
     std::vector<u32> indices;
