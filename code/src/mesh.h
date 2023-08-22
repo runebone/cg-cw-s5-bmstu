@@ -24,6 +24,8 @@ struct Mesh {
     GLenum *drawing_mode;
 
     i32 init();
+    ~Mesh();
+
     i32 load_from_obj(std::string filename);
 
     face_t get_face(u32 index) const;

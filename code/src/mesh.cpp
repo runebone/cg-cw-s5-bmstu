@@ -93,3 +93,8 @@ i32 Mesh::init() {
     return 0;
 }
 
+Mesh::~Mesh() {
+    GL_CALL(glDeleteBuffers(1, &EBO));
+    GL_CALL(glDeleteBuffers(1, &VBO));
+    GL_CALL(glDeleteVertexArrays(1, &VAO));
+}
