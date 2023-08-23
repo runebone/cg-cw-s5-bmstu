@@ -96,3 +96,6 @@
     sorting=ynt
 ]{biblatex}
 \addbibresource{bibliography.bib}
+
+\NewDocumentCommand{\printbib}{m}
+{\printbibliography[title={#1}]\addcontentsline{toc}{section}{#1}}
