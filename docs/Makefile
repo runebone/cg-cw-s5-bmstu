@@ -1,20 +1,19 @@
 PDF = index.pdf
-MAIN = main.tex
-MAIN_PDF = $(MAIN:.tex=.pdf)
-MAIN_AUX = $(MAIN:.tex=.aux)
+MAIN = main
 
-$(PDF) : $(MAIN) *.tex report/*.tex
+$(PDF) : $(MAIN).tex *.tex report/*.tex
 	xelatex $<
 	xelatex $<
-	mv $(MAIN_PDF) $(PDF)
+	mv $(MAIN).pdf $(PDF)
 	make clean
 
-bib: $(MAIN) *.tex report/*.tex
+bib: $(MAIN).tex *.tex report/*.tex
 	xelatex $<
-	bibtex $(MAIN_AUX)
+	# bibtex $(MAIN).aux
+	biber $(MAIN).bcf
 	make
 
 clean:
-	rm report/*.aux *.aux *.log *.out *.toc *.bbl *.blg
+	rm report/*.aux *.aux *.log *.out *.toc *.bbl *.blg $(MAIN).bcf $(MAIN).run.xml
 
 .PHONY: clean, bib
