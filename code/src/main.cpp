@@ -13,6 +13,12 @@
 
 #define __MAIN__
 #include "main_globals.h"
+bool g_render_by_triangles = true;
+bool g_depth_test_enabled = true;
+bool g_cull_face_enabled = false;
+bool g_r_pressed = false;
+bool g_z_pressed = false;
+bool g_c_pressed = false;
 
 #include "shader.h"
 #include "mesh.h"
@@ -64,10 +70,10 @@ int main() {
     plane.load_from_obj(OBJECTS_DIR "plane.obj");
     triangle.load_from_obj(OBJECTS_DIR "triangle.obj");
 
-    teapot.drawing_mode = &drawing_mode;
-    cube.drawing_mode = &drawing_mode;
-    plane.drawing_mode = &drawing_mode;
-    triangle.drawing_mode = &drawing_mode;
+    teapot.drawing_mode = &g_drawing_mode;
+    cube.drawing_mode = &g_drawing_mode;
+    plane.drawing_mode = &g_drawing_mode;
+    triangle.drawing_mode = &g_drawing_mode;
 
     f32 aspect_ratio;
     i32 width, height;
@@ -98,8 +104,8 @@ int main() {
         glfwPollEvents();
 
         float currentFrame = static_cast<float>(glfwGetTime());
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
+        g_deltaTime = currentFrame - g_lastFrame;
+        g_lastFrame = currentFrame;
 
         process_input(window);
 
@@ -147,38 +153,38 @@ void process_input(GLFWwindow *window) {
         glfwSetWindowShouldClose(window, GLFW_TRUE);
     }
 
-    float cameraSpeed = static_cast<float>(5 * deltaTime);
+    float cameraSpeed = static_cast<float>(5 * g_deltaTime);
     if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
         cameraSpeed *= 3;
-        fpcam.fov = defaultFov * 1.05;
+        fpcam.fov = g_defaultFov * 1.05;
     }
     else if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_RELEASE) {
-        fpcam.fov = defaultFov;
+        fpcam.fov = g_defaultFov;
     }
 
     if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS) {
-        drawing_mode = GL_POINTS;
+        g_drawing_mode = GL_POINTS;
     }
     if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
-        drawing_mode = GL_LINES;
+        g_drawing_mode = GL_LINES;
     }
     if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
-        drawing_mode = GL_LINE_LOOP;
+        g_drawing_mode = GL_LINE_LOOP;
     }
     if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) {
-        drawing_mode = GL_LINE_STRIP;
+        g_drawing_mode = GL_LINE_STRIP;
     }
     if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) {
-        drawing_mode = GL_TRIANGLES;
+        g_drawing_mode = GL_TRIANGLES;
     }
     if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS) {
-        drawing_mode = GL_TRIANGLE_STRIP;
+        g_drawing_mode = GL_TRIANGLE_STRIP;
     }
     if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS) {
-        drawing_mode = GL_TRIANGLE_FAN;
+        g_drawing_mode = GL_TRIANGLE_FAN;
     }
     if (glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS) {
-        drawing_mode = GL_QUADS;
+        g_drawing_mode = GL_QUADS;
     }
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
@@ -215,16 +221,16 @@ void process_input(GLFWwindow *window) {
 void mouse_callback(GLFWwindow *window, f64 xpos, f64 ypos) {
     ImGui_ImplGlfw_CursorPosCallback(window, xpos, ypos);
     if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED) {
-        if (firstMouse) {
-            lastX = xpos;
-            lastY = ypos;
-            firstMouse = false;
+        if (g_firstMouse) {
+            g_lastX = xpos;
+            g_lastY = ypos;
+            g_firstMouse = false;
         }
 
-        float xoffset = xpos - lastX;
-        float yoffset = lastY - ypos;
-        lastX = xpos;
-        lastY = ypos;
+        float xoffset = xpos - g_lastX;
+        float yoffset = g_lastY - ypos;
+        g_lastX = xpos;
+        g_lastY = ypos;
 
         float sensitivity = 0.1f;
         xoffset *= sensitivity;

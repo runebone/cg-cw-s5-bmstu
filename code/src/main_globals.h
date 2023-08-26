@@ -7,16 +7,16 @@
 #include "camera.h"
 
 Camera fpcam;
-f32 defaultFov = fpcam.fov;
+f32 g_defaultFov = fpcam.fov;
 
-bool firstMouse = true;
+bool g_firstMouse = true;
 
-f32 lastX = 0.0f;
-f32 lastY = 0.0f;
+f32 g_lastX = 0.0f;
+f32 g_lastY = 0.0f;
 
-f32 deltaTime = 0.0f; // time between current frame and last frame
-f32 lastFrame = 0.0f;
+f32 g_deltaTime = 0.0f; // time between current frame and last frame
+f32 g_lastFrame = 0.0f;
 
-GLenum drawing_mode = GL_TRIANGLES;
+GLenum g_drawing_mode = GL_TRIANGLES;
 
 #endif
