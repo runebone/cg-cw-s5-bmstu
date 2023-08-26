@@ -98,6 +98,8 @@ int main() {
     ImGuiIO &io = ImGui::GetIO();
     UI menu(window, io, cc);
 
+    RenderData rd(teapot, fpcam, ourShader, g_render_by_triangles);
+
     // Main loop
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
@@ -126,14 +128,17 @@ int main() {
         ourShader.setMat4("view", view);
         ourShader.setMat4("projection", projection);
         /* render(teapot, fpcam, ourShader); //, mvp); */
-        render(teapot, fpcam, ourShader, m);
+        /* render(teapot, fpcam, ourShader, m); */
         /* cube.render(ourShader); */
 
-        cubeShader.use();
-        cubeShader.setMat4("model", glm::translate(glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10)), glm::vec3(0, -0.5, 0)));
-        cubeShader.setMat4("view", view);
-        cubeShader.setMat4("projection", projection);
-        render(cube, fpcam, cubeShader, model);
+        rd.matrix = m;
+        render(rd);
+
+        /* cubeShader.use(); */
+        /* cubeShader.setMat4("model", glm::translate(glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10)), glm::vec3(0, -0.5, 0))); */
+        /* cubeShader.setMat4("view", view); */
+        /* cubeShader.setMat4("projection", projection); */
+        /* render(cube, fpcam, cubeShader, model); */
 
         menu.render();
 
