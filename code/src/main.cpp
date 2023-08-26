@@ -216,6 +216,46 @@ void process_input(GLFWwindow *window) {
     if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
+
+    if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
+        if (!g_z_pressed) {
+            if (!g_depth_test_enabled) {
+                glDisable(GL_DEPTH_TEST);
+            } else {
+                glEnable(GL_DEPTH_TEST);
+            }
+            g_depth_test_enabled = !g_depth_test_enabled;
+        }
+        g_z_pressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_RELEASE) {
+        g_z_pressed = false;
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+        if (!g_c_pressed) {
+            if (!g_cull_face_enabled) {
+                glDisable(GL_CULL_FACE);
+            } else {
+                glEnable(GL_CULL_FACE);
+            }
+            g_cull_face_enabled = !g_cull_face_enabled;
+        }
+        g_c_pressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_C) == GLFW_RELEASE) {
+        g_c_pressed = false;
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
+        if (!g_r_pressed) {
+            g_render_by_triangles = !g_render_by_triangles;
+        }
+        g_r_pressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_RELEASE) {
+        g_r_pressed = false;
+    }
 }
 
 void mouse_callback(GLFWwindow *window, f64 xpos, f64 ypos) {
