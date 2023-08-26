@@ -84,8 +84,7 @@ int main() {
 
     glm::mat4 mvp = glm::mat4(1.0f);
 
-    /* glEnable(GL_CULL_FACE); */
-    glEnable(GL_DEPTH_TEST);
+    GL_CALL(glEnable(GL_DEPTH_TEST));
 
     Shader ourShader(SHADERS_DIR "shader.vert", SHADERS_DIR "shader.frag");
     Shader cubeShader(SHADERS_DIR "shader.vert", SHADERS_DIR "shader.frag");
