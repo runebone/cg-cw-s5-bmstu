@@ -71,28 +71,57 @@ i32 Mesh::load_from_obj(std::string filename) {
     }
 
     // Calculate vertex normals
+    /* for (u32 i = 0; i < indices.size(); i += 3) { */
+    /*     auto face = get_face(i / 3); */
+
+    /*     auto v1 = face.x.Position; */
+    /*     auto v2 = face.y.Position; */
+    /*     auto v3 = face.z.Position; */
+
+    /*     /1* auto n = glm::cross(v3 - v1, v2 - v1); *1/ */
+    /*     auto n = glm::cross(v2 - v1, v3 - v1); */
+
+    /*     auto a = indices[i + 0]; */
+    /*     auto b = indices[i + 1]; */
+    /*     auto c = indices[i + 2]; */
+
+    /*     vertices[a].Normal += n; */
+    /*     vertices[b].Normal += n; */
+    /*     vertices[c].Normal += n; */
+    /* } */
+
+    // Normalize calculated normals
+    /* for (u32 i = 0; i < vertices.size(); i += 3) { */
+    /*     vertices[i].Normal = glm::normalize(vertices[i].Normal); */
+    /* } */
+
+    // Works like in LearnOpenGL
+    std::vector<Vertex> vs;
+    std::vector<u32> ids;
     for (u32 i = 0; i < indices.size(); i += 3) {
         auto face = get_face(i / 3);
 
-        auto v1 = face.x.Position;
-        auto v2 = face.y.Position;
-        auto v3 = face.z.Position;
+        auto v1p = face.x.Position;
+        auto v2p = face.y.Position;
+        auto v3p = face.z.Position;
 
-        auto n = glm::cross(v3 - v1, v2 - v1);
+        auto n = glm::cross(v2p - v1p, v3p - v1p);
+        n = glm::normalize(n);
 
-        auto a = indices[i + 0];
-        auto b = indices[i + 1];
-        auto c = indices[i + 2];
+        Vertex v1(v1p, n);
+        Vertex v2(v2p, n);
+        Vertex v3(v3p, n);
 
-        vertices[a].Normal += n;
-        vertices[b].Normal += n;
-        vertices[c].Normal += n;
+        vs.push_back(v1);
+        vs.push_back(v2);
+        vs.push_back(v3);
+
+        ids.push_back(i + 0);
+        ids.push_back(i + 1);
+        ids.push_back(i + 2);
     }
-
-    // Normalize calculated normals
-    for (u32 i = 0; i < vertices.size(); i += 3) {
-        vertices[i].Normal = glm::normalize(vertices[i].Normal);
-    }
+    vertices = vs;
+    indices = ids;
 
     return init();
 }
