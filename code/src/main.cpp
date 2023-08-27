@@ -76,8 +76,9 @@ int main() {
     plane.drawing_mode = &g_drawing_mode;
     triangle.drawing_mode = &g_drawing_mode;
 
-    Cube cube;
+    Cube cube, c;
     cube.drawing_mode = &g_drawing_mode;
+    c.drawing_mode = &g_drawing_mode;
 
     f32 aspect_ratio;
     i32 width, height;
@@ -91,8 +92,6 @@ int main() {
     GL_CALL(glEnable(GL_DEPTH_TEST));
 
     /* Shader ourShader(SHADERS_DIR "shader.vert", SHADERS_DIR "shader.frag"); */
-    Shader cubeShader(SHADERS_DIR "shader.vert", SHADERS_DIR "shader.frag");
-
     Shader lShader(SHADERS_DIR "basic_lighting.vert", SHADERS_DIR "basic_lighting.frag");
     Shader &ourShader = lShader;
 
@@ -103,18 +102,19 @@ int main() {
     /* uniform vec3 viewPos; */ 
     /* uniform vec3 lightColor; */
     /* uniform vec3 objectColor; */
-    ourShader.setVec3("lightPos", glm::vec3(1, 1, 1));
+    glm::vec3 lp = glm::vec3(1, 1, 1);
+    ourShader.setVec3("lightPos", lp);
     ourShader.setVec3("lightColor", glm::vec3(1, 1, 1));
     ourShader.setVec3("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
-
-    cubeShader.use();
-    cubeShader.setVec3("color", color);
 
     ImGuiIO &io = ImGui::GetIO();
     UI menu(window, io, cc);
 
     /* RenderData rd(teapot, fpcam, ourShader, g_render_by_triangles); */
     RenderData rd(cube, fpcam, ourShader, g_render_by_triangles);
+    RenderData rd1(teapot, fpcam, ourShader, g_render_by_triangles);
+    RenderData rd2(cube_mesh, fpcam, ourShader, g_render_by_triangles);
+    RenderData rdc(c, fpcam, ourShader, g_render_by_triangles);
 
     // Main loop
     while (!glfwWindowShouldClose(window)) {
@@ -133,30 +133,55 @@ int main() {
         GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
         GL_CALL(glClear(GL_DEPTH_BUFFER_BIT));
 
-        auto m = glm::rotate(model, currentFrame, glm::vec3(0, 1, 1));
+        /* auto m = glm::rotate(model, currentFrame, glm::vec3(0, 1, 1)); */
+        auto m = glm::rotate(model, 0.0f, glm::vec3(0, 1, 1));
 
         projection = glm::perspective(glm::radians(fpcam.fov), aspect_ratio, 0.1f, 100.0f);
         view = glm::lookAt(fpcam.pos, fpcam.pos + fpcam.front, fpcam.up);
-        /* mvp = projection * view * m; */
 
+        // Light cube stuff
+        auto rm = glm::rotate(model, currentFrame, glm::vec3(1, 0, 0));
+        /* auto mc = glm::translate(model, glm::vec3(1, 1, 1)); */
+        auto mc = glm::translate(rm, glm::vec3(3, 1, 1));
+        mc = glm::scale(mc, glm::vec3(0.1, 0.1, 0.1));
+        /* auto rm = glm::rotate(mc, currentFrame, glm::vec3(1, 0, 0)); */
+        auto rlp = glm::vec3(mc * glm::vec4(lp, 1.0f));
+
+        // Cube (not mesh)
         ourShader.use();
         ourShader.setMat4("model", m);
         ourShader.setMat4("view", view);
         ourShader.setMat4("projection", projection);
-
         ourShader.setVec3("viewPos", fpcam.pos);
-        /* render(teapot, fpcam, ourShader); //, mvp); */
-        /* render(teapot, fpcam, ourShader, m); */
-        /* cube.render(ourShader); */
-
+        /* ourShader.setVec3("lightPos", lp); */
+        ourShader.setVec3("lightPos", rlp);
         rd.matrix = m;
         render(rd);
 
-        /* cubeShader.use(); */
-        /* cubeShader.setMat4("model", glm::translate(glm::scale(glm::mat4(1.0f), glm::vec3(10, 10, 10)), glm::vec3(0, -0.5, 0))); */
-        /* cubeShader.setMat4("view", view); */
-        /* cubeShader.setMat4("projection", projection); */
-        /* render(cube, fpcam, cubeShader, model); */
+        // Teapot
+        Shader s1 = ourShader;
+        auto m1 = glm::translate(m, glm::vec3(-1, -1, 1));
+        m1 = glm::scale(m1, glm::vec3(0.3, 0.3, 0.3));
+        s1.use();
+        s1.setMat4("model", m1);
+        rd1.matrix = m1;
+        render(rd1);
+
+        // Cube mesh
+        Shader s2 = ourShader;
+        auto m2 = glm::translate(m, glm::vec3(1, 1, 1));
+        s2.use();
+        s2.setMat4("model", m2);
+        rd2.matrix = m2;
+        render(rd2);
+
+        // Light cube
+        Shader sc = ourShader;
+        sc.use();
+        sc.setMat4("model", mc);
+        sc.setVec3("lightPos", rlp);
+        rdc.matrix = mc;
+        render(rdc);
 
         if (g_draw_menu) menu.render();
 
