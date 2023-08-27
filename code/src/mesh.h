@@ -23,8 +23,6 @@ struct Mesh {
     std::vector<Vertex> vertices;
     std::vector<u32> indices;
 
-    u32 VAO, VBO, EBO;
-
     GLenum *drawing_mode;
 
     i32 init();
@@ -33,6 +31,9 @@ struct Mesh {
     i32 load_from_obj(std::string filename);
 
     face_t get_face(u32 index) const;
+
+    u32 VAO, VBO, EBO;
+};
 };
 
 #endif // __MESH_H__
