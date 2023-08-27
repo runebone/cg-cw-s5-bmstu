@@ -10,6 +10,9 @@
 #include "shader.h"
 
 struct Vertex {
+    Vertex() = default;
+    Vertex(glm::vec3 pos, glm::vec3 normal) : Position(pos), Normal(normal) {}
+
     glm::vec3 Position;
     glm::vec3 Normal = glm::vec3(0);
 };
