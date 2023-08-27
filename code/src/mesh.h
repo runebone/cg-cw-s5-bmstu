@@ -11,6 +11,7 @@
 
 struct Vertex {
     glm::vec3 Position;
+    glm::vec3 Normal = glm::vec3(0);
 };
 
 typedef glm::vec<3, Vertex> face_t;
