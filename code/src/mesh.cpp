@@ -17,15 +17,15 @@ face_t Mesh::get_face(u32 index) const {
     auto v2 = vertices[indices[3 * index + 1]];
     auto v3 = vertices[indices[3 * index + 2]];
 
-    face_t face;
+    face_t face(v1, v2, v3);
 
     /* face.x = v1.Position; */
     /* face.y = v2.Position; */
     /* face.z = v3.Position; */
 
-    face.x = v1;
-    face.y = v2;
-    face.z = v3;
+    /* face.x = v1; */
+    /* face.y = v2; */
+    /* face.z = v3; */
 
     return face;
 }
