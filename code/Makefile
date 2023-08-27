@@ -1,8 +1,11 @@
 all:
-	make dbg
+	make debug
 
 run:
 	build/main
+
+dbg:
+	cgdb build/main
 
 default:
 	mkdir -p build
@@ -22,6 +25,6 @@ fp:
 	cd build && cmake -DCMAKE_CXX_FLAGS="-O3 -pg" .. && make && ./main
 	cd build && gprof main gmon.out | gprof2dot -s -w | dot -Tpdf -o output.pdf
 
-dbg:
+debug:
 	mkdir -p build
 	cd build && cmake -DCMAKE_CXX_FLAGS="-g" -DCMAKE_EXE_LINKER_FLAGS="-g" .. && make
