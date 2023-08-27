@@ -34,6 +34,9 @@ struct Mesh {
 
     u32 VAO, VBO, EBO;
 };
+
+struct Cube : public Mesh {
+    Cube();
 };
 
 #endif // __MESH_H__
