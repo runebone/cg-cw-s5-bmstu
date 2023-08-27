@@ -33,6 +33,9 @@ struct Mesh {
     face_t get_face(u32 index) const;
 
     u32 VAO, VBO, EBO;
+
+protected:
+    void clear();
 };
 
 struct Cube : public Mesh {
