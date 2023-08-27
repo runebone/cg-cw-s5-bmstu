@@ -19,6 +19,7 @@ bool g_cull_face_enabled = false;
 bool g_r_pressed = false;
 bool g_z_pressed = false;
 bool g_c_pressed = false;
+bool g_draw_menu = true;
 
 #include "shader.h"
 #include "mesh.h"
@@ -64,16 +65,19 @@ int main() {
 
     auto &cc = clear_color;
 
-    Mesh teapot, cube, plane, triangle;
+    Mesh teapot, cube_mesh, plane, triangle;
     teapot.load_from_obj(OBJECTS_DIR "utah_teapot.obj");
-    cube.load_from_obj(OBJECTS_DIR "cube.obj");
+    cube_mesh.load_from_obj(OBJECTS_DIR "cube.obj");
     plane.load_from_obj(OBJECTS_DIR "plane.obj");
     triangle.load_from_obj(OBJECTS_DIR "triangle.obj");
 
     teapot.drawing_mode = &g_drawing_mode;
-    cube.drawing_mode = &g_drawing_mode;
+    cube_mesh.drawing_mode = &g_drawing_mode;
     plane.drawing_mode = &g_drawing_mode;
     triangle.drawing_mode = &g_drawing_mode;
+
+    Cube cube;
+    cube.drawing_mode = &g_drawing_mode;
 
     f32 aspect_ratio;
     i32 width, height;
@@ -86,11 +90,22 @@ int main() {
 
     GL_CALL(glEnable(GL_DEPTH_TEST));
 
-    Shader ourShader(SHADERS_DIR "shader.vert", SHADERS_DIR "shader.frag");
+    /* Shader ourShader(SHADERS_DIR "shader.vert", SHADERS_DIR "shader.frag"); */
     Shader cubeShader(SHADERS_DIR "shader.vert", SHADERS_DIR "shader.frag");
 
+    Shader lShader(SHADERS_DIR "basic_lighting.vert", SHADERS_DIR "basic_lighting.frag");
+    Shader &ourShader = lShader;
+
     ourShader.use();
-    ourShader.setVec3("color", color);
+    /* ourShader.setVec3("color", color); */
+
+    /* uniform vec3 lightPos; */ 
+    /* uniform vec3 viewPos; */ 
+    /* uniform vec3 lightColor; */
+    /* uniform vec3 objectColor; */
+    ourShader.setVec3("lightPos", glm::vec3(1, 1, 1));
+    ourShader.setVec3("lightColor", glm::vec3(1, 1, 1));
+    ourShader.setVec3("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
 
     cubeShader.use();
     cubeShader.setVec3("color", color);
@@ -98,7 +113,8 @@ int main() {
     ImGuiIO &io = ImGui::GetIO();
     UI menu(window, io, cc);
 
-    RenderData rd(teapot, fpcam, ourShader, g_render_by_triangles);
+    /* RenderData rd(teapot, fpcam, ourShader, g_render_by_triangles); */
+    RenderData rd(cube, fpcam, ourShader, g_render_by_triangles);
 
     // Main loop
     while (!glfwWindowShouldClose(window)) {
@@ -117,7 +133,7 @@ int main() {
         GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
         GL_CALL(glClear(GL_DEPTH_BUFFER_BIT));
 
-        auto m = glm::rotate(model, currentFrame, glm::vec3(1, 1, 1));
+        auto m = glm::rotate(model, currentFrame, glm::vec3(0, 1, 1));
 
         projection = glm::perspective(glm::radians(fpcam.fov), aspect_ratio, 0.1f, 100.0f);
         view = glm::lookAt(fpcam.pos, fpcam.pos + fpcam.front, fpcam.up);
@@ -127,6 +143,8 @@ int main() {
         ourShader.setMat4("model", m);
         ourShader.setMat4("view", view);
         ourShader.setMat4("projection", projection);
+
+        ourShader.setVec3("viewPos", fpcam.pos);
         /* render(teapot, fpcam, ourShader); //, mvp); */
         /* render(teapot, fpcam, ourShader, m); */
         /* cube.render(ourShader); */
@@ -140,7 +158,7 @@ int main() {
         /* cubeShader.setMat4("projection", projection); */
         /* render(cube, fpcam, cubeShader, model); */
 
-        menu.render();
+        if (g_draw_menu) menu.render();
 
         glfwSwapBuffers(window);
     }
