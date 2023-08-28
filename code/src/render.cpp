@@ -45,9 +45,9 @@ static void render_by_trianges(const Mesh &mesh, const Camera &camera, Shader &s
     for (u32 i = 0; i < mesh.indices.size(); i += 3) {
         /* auto rc = glm::vec3(r(), r(), r()); */
 
-        auto c = Lambert::get_color(i, mesh, camera, m);
+        /* auto c = Lambert::get_color(i, mesh, camera, m); */
 
-        shader.setVec3("vColor", c);
+        /* shader.setVec3("vColor", c); */
 
         GL_CALL(glDrawElements(*mesh.drawing_mode, 3, GL_UNSIGNED_INT, (void*)(sizeof(GLuint)*i)));
     }
@@ -64,7 +64,6 @@ void render(const RenderData &rd) {
     GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.EBO));
 
     if (rd.render_by_triangles) {
-    /* if (1) { */
         render_by_trianges(mesh, camera, shader, m);
     } else {
         GL_CALL(glDrawElements(*mesh.drawing_mode, static_cast<u32>(mesh.indices.size()), GL_UNSIGNED_INT, 0));
