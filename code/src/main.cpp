@@ -13,7 +13,7 @@
 
 #define __MAIN__
 #include "main_globals.h"
-bool g_render_by_triangles = true;
+bool g_render_by_triangles = false;
 bool g_depth_test_enabled = true;
 bool g_cull_face_enabled = false;
 bool g_r_pressed = false;
