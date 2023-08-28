@@ -65,16 +65,20 @@ int main() {
 
     auto &cc = clear_color;
 
-    Mesh teapot, cube_mesh, plane, triangle;
+    Mesh teapot, cube_mesh, plane, triangle, isosphere, uvsphere;
     teapot.load_from_obj(OBJECTS_DIR "utah_teapot.obj");
     cube_mesh.load_from_obj(OBJECTS_DIR "cube.obj");
     plane.load_from_obj(OBJECTS_DIR "plane.obj");
     triangle.load_from_obj(OBJECTS_DIR "triangle.obj");
+    isosphere.load_from_obj(OBJECTS_DIR "isosphere.obj");
+    uvsphere.load_from_obj(OBJECTS_DIR "uv_sphere.obj");
 
     teapot.drawing_mode = &g_drawing_mode;
     cube_mesh.drawing_mode = &g_drawing_mode;
     plane.drawing_mode = &g_drawing_mode;
     triangle.drawing_mode = &g_drawing_mode;
+    isosphere.drawing_mode = &g_drawing_mode;
+    uvsphere.drawing_mode = &g_drawing_mode;
 
     Cube cube, c;
     cube.drawing_mode = &g_drawing_mode;
@@ -113,7 +117,7 @@ int main() {
     /* RenderData rd(teapot, fpcam, ourShader, g_render_by_triangles); */
     RenderData rd(cube, fpcam, ourShader, g_render_by_triangles);
     RenderData rd1(teapot, fpcam, ourShader, g_render_by_triangles);
-    RenderData rd2(cube_mesh, fpcam, ourShader, g_render_by_triangles);
+    RenderData rd2(uvsphere, fpcam, ourShader, g_render_by_triangles);
     RenderData rdc(c, fpcam, ourShader, g_render_by_triangles);
 
     // Main loop
