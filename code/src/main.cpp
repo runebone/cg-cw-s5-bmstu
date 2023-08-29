@@ -19,7 +19,9 @@ bool g_cull_face_enabled = false;
 bool g_r_pressed = false;
 bool g_z_pressed = false;
 bool g_c_pressed = false;
+bool g_g_pressed = false;
 bool g_draw_menu = true;
+bool g_use_depth_shader = false;
 
 #include "shader.h"
 #include "mesh.h"
@@ -97,7 +99,8 @@ int main() {
 
     /* Shader ourShader(SHADERS_DIR "shader.vert", SHADERS_DIR "shader.frag"); */
     Shader lShader(SHADERS_DIR "basic_lighting.vert", SHADERS_DIR "basic_lighting.frag");
-    Shader &ourShader = lShader;
+    Shader dShader(SHADERS_DIR "basic_lighting.vert", SHADERS_DIR "depth_buffer.frag");
+    Shader ourShader = lShader;
 
     ourShader.use();
     /* ourShader.setVec3("color", color); */
@@ -123,6 +126,8 @@ int main() {
     // Main loop
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
+
+        ourShader = g_use_depth_shader ? dShader : lShader;
 
         float currentFrame = static_cast<float>(glfwGetTime());
         g_deltaTime = currentFrame - g_lastFrame;
@@ -153,13 +158,14 @@ int main() {
 
         // Cube (not mesh)
         ourShader.use();
-        ourShader.setMat4("model", m);
+        auto mmm = glm::translate(m, glm::vec3(1, 1, -10));
+        ourShader.setMat4("model", mmm);
         ourShader.setMat4("view", view);
         ourShader.setMat4("projection", projection);
         ourShader.setVec3("viewPos", fpcam.pos);
         /* ourShader.setVec3("lightPos", lp); */
         ourShader.setVec3("lightPos", rlp);
-        rd.matrix = m;
+        rd.matrix = mmm;
         render(rd);
 
         // Teapot
@@ -171,9 +177,9 @@ int main() {
         rd1.matrix = m1;
         render(rd1);
 
-        // Cube mesh
+        // Sphere mesh
         Shader s2 = ourShader;
-        auto m2 = glm::translate(m, glm::vec3(1, 1, 1));
+        auto m2 = glm::translate(m, glm::vec3(1, 1, -5));
         s2.use();
         s2.setMat4("model", m2);
         rd2.matrix = m2;
@@ -306,6 +312,16 @@ void process_input(GLFWwindow *window) {
     }
     if (glfwGetKey(window, GLFW_KEY_R) == GLFW_RELEASE) {
         g_r_pressed = false;
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS) {
+        if (!g_g_pressed) {
+            g_use_depth_shader = !g_use_depth_shader;
+        }
+        g_g_pressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_G) == GLFW_RELEASE) {
+        g_g_pressed = false;
     }
 }
 
