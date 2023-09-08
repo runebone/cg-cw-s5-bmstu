@@ -398,3 +398,87 @@ $A$. Полученное множество точек $\left\{\left( \mathbf{A
 
 Подробнее с алгоритмом помогут ознакомиться следующие источники: \cite{gjksm},
 \cite{gjkppt1}, \cite{gjkppt2}, \cite{gjk}.
+
+\subsubsection{Вывод}
+
+\noindent
+\begin{adjustbox}{width=1\textwidth}
+    \begin{tabular}{|p{.25\textwidth}|p{.25\textwidth}|p{.25\textwidth}|p{.25\textwidth}|p{.25\textwidth}|}
+        \hline
+        &
+        Алгоритм GJK
+        &
+        Алгоритм AABB
+        &
+        Алгоритм OBB
+        \\
+        \hline
+        Асимптотическая сложность ($n$ -- количество вершин в полигональном
+        представлении объекта)
+        &
+        % Алгоритм GJK
+        \cellcolor{black!12}
+        $O(n^2)$ (худшее)
+        &
+        % Алгоритм AABB
+        \cellcolor{black!5}
+        $O(1)$
+        &
+        % Алгоритм OBB
+        \cellcolor{black!12}
+        $O(n^2)$ (худшее)
+        \\
+        \hline
+        Точность обнаружения коллизий
+        &
+        % Алгоритм GJK
+        \cellcolor{black!5}
+        Высокая
+        &
+        % Алгоритм AABB
+        \cellcolor{black!25}
+        Низкая
+        &
+        % Алгоритм OBB
+        \cellcolor{black!12}
+        Средняя
+        \\
+        \hline
+        Эффективность на сложных формах
+        &
+        % Алгоритм GJK
+        \cellcolor{black!5}
+        Высокая
+        &
+        % Алгоритм AABB
+        \cellcolor{black!25}
+        Низкая
+        &
+        % Алгоритм OBB
+        \cellcolor{black!12}
+        Средняя
+        \\
+        \hline
+        Сложность реализации
+        &
+        % Алгоритм GJK
+        \cellcolor{black!25}
+        Высокая
+        &
+        % Алгоритм AABB
+        \cellcolor{black!5}
+        Низкая
+        &
+        % Алгоритм OBB
+        \cellcolor{black!12}
+        Средняя
+        \\
+        \hline
+    \end{tabular}
+\end{adjustbox}
+
+\vspace{0.5cm}
+
+В программе для обнаружения коллизий важнейшими критериями при выборе алгоритма
+являются точность обнаружения коллизий и его эффективность на сложных формах. В
+связи с этим был выбран алгоритм $GJK$, несмотря на сложность его реализации.
