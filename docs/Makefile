@@ -19,6 +19,6 @@ bib: $(MAIN).tex *.tex report/*.tex
 	mv $(MAIN).pdf $(PDF)
 
 clean:
-	rm report/*.aux *.aux *.log *.out *.toc *.bbl *.blg $(MAIN).bcf $(MAIN).run.xml
+	rm report/*.aux *.aux *.log *.out *.toc *.bbl *.blg $(MAIN).bcf $(MAIN).run.xml *.synctex.gz
 
 .PHONY: clean, bib
