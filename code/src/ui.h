@@ -2,6 +2,7 @@
 #define __MENU_H__
 
 #include <glm/glm.hpp>
+#include <functional>
 
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_glfw.h"
@@ -11,7 +12,7 @@
 
 class UI {
 public:
-    UI(GLFWwindow *window, ImGuiIO &io, glm::vec4 &clear_color);
+    UI(GLFWwindow *window, ImGuiIO &io, glm::vec4 &clear_color, std::function<void()> render_func);
 
     UI(UI &&) = delete;
     UI(const UI &) = delete;
@@ -24,10 +25,11 @@ public:
 
     static void init_imgui(GLFWwindow *window);
 
-private:
+/* private: */
     GLFWwindow *m_window;
     ImGuiIO &m_io = ImGui::GetIO();
     glm::vec4 &m_cc;
+    std::function<void()> m_render_func;
 };
 
 #endif // __MENU_H__

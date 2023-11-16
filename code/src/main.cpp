@@ -46,6 +46,8 @@ GLFWwindow *create_window(u32 width, u32 height, const char *title) {
     return window;
 }
 
+void render_menu();
+
 int main() {
     glfwInit();
 
@@ -115,7 +117,7 @@ int main() {
     ourShader.setVec3("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
 
     ImGuiIO &io = ImGui::GetIO();
-    UI menu(window, io, cc);
+    UI menu(window, io, cc, [](){ render_menu(); });
 
     /* RenderData rd(teapot, fpcam, ourShader, g_render_by_triangles); */
     RenderData rd(cube, fpcam, ourShader, g_render_by_triangles);
@@ -126,6 +128,18 @@ int main() {
     // Main loop
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
+
+        if (!g_depth_test_enabled) {
+            glDisable(GL_DEPTH_TEST);
+        } else {
+            glEnable(GL_DEPTH_TEST);
+        }
+
+        if (!g_cull_face_enabled) {
+            glDisable(GL_CULL_FACE);
+        } else {
+            glEnable(GL_CULL_FACE);
+        }
 
         ourShader = g_use_depth_shader ? dShader : lShader;
 
@@ -276,11 +290,11 @@ void process_input(GLFWwindow *window) {
 
     if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
         if (!g_z_pressed) {
-            if (!g_depth_test_enabled) {
-                glDisable(GL_DEPTH_TEST);
-            } else {
-                glEnable(GL_DEPTH_TEST);
-            }
+            /* if (!g_depth_test_enabled) { */
+            /*     glDisable(GL_DEPTH_TEST); */
+            /* } else { */
+            /*     glEnable(GL_DEPTH_TEST); */
+            /* } */
             g_depth_test_enabled = !g_depth_test_enabled;
         }
         g_z_pressed = true;
@@ -291,11 +305,11 @@ void process_input(GLFWwindow *window) {
 
     if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
         if (!g_c_pressed) {
-            if (!g_cull_face_enabled) {
-                glDisable(GL_CULL_FACE);
-            } else {
-                glEnable(GL_CULL_FACE);
-            }
+            /* if (!g_cull_face_enabled) { */
+            /*     glDisable(GL_CULL_FACE); */
+            /* } else { */
+            /*     glEnable(GL_CULL_FACE); */
+            /* } */
             g_cull_face_enabled = !g_cull_face_enabled;
         }
         g_c_pressed = true;
@@ -356,5 +370,33 @@ void mouse_callback(GLFWwindow *window, f64 xpos, f64 ypos) {
         fpcam.front = glm::normalize(direction);
 
         /* glfwSetCursorPos(window, 960, 540); */
+    }
+}
+
+void render_menu() {
+    static bool *gs[] = {
+        &g_render_by_triangles,
+        &g_depth_test_enabled,
+        &g_cull_face_enabled,
+        &g_use_depth_shader
+    };
+
+    ImGui::SeparatorText("Управление");
+    ImGui::Text("Выбор режима отрисовки: 0 - 7");
+    ImGui::Text("Движение: W, A, S, D");
+    ImGui::Text("Вверх/Вниз: Space/L-Shift");
+    ImGui::Text("Ускорение: L-Ctrl");
+    ImGui::Text("ЛКМ: Управление курсором");
+    ImGui::Text("ПКМ: Управление камерой");
+    ImGui::Text("Выход: Q, Esc");
+
+    ImGui::SeparatorText("Настройки");
+    if (ImGui::BeginTable("split", 1))
+    {
+        ImGui::TableNextColumn(); ImGui::Checkbox("(R) Отрисовка по треугольникам", gs[0]);
+        ImGui::TableNextColumn(); ImGui::Checkbox("(G) Шейдер глубины", gs[3]);
+        ImGui::TableNextColumn(); ImGui::Checkbox("(Z) Тест глубины", gs[1]);
+        ImGui::TableNextColumn(); ImGui::Checkbox("(C) Отброс нелицевых граней", gs[2]);
+        ImGui::EndTable();
     }
 }

@@ -33,7 +33,8 @@ face_t Mesh::get_face(u32 index) const {
 s32 Mesh::load_from_obj(std::string filename) {
     std::fstream file(filename);
 
-    if (!file.is_open()) { return -1; }
+    if (!file.is_open())
+        return -1;
 
     std::stringstream ss;
     ss << file.rdbuf();
@@ -127,7 +128,8 @@ s32 Mesh::load_from_obj(std::string filename) {
 }
 
 s32 Mesh::init() {
-    if (vertices.size() <= 0) { return -1; }
+    if (vertices.size() <= 0)
+        return -1;
 
     GL_CALL(glGenVertexArrays(1, &VAO));
     GL_CALL(glGenBuffers(1, &VBO));
