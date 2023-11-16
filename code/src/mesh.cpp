@@ -30,7 +30,7 @@ face_t Mesh::get_face(u32 index) const {
     return face;
 }
 
-i32 Mesh::load_from_obj(std::string filename) {
+s32 Mesh::load_from_obj(std::string filename) {
     std::fstream file(filename);
 
     if (!file.is_open()) { return -1; }
@@ -126,7 +126,7 @@ i32 Mesh::load_from_obj(std::string filename) {
     return init();
 }
 
-i32 Mesh::init() {
+s32 Mesh::init() {
     if (vertices.size() <= 0) { return -1; }
 
     GL_CALL(glGenVertexArrays(1, &VAO));

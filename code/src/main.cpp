@@ -87,7 +87,7 @@ int main() {
     c.drawing_mode = &g_drawing_mode;
 
     f32 aspect_ratio;
-    i32 width, height;
+    s32 width, height;
 
     glm::mat4 model = glm::mat4(1.0f);
     glm::mat4 view = glm::mat4(1.0f);
