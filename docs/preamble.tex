@@ -1,0 +1,312 @@
+\usepackage{cmap} % Улучшенный поиск русских слов в полученном pdf-файле
+\usepackage[T2A]{fontenc} % Поддержка русских букв
+\usepackage[utf8]{inputenc} % Кодировка utf8
+\usepackage[english,russian]{babel} % Языки: русский, английский
+
+\usepackage[14pt]{extsizes}
+
+\usepackage{graphicx}
+\usepackage{multirow}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes, shapes.geometric, arrows, arrows.meta, positioning}
+
+\usepackage{caption}
+\captionsetup{labelsep=endash}
+% \captionsetup[lstlisting]{justification=raggedright,singlelinecheck=off}
+\captionsetup[figure]{name={Рисунок}}
+
+\usepackage{amsmath}
+
+\usepackage{geometry}
+\geometry{left=30mm}
+\geometry{right=10mm}
+\geometry{top=20mm}
+\geometry{bottom=20mm}
+
+\usepackage{enumitem}
+
+% Переопределение стандартных \section, \subsection, \subsubsection по ГОСТу;
+
+% \usepackage{titlesec}
+\usepackage{titlesec}[explicit]
+\titleformat{name=\section,numberless}[block]{\normalfont\large\bfseries\centering}{}{0pt}{}
+\titleformat{\section}[block]{\normalfont\large\bfseries}{\thesection}{1em}{}
+\titlespacing\section{\parindent}{*4}{*4}
+
+\titleformat{\subsection}[hang]
+{\bfseries\large}{\thesubsection}{1em}{}
+\titlespacing\subsection{\parindent}{*2}{*2}
+
+\titleformat{\subsubsection}[hang]
+{\bfseries\large}{\thesubsubsection}{1em}{}
+\titlespacing\subsubsection{\parindent}{*2}{*2}
+
+% This works fine instead
+% \usepackage{etoolbox}
+% \patchcmd{\section}{\normalfont}{\centering\normalfont}{}{}
+% \patchcmd{\section}{\Lare}{\centering\large}{}{}
+% \patchcmd{\section}{\Large}{\large}{}{}
+% \patchcmd{\subsubsection}{\normalsize}{\large}{}{}
+
+% \patchcmd{\section}{\bfseries}{\bfseries\hspace{1em}}{}{}
+% \patchcmd{\subsection}{\bfseries}{\bfseries\hspace{1em}}{}{}
+% \patchcmd{\subsubsection}{\bfseries}{\bfseries\hspace{1em}}{}{}
+
+\usepackage{url}
+% \def\UrlOrds{\do\\\do\_\do\-\do\/\do\|\do\;\do\,\do\?\do\+\do\=\do\#\do\*\do\~\do\'\do\"}
+% \gappto{\UrlBreaks}{\UrlOrds}
+
+% \expandafter\def\expandafter\UrlBreaks\expandafter{\UrlBreaks%  save the current one
+%   \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
+%   \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t%
+%   \do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D%
+%   \do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N%
+%   \do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X%
+%   \do\Y\do\Z}
+
+% Переопределение их отступов до и после для 1.5 интервала во всем документе
+\usepackage{setspace}
+\onehalfspacing % Полуторный интервал
+\frenchspacing
+\setlength\parindent{1.25cm}
+
+\usepackage{indentfirst} % Красная строка
+
+% Настройки оглавления
+\usepackage{xcolor}
+\usepackage{multirow}
+
+% Гиперссылки
+% \usepackage[pdftex]{hyperref}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+
+% \numberwithin{equation}{section}
+
+% Дополнительное окружения для подписей
+\usepackage{array}
+\newenvironment{signstabular}[1][1]{
+	\renewcommand*{\arraystretch}{#1}
+	\tabular
+}{
+	\endtabular
+}
+
+\usepackage{enumitem} 
+\setenumerate[0]{label=\arabic*)} % Изменение вида нумерации списков
+\renewcommand{\labelitemi}{---}
+
+% Листинги 
+\usepackage{courier}
+\usepackage{listings}
+\usepackage{chngcntr} % Listings counter within section set main.tex after begin document
+
+% Для листинга кода:
+\lstset{
+	basicstyle=\small\ttfamily,			% размер и начертание шрифта для подсветки кода
+	language=C++,   					% выбор языка для подсветки	
+	numbers=left,						% где поставить нумерацию строк (слева\справа)
+	numbersep=5pt,
+	% stepnumber=1,						% размер шага между двумя номерами строк
+	xleftmargin=17pt,
+	% showstringspaces=false,
+	numbersep=5pt,						% как далеко отстоят номера строк от подсвечиваемого кода
+	frame=single,						% рисовать рамку вокруг кода
+	tabsize=4,							% размер табуляции по умолчанию равен 4 пробелам
+	captionpos=t,						% позиция заголовка вверху [t] или внизу [b]
+	breaklines=true,					
+	breakatwhitespace=true,				% переносить строки только если есть пробел
+	escapeinside={\#*}{*)},				% если нужно добавить комментарии в коде
+	inputencoding=utf8x,
+	backgroundcolor=\color{white},
+	numberstyle=,%\tiny,					    % размер шрифта для номеров строк
+	keywordstyle=\color{blue},
+	stringstyle=\color{red!90!black}, % color of text in ""
+	commentstyle=\color{green!50!black}
+}
+\lstset{
+ morekeywords={size_t, likely}
+}
+
+\lstset{
+	literate=
+	{а}{{\selectfont\char224}}1
+	{б}{{\selectfont\char225}}1
+	{в}{{\selectfont\char226}}1
+	{г}{{\selectfont\char227}}1
+	{д}{{\selectfont\char228}}1
+	{е}{{\selectfont\char229}}1
+	{ё}{{\"e}}1
+	{ж}{{\selectfont\char230}}1
+	{з}{{\selectfont\char231}}1
+	{и}{{\selectfont\char232}}1
+	{й}{{\selectfont\char233}}1
+	{к}{{\selectfont\char234}}1
+	{л}{{\selectfont\char235}}1
+	{м}{{\selectfont\char236}}1
+	{н}{{\selectfont\char237}}1
+	{о}{{\selectfont\char238}}1
+	{п}{{\selectfont\char239}}1
+	{р}{{\selectfont\char240}}1
+	{с}{{\selectfont\char241}}1
+	{т}{{\selectfont\char242}}1
+	{у}{{\selectfont\char243}}1
+	{ф}{{\selectfont\char244}}1
+	{х}{{\selectfont\char245}}1
+	{ц}{{\selectfont\char246}}1
+	{ч}{{\selectfont\char247}}1
+	{ш}{{\selectfont\char248}}1
+	{щ}{{\selectfont\char249}}1
+	{ъ}{{\selectfont\char250}}1
+	{ы}{{\selectfont\char251}}1
+	{ь}{{\selectfont\char252}}1
+	{э}{{\selectfont\char253}}1
+	{ю}{{\selectfont\char254}}1
+	{я}{{\selectfont\char255}}1
+	{А}{{\selectfont\char192}}1
+	{Б}{{\selectfont\char193}}1
+	{В}{{\selectfont\char194}}1
+	{Г}{{\selectfont\char195}}1
+	{Д}{{\selectfont\char196}}1
+	{Е}{{\selectfont\char197}}1
+	{Ё}{{\"E}}1
+	{Ж}{{\selectfont\char198}}1
+	{З}{{\selectfont\char199}}1
+	{И}{{\selectfont\char200}}1
+	{Й}{{\selectfont\char201}}1
+	{К}{{\selectfont\char202}}1
+	{Л}{{\selectfont\char203}}1
+	{М}{{\selectfont\char204}}1
+	{Н}{{\selectfont\char205}}1
+	{О}{{\selectfont\char206}}1
+	{П}{{\selectfont\char207}}1
+	{Р}{{\selectfont\char208}}1
+	{С}{{\selectfont\char209}}1
+	{Т}{{\selectfont\char210}}1
+	{У}{{\selectfont\char211}}1
+	{Ф}{{\selectfont\char212}}1
+	{Х}{{\selectfont\char213}}1
+	{Ц}{{\selectfont\char214}}1
+	{Ч}{{\selectfont\char215}}1
+	{Ш}{{\selectfont\char216}}1
+	{Щ}{{\selectfont\char217}}1
+	{Ъ}{{\selectfont\char218}}1
+	{Ы}{{\selectfont\char219}}1
+	{Ь}{{\selectfont\char220}}1
+	{Э}{{\selectfont\char221}}1
+	{Ю}{{\selectfont\char222}}1
+	{Я}{{\selectfont\char223}}1
+}
+
+% \lstset{
+% 	basicstyle=\footnotesize\ttfamily,
+% 	language=[Sharp]C, % Или другой ваш язык -- см. документацию пакета
+%     captionpos=t,
+% 	commentstyle=\color{comment},
+% 	numbers=left,
+% 	numberstyle=\tiny\color{plain},
+% 	numbersep=5pt,
+% 	tabsize=4,
+% 	extendedchars=\true,
+% 	breaklines=true,
+% 	keywordstyle=\color{blue},
+% 	frame=b,
+% 	stringstyle=\ttfamily\color{string}\ttfamily,
+% 	showspaces=false,
+% 	showtabs=false,
+% 	xleftmargin=17pt,
+% 	framexleftmargin=17pt,
+% 	framexrightmargin=5pt,
+% 	framexbottommargin=4pt,
+% 	showstringspaces=false,
+% 	inputencoding=utf8x,
+% 	keepspaces=true
+% }
+
+
+% \DeclareCaptionLabelSeparator{line}{\ --\ }
+% \DeclareCaptionFont{white}{\color{white}}
+% \DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.43,0.35,0.35,0.01}{\parbox{\textwidth}{\hspace{15pt}#1#2#3}}}
+% \captionsetup[lstlisting]{
+% 	format=listing,
+% 	labelfont=white,
+% 	textfont=white,
+% 	singlelinecheck=false,
+% 	margin=0pt,
+% 	font={bf,footnotesize},
+% 	labelsep=line
+% }
+
+% \usepackage[cache=false, newfloat]{minted}
+% \newenvironment{code}{\captionsetup{type=listing, singlelinecheck=false, labelsep=endash}}{}
+% \SetupFloatingEnvironment{listing}{name=Листинг}
+
+% % Для квадратных скобок
+% \usepackage{array}
+% \DeclareMathOperator{\rank}{rank}
+% \makeatletter
+% \newenvironment{sqcases}{%
+% 	\matrix@check\sqcases\env@sqcases
+% }{%
+% 	\endarray\right.%
+% }
+% \def\env@sqcases{%
+% 	\let\@ifnextchar\new@ifnextchar
+% 	\left\lbrack
+% 	\def\arraystretch{1.2}%
+% 	\array{@{}l@{\quad}l@{}}%
+% }
+% \makeatother
+
+% Работа с изображениями и таблицами; переопределение названий по ГОСТу
+\usepackage{caption}
+\captionsetup[figure]{name={Рисунок},labelsep=endash}
+\captionsetup[table]{singlelinecheck=false, labelsep=endash}
+
+\usepackage[justification=centering]{caption} % Настройка подписей float объектов	
+
+\usepackage{csvsimple}
+
+\usepackage{ulem} % Нормальное нижнее подчеркивание
+\usepackage{hhline} % Двойная горизонтальная линия в таблицах
+\usepackage[figure,table]{totalcount} % Подсчет изображений, таблиц
+\usepackage{rotating} % Поворот изображения вместе с названием
+\usepackage{lastpage} % Для подсчета числа страниц
+
+\makeatletter
+\renewcommand\@biblabel[1]{#1.} % [1] -> 1. in bibliography
+\makeatother
+
+% \usepackage{color}
+% \usepackage[cache=false, newfloat]{minted}
+% \newenvironment{code}{\captionsetup{type=listing, singlelinecheck=false, labelsep=endash}}{}
+% \SetupFloatingEnvironment{listing}{name=Листинг}
+
+\usepackage{float} % Place figures anywhere you want; ignore floating
+
+\usepackage{ragged2e} % Перенос слов на следующую строку
+\usepackage{pdfpages}
+
+\usepackage{threeparttable}
+
+\usepackage{blindtext}
+
+% CW-specific
+
+\usepackage{xparse} % \NewDocumentCommand for creating custom commands
+
+% \usepackage{tabularx}
+% \usepackage{adjustbox}
+
+\renewcommand{\underset}[2]{\ensuremath{\mathop{\mbox{#2}}\limits_{\mbox{\scriptsize #1}}}} % Use \underset in normal environment, not only in math
+
+% Write stuff under underlined text
+\NewDocumentCommand{\ulinetext}{O{3cm} O{c} m m} % O - optional; m - mandatory
+{\underset{#3}{\uline{\makebox[#1][#2]{#4}}}}
+
+% Font configuration
+\usepackage{fontspec}
+\setmainfont{Liberation Serif} % Liberation Serif} % ~ Times New Roman
+\setsansfont{Roboto} % Liberation Sans} % ~ Arial
+\setmonofont{Liberation Mono} % ~ Courier New
