@@ -5,11 +5,13 @@
 
 \usepackage[14pt]{extsizes}
 
+\usepackage[table]{xcolor}
+
 \usepackage{graphicx}
 \usepackage{multirow}
 
-\usepackage{tikz}
-\usetikzlibrary{shapes, shapes.geometric, arrows, arrows.meta, positioning}
+% \usepackage{tikz}
+% \usetikzlibrary{shapes, shapes.geometric, arrows, arrows.meta, positioning}
 
 \usepackage{caption}
 \captionsetup{labelsep=endash}
@@ -54,16 +56,6 @@
 % \patchcmd{\subsubsection}{\bfseries}{\bfseries\hspace{1em}}{}{}
 
 \usepackage{url}
-% \def\UrlOrds{\do\\\do\_\do\-\do\/\do\|\do\;\do\,\do\?\do\+\do\=\do\#\do\*\do\~\do\'\do\"}
-% \gappto{\UrlBreaks}{\UrlOrds}
-
-% \expandafter\def\expandafter\UrlBreaks\expandafter{\UrlBreaks%  save the current one
-%   \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
-%   \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t%
-%   \do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D%
-%   \do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N%
-%   \do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X%
-%   \do\Y\do\Z}
 
 % Переопределение их отступов до и после для 1.5 интервала во всем документе
 \usepackage{setspace}
@@ -74,12 +66,14 @@
 \usepackage{indentfirst} % Красная строка
 
 % Настройки оглавления
-\usepackage{xcolor}
+% \usepackage{xcolor}
+% \usepackage[table]{xcolor}
 \usepackage{multirow}
 
 % Гиперссылки
 % \usepackage[pdftex]{hyperref}
-\usepackage{hyperref}
+\usepackage[xetex]{hyperref}
+% \usepackage{hyperref}
 \hypersetup{hidelinks}
 
 % \numberwithin{equation}{section}
@@ -297,7 +291,8 @@
 \usepackage{xparse} % \NewDocumentCommand for creating custom commands
 
 % \usepackage{tabularx}
-% \usepackage{adjustbox}
+\usepackage{adjustbox} % Hyperlinks
+% \usepackage[table]{xcolor}
 
 \renewcommand{\underset}[2]{\ensuremath{\mathop{\mbox{#2}}\limits_{\mbox{\scriptsize #1}}}} % Use \underset in normal environment, not only in math
 
