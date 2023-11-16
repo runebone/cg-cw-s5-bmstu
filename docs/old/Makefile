@@ -1,6 +1,6 @@
 PDF = index.pdf
 MAIN = main
-FLAGS = -synctex=1 -interaction=nonstopmode
+FLAGS =
 
 all:
 	make bib
