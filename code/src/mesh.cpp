@@ -97,32 +97,34 @@ s32 Mesh::load_from_obj(std::string filename) {
     /* } */
 
     // Works like in LearnOpenGL
-    std::vector<Vertex> vs;
-    std::vector<u32> ids;
-    for (u32 i = 0; i < indices.size(); i += 3) {
-        auto face = get_face(i / 3);
+    if (0) {
+        std::vector<Vertex> vs;
+        std::vector<u32> ids;
+        for (u32 i = 0; i < indices.size(); i += 3) {
+            auto face = get_face(i / 3);
 
-        auto v1p = face.x.Position;
-        auto v2p = face.y.Position;
-        auto v3p = face.z.Position;
+            auto v1p = face.x.Position;
+            auto v2p = face.y.Position;
+            auto v3p = face.z.Position;
 
-        auto n = glm::cross(v2p - v1p, v3p - v1p);
-        n = glm::normalize(n);
+            auto n = glm::cross(v2p - v1p, v3p - v1p);
+            n = glm::normalize(n);
 
-        Vertex v1(v1p, n);
-        Vertex v2(v2p, n);
-        Vertex v3(v3p, n);
+            Vertex v1(v1p, n);
+            Vertex v2(v2p, n);
+            Vertex v3(v3p, n);
 
-        vs.push_back(v1);
-        vs.push_back(v2);
-        vs.push_back(v3);
+            vs.push_back(v1);
+            vs.push_back(v2);
+            vs.push_back(v3);
 
-        ids.push_back(i + 0);
-        ids.push_back(i + 1);
-        ids.push_back(i + 2);
+            ids.push_back(i + 0);
+            ids.push_back(i + 1);
+            ids.push_back(i + 2);
+        }
+        vertices = vs;
+        indices = ids;
     }
-    vertices = vs;
-    indices = ids;
 
     return init();
 }
