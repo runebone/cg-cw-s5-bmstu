@@ -100,8 +100,6 @@ int main() {
 
     glm::mat4 mvp = glm::mat4(1.0f);
 
-    GL_CALL(glEnable(GL_DEPTH_TEST));
-
     /* Shader ourShader(SHADERS_DIR "shader.vert", SHADERS_DIR "shader.frag"); */
     Shader lShader(SHADERS_DIR "basic_lighting.vert", SHADERS_DIR "basic_lighting.frag");
     Shader dShader(SHADERS_DIR "basic_lighting.vert", SHADERS_DIR "depth_buffer.frag");
@@ -133,15 +131,15 @@ int main() {
         glfwPollEvents();
 
         if (!g_depth_test_enabled) {
-            glDisable(GL_DEPTH_TEST);
+            GL_CALL(glDisable(GL_DEPTH_TEST));
         } else {
-            glEnable(GL_DEPTH_TEST);
+            GL_CALL(glEnable(GL_DEPTH_TEST));
         }
 
         if (!g_cull_face_enabled) {
-            glDisable(GL_CULL_FACE);
+            GL_CALL(glDisable(GL_CULL_FACE));
         } else {
-            glEnable(GL_CULL_FACE);
+            GL_CALL(glEnable(GL_CULL_FACE));
         }
 
         ourShader = g_use_depth_shader ? dShader : lShader;
