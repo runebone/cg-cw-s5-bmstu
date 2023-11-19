@@ -7,25 +7,11 @@
 #include "gl_call.h"
 
 face_t Mesh::get_face(u32 index) const {
-    /* auto f = indices[3 * index]; */
-
-    /* auto v1 = vertices[f + 0]; */
-    /* auto v2 = vertices[f + 1]; */
-    /* auto v3 = vertices[f + 2]; */
-
     auto v1 = vertices[indices[3 * index + 0]];
     auto v2 = vertices[indices[3 * index + 1]];
     auto v3 = vertices[indices[3 * index + 2]];
 
     face_t face(v1, v2, v3);
-
-    /* face.x = v1.Position; */
-    /* face.y = v2.Position; */
-    /* face.z = v3.Position; */
-
-    /* face.x = v1; */
-    /* face.y = v2; */
-    /* face.z = v3; */
 
     return face;
 }
@@ -143,7 +129,6 @@ s32 Mesh::init() {
     GL_CALL(glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW));
     GL_CALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(u32), &indices[0], GL_STATIC_DRAW));
 
-    /* GL_CALL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(f32), (void*)(0))); */
     GL_CALL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(f32), (void*)(0)));
     GL_CALL(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(f32), (void*)(3 * sizeof(f32))));
 
