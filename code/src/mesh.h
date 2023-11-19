@@ -38,8 +38,4 @@ protected:
     void clear();
 };
 
-struct Cube : public Mesh {
-    Cube();
-};
-
 #endif // __MESH_H__

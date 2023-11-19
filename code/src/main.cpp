@@ -84,7 +84,10 @@ int main() {
     isosphere.drawing_mode = &g_drawing_mode;
     uvsphere.drawing_mode = &g_drawing_mode;
 
-    Cube cube, c;
+    Mesh cube, c;
+    cube.load_from_obj(OBJECTS_DIR "cube.obj");
+    c.load_from_obj(OBJECTS_DIR "cube.obj");
+
     cube.drawing_mode = &g_drawing_mode;
     c.drawing_mode = &g_drawing_mode;
 
