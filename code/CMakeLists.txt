@@ -1,26 +1,42 @@
 cmake_minimum_required(VERSION 3.10)
 project(cgcw VERSION 1.0.0)
 
-set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/engine)
 set(DEPS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/deps)
 
 set(LIBS_DIR /nix/var/nix/profiles/per-user/human/profile/lib)
 set(INCS_DIR /nix/var/nix/profiles/per-user/human/profile/include)
 
 set(SOURCE
-    ${SOURCE_DIR}/type_aliases.h
-    ${SOURCE_DIR}/globals.cpp
-    ${SOURCE_DIR}/globals.h
-    ${SOURCE_DIR}/shader.cpp
-    ${SOURCE_DIR}/shader.h
-    ${SOURCE_DIR}/mesh.cpp 
-    ${SOURCE_DIR}/mesh.h
-    ${SOURCE_DIR}/ui.cpp
-    ${SOURCE_DIR}/ui.h
-    ${SOURCE_DIR}/render.cpp
-    ${SOURCE_DIR}/render.h
-    ${SOURCE_DIR}/camera.cpp
-    ${SOURCE_DIR}/camera.h
+    ${SOURCE_DIR}/core/Camera.cpp
+    ${SOURCE_DIR}/core/Camera.h
+    ${SOURCE_DIR}/core/Engine.cpp
+    ${SOURCE_DIR}/core/Engine.h
+    ${SOURCE_DIR}/core/ErrorCode.h
+    ${SOURCE_DIR}/core/FileLoader.cpp
+    ${SOURCE_DIR}/core/FileLoader.h
+    ${SOURCE_DIR}/core/GameObject.cpp
+    ${SOURCE_DIR}/core/GameObject.h
+    ${SOURCE_DIR}/core/InputManager.cpp
+    ${SOURCE_DIR}/core/InputManager.h
+    ${SOURCE_DIR}/core/Light.cpp
+    ${SOURCE_DIR}/core/Light.h
+    ${SOURCE_DIR}/core/Mesh.cpp
+    ${SOURCE_DIR}/core/Mesh.h
+    ${SOURCE_DIR}/core/PhysicsEngine.cpp
+    ${SOURCE_DIR}/core/PhysicsEngine.h
+    ${SOURCE_DIR}/core/Renderer.cpp
+    ${SOURCE_DIR}/core/Renderer.h
+    ${SOURCE_DIR}/core/RigidBody.cpp
+    ${SOURCE_DIR}/core/RigidBody.h
+    ${SOURCE_DIR}/core/Scene.cpp
+    ${SOURCE_DIR}/core/Scene.h
+    ${SOURCE_DIR}/core/Shader.cpp
+    ${SOURCE_DIR}/core/Shader.h
+    ${SOURCE_DIR}/core/Transform.cpp
+    ${SOURCE_DIR}/core/Transform.h
+    ${SOURCE_DIR}/core/UI.cpp
+    ${SOURCE_DIR}/core/UI.h
     )
 
 
