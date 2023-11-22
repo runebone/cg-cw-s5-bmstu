@@ -43,11 +43,13 @@ namespace Lambert
 static void render_by_trianges(const Mesh &mesh, const Camera &camera, Shader &shader, const glm::mat4 &m)
 {
     for (u32 i = 0; i < mesh.indices.size(); i += 3) {
-        /* auto rc = glm::vec3(r(), r(), r()); */
+        /* auto c = glm::vec3(r(), r(), r()); */
+        /* auto c = glm::vec3(0.0f, 1.0f, 0.0f); */
 
         /* auto c = Lambert::get_color(i, mesh, camera, m); */
 
         /* shader.setVec3("vColor", c); */
+        /* shader.setVec3("objectColor", c); */
 
         GL_CALL(glDrawElements(*mesh.drawing_mode, 3, GL_UNSIGNED_INT, (void*)(sizeof(GLuint)*i)));
     }

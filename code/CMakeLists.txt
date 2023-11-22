@@ -9,7 +9,8 @@ set(INCS_DIR /nix/var/nix/profiles/per-user/human/profile/include)
 
 set(SOURCE
     ${SOURCE_DIR}/type_aliases.h
-    ${SOURCE_DIR}/main_globals.h
+    ${SOURCE_DIR}/globals.cpp
+    ${SOURCE_DIR}/globals.h
     ${SOURCE_DIR}/shader.cpp
     ${SOURCE_DIR}/shader.h
     ${SOURCE_DIR}/mesh.cpp 

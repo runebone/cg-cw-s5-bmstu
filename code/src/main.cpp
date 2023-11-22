@@ -11,15 +11,10 @@
 #include "ui.h"
 #include "type_aliases.h"
 
-#define __MAIN__
-#include "main_globals.h"
+#include "globals.h"
 bool g_render_by_triangles = false;
 bool g_depth_test_enabled = true;
 bool g_cull_face_enabled = false;
-bool g_r_pressed = false;
-bool g_z_pressed = false;
-bool g_c_pressed = false;
-bool g_g_pressed = false;
 bool g_draw_menu = true;
 bool g_use_depth_shader = false;
 
@@ -69,27 +64,22 @@ int main() {
 
     auto &cc = clear_color;
 
-    Mesh teapot, cube_mesh, plane, triangle, isosphere, uvsphere;
+    Mesh teapot, cube, plane, triangle, isosphere, uvsphere, monkey;
     teapot.load_from_obj(OBJECTS_DIR "utah_teapot.obj");
-    cube_mesh.load_from_obj(OBJECTS_DIR "cube.obj");
+    cube.load_from_obj(OBJECTS_DIR "cube.obj");
     plane.load_from_obj(OBJECTS_DIR "plane.obj");
     triangle.load_from_obj(OBJECTS_DIR "triangle.obj");
     isosphere.load_from_obj(OBJECTS_DIR "isosphere.obj");
     uvsphere.load_from_obj(OBJECTS_DIR "uv_sphere.obj");
+    monkey.load_from_obj(OBJECTS_DIR "monkey.obj");
 
     teapot.drawing_mode = &g_drawing_mode;
-    cube_mesh.drawing_mode = &g_drawing_mode;
+    cube.drawing_mode = &g_drawing_mode;
     plane.drawing_mode = &g_drawing_mode;
     triangle.drawing_mode = &g_drawing_mode;
     isosphere.drawing_mode = &g_drawing_mode;
     uvsphere.drawing_mode = &g_drawing_mode;
-
-    Mesh cube, c;
-    cube.load_from_obj(OBJECTS_DIR "cube.obj");
-    c.load_from_obj(OBJECTS_DIR "cube.obj");
-
-    cube.drawing_mode = &g_drawing_mode;
-    c.drawing_mode = &g_drawing_mode;
+    monkey.drawing_mode = &g_drawing_mode;
 
     f32 aspect_ratio;
     s32 width, height;
@@ -106,13 +96,9 @@ int main() {
     Shader ourShader = lShader;
 
     ourShader.use();
-    /* ourShader.setVec3("color", color); */
 
-    /* uniform vec3 lightPos; */ 
-    /* uniform vec3 viewPos; */ 
-    /* uniform vec3 lightColor; */
-    /* uniform vec3 objectColor; */
     glm::vec3 lp = glm::vec3(1, 1, 1);
+    glm::vec3 lp2 = glm::vec3(-1, -2, 1);
     ourShader.setVec3("lightPos", lp);
     ourShader.setVec3("lightColor", glm::vec3(1, 1, 1));
     ourShader.setVec3("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
@@ -120,11 +106,12 @@ int main() {
     ImGuiIO &io = ImGui::GetIO();
     UI menu(window, io, cc, [](){ render_menu(); });
 
-    /* RenderData rd(teapot, fpcam, ourShader, g_render_by_triangles); */
-    RenderData rd(cube, fpcam, ourShader, g_render_by_triangles);
-    RenderData rd1(teapot, fpcam, ourShader, g_render_by_triangles);
-    RenderData rd2(uvsphere, fpcam, ourShader, g_render_by_triangles);
-    RenderData rdc(c, fpcam, ourShader, g_render_by_triangles);
+    RenderData rd_cube(cube, fpcam, ourShader, g_render_by_triangles);
+    RenderData rd_teapot(teapot, fpcam, ourShader, g_render_by_triangles);
+    RenderData rd_uvsphere(uvsphere, fpcam, ourShader, g_render_by_triangles);
+    RenderData rd_isosphere(isosphere, fpcam, ourShader, g_render_by_triangles);
+    RenderData rd_monkey(monkey, fpcam, ourShader, g_render_by_triangles);
+    RenderData rd_plane(plane, fpcam, ourShader, g_render_by_triangles);
 
     // Main loop
     while (!glfwWindowShouldClose(window)) {
@@ -180,8 +167,8 @@ int main() {
         ourShader.setVec3("viewPos", fpcam.pos);
         /* ourShader.setVec3("lightPos", lp); */
         ourShader.setVec3("lightPos", rlp);
-        rd.matrix = mmm;
-        render(rd);
+        rd_cube.matrix = mmm;
+        render(rd_cube);
 
         // Teapot
         Shader s1 = ourShader;
@@ -189,24 +176,37 @@ int main() {
         m1 = glm::scale(m1, glm::vec3(0.3, 0.3, 0.3));
         s1.use();
         s1.setMat4("model", m1);
-        rd1.matrix = m1;
-        render(rd1);
+        rd_teapot.matrix = m1;
+        render(rd_teapot);
 
         // Sphere mesh
         Shader s2 = ourShader;
         auto m2 = glm::translate(m, glm::vec3(1, 1, -5));
         s2.use();
         s2.setMat4("model", m2);
-        rd2.matrix = m2;
-        render(rd2);
+        rd_uvsphere.matrix = m2;
+        render(rd_uvsphere);
 
         // Light cube
         Shader sc = ourShader;
         sc.use();
         sc.setMat4("model", mc);
         sc.setVec3("lightPos", rlp);
-        rdc.matrix = mc;
-        render(rdc);
+        sc.setVec3("objectColor", glm::vec3(1.0f, 1.0f, 0.0f));
+        rd_cube.matrix = mc;
+        render(rd_cube);
+        sc.setVec3("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
+
+        // Light cube 2
+        sc.use();
+        sc.setMat4("model", mc);
+        sc.setVec3("lightPos", lp2);
+        sc.setVec3("objectColor", glm::vec3(0.0f, 1.0f, 1.0f));
+        sc.setVec3("lightColor", glm::vec3(0, 1, 0));
+        rd_cube.matrix = mc;
+        render(rd_cube);
+        sc.setVec3("objectColor", glm::vec3(0.0f, 1.0f, 1.0f));
+        sc.setVec3("lightColor", glm::vec3(1, 1, 1));
 
         if (g_draw_menu) menu.render();
 
@@ -289,6 +289,7 @@ void process_input(GLFWwindow *window) {
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
 
+    static bool g_z_pressed = false;
     if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
         if (!g_z_pressed) {
             /* if (!g_depth_test_enabled) { */
@@ -304,6 +305,7 @@ void process_input(GLFWwindow *window) {
         g_z_pressed = false;
     }
 
+    static bool g_c_pressed = false;
     if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
         if (!g_c_pressed) {
             /* if (!g_cull_face_enabled) { */
@@ -319,6 +321,7 @@ void process_input(GLFWwindow *window) {
         g_c_pressed = false;
     }
 
+    static bool g_r_pressed = false;
     if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
         if (!g_r_pressed) {
             g_render_by_triangles = !g_render_by_triangles;
@@ -329,6 +332,7 @@ void process_input(GLFWwindow *window) {
         g_r_pressed = false;
     }
 
+    static bool g_g_pressed = false;
     if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS) {
         if (!g_g_pressed) {
             g_use_depth_shader = !g_use_depth_shader;
