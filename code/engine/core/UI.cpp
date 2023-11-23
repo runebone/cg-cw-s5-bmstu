@@ -4,6 +4,7 @@
 
 #include "../util/typedefs.h"
 #include "../config.h"
+#include "GameState.h"
 
 void UI::initialize(GLFWwindow *window) {
     // Setup Dear ImGui context
@@ -43,5 +44,27 @@ void UI::render(std::function<void()> renderMenuFunc) {
 }
 
 void UI::render() {
-    UI::render([](){});
+    static GameState &gs = GameState::get();
+
+    UI::render([](){
+    ImGui::SeparatorText("Свойства выбранного объекта");
+
+    if (!gs.isObjectSelected()) {
+        ImGui::Text("Выберите объект на N или P.");
+    } else {
+        const auto &pGameObject = gs.getSelectedObject();
+
+        ImGui::ColorEdit3("Цвет: ", (float*)&pGameObject->mColor);
+    }
+
+    ImGui::SeparatorText("Управление");
+    ImGui::Text("ПКМ - управление камерой");
+    ImGui::Text("ЛКМ - управление курсором");
+    ImGui::Text("W, A, S, D - движение");
+    ImGui::Text("N, P - выбор объекта");
+    ImGui::Text("H, L - перемещение объекта вдоль Ox");
+    ImGui::Text("J, K - перемещение объекта вдоль Oy");
+    ImGui::Text("I, O - перемещение объекта вдоль Oz");
+    ImGui::Text("R - сбросить выбор");
+    });
 }

@@ -48,6 +48,8 @@ private:
     RigidBody mRigidBody;
     Light mLight;
     Camera mCamera;
+
+public: // @TODO remove public; needed to test UI colorbox
     glm::vec3 mColor;
 
 // @TODO: Getters setters
