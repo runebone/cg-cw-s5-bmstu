@@ -45,15 +45,23 @@ void Renderer::render(std::shared_ptr<GameObject> gameObject) {
     glm::mat4 view = pCamera->getView();
     glm::mat4 projection = pCamera->getProjection();
 
-    // @XXX Meh, FIXME
+    // @Think how to do better
+
+    // basic.vert
     pShader->setMat4("model", model);
     pShader->setMat4("view", view);
     pShader->setMat4("projection", projection);
 
+    // phong.frag, fog.frag
     pShader->setVec3("lightPos", glm::vec3(1.0f, 1.0f, 1.0f));
     pShader->setVec3("viewPos", glm::vec3(1.0f, 1.0f, 1.0f));
     pShader->setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
     pShader->setVec3("objectColor", color);
+
+    // fog.frag
+    pShader->setVec3("cameraPos", pCamera->pos);
+    pShader->setVec3("fogColor", glm::vec3(0.5f, 0.5f, 0.5f));
+    pShader->setFloat("fogDensity", 0.05f);
 
     if (gameObject->mSelected) {
         mesh.render(GL_LINE_STRIP, true);

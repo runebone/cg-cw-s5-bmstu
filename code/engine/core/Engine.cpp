@@ -112,7 +112,7 @@ ErrorCode Engine::initializeGraphicsAndGameState() {
 
     mRenderer.setCamera(gs.getCamera());
 
-    Shader shader(CFG_SHADERS_DIR "basic_lighting.vert", CFG_SHADERS_DIR "basic_lighting.frag");
+    Shader shader(CFG_SHADERS_DIR "basic.vert", CFG_SHADERS_DIR "phong.frag");
 
     mRenderer.setShader(std::make_shared<Shader>(shader));
 
@@ -153,9 +153,6 @@ ErrorCode Engine::initializeScene() {
     pMonkey->setPos(glm::vec3(-1, 1, 1));
     pMonkey->setScale(glm::vec3(0.5, 0.5, 0.5));
     pScene->addGameObject(pMonkey);
-
-    /* pUVSphere->mRenderByTriangles = true; */
-    /* pUVSphere->mRenderingMode = GL_LINE_STRIP; */
 
     return ErrorCode::Ok;
 }
