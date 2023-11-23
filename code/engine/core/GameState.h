@@ -31,6 +31,8 @@ public:
     void selectNextObject();
     void selectPrevObject();
     void resetSelectedObject(); // @XXX Unconsistent naming
+    
+    bool isObjectSelected() { return bool(pSelectedObject); }
 
 private:
     GameState();

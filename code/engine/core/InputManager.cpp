@@ -21,9 +21,10 @@ void InputManager::processInput(GLFWwindow *window) {
 
     // @XXX Meh
     std::shared_ptr<Camera> cam = gs.getCamera();
-    f32 dt = static_cast<f32>(glfwGetTime()) - gs.mLastFrameTime;
-    f32 camSpeed = static_cast<f32>(5 * dt);
+    f32 deltaTime = static_cast<f32>(glfwGetTime()) - gs.mLastFrameTime;
+    f32 camSpeed = static_cast<f32>(5 * deltaTime);
 
+    // Camera control
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
         auto k = -cam->front.y / cam->up.y;
         // camForward always points forward in Front-Up plane || to the ground
@@ -48,6 +49,7 @@ void InputManager::processInput(GLFWwindow *window) {
         cam->pos -= camSpeed * cam->up;
     }
 
+    // Object selection
     if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS) {
         if (!keyWasPressedLastFrame[GLFW_KEY_N]) {
             gs.selectNextObject();
@@ -56,7 +58,6 @@ void InputManager::processInput(GLFWwindow *window) {
     } else {
         keyWasPressedLastFrame[GLFW_KEY_N] = false;
     }
-
     if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
         if (!keyWasPressedLastFrame[GLFW_KEY_P]) {
             gs.selectPrevObject();
@@ -65,7 +66,6 @@ void InputManager::processInput(GLFWwindow *window) {
     } else {
         keyWasPressedLastFrame[GLFW_KEY_P] = false;
     }
-
     if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
         if (!keyWasPressedLastFrame[GLFW_KEY_R]) {
             gs.resetSelectedObject();
@@ -73,6 +73,31 @@ void InputManager::processInput(GLFWwindow *window) {
         }
     } else {
         keyWasPressedLastFrame[GLFW_KEY_R] = false;
+    }
+
+    if (gs.isObjectSelected()) {
+        const auto &pGameObject = gs.getSelectedObject();
+        glm::vec3 p = pGameObject->getPos();
+        f32 dt = 2 * deltaTime;
+
+        if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS) {
+            pGameObject->setPos({p.x - dt, p.y, p.z});
+        }
+        if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS) {
+            pGameObject->setPos({p.x, p.y - dt, p.z});
+        }
+        if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS) {
+            pGameObject->setPos({p.x, p.y + dt, p.z});
+        }
+        if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS) {
+            pGameObject->setPos({p.x + dt, p.y, p.z});
+        }
+        if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS) {
+            pGameObject->setPos({p.x, p.y, p.z - dt});
+        }
+        if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
+            pGameObject->setPos({p.x, p.y, p.z + dt});
+        }
     }
 }
 
