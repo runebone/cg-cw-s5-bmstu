@@ -1,7 +1,7 @@
 #include "GameObject.h"
 
 // @XXX mCamera(nullptr)
-GameObject::GameObject(std::string id) : mId(id), mCamera(nullptr) {}
+GameObject::GameObject(std::string id) : mId(id), mCamera(nullptr), mColor(1, 1, 1) {}
 
 GameObject::~GameObject() {}
 
@@ -38,5 +38,15 @@ const Mesh& GameObject::getMesh() const {
     return mMesh;
 }
 
-void GameObject::update(float deltaTime) {
+void GameObject::setColor(const glm::vec3& color) {
+    mColor = color;
+}
+
+glm::vec3 GameObject::getColor() const {
+    return mColor;
+}
+
+void GameObject::update(f32 deltaTime) {
+    glm::vec3 r = getRotation();
+    setRotation({r.x, r.y + deltaTime, r.z});
 }

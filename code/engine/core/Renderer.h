@@ -21,7 +21,7 @@ public:
     std::shared_ptr<Shader> getShader();
 
     void render(std::shared_ptr<Scene> scene);
-    void render(const Mesh& mesh, const Transform& transform);
+    void render(const Mesh& mesh, const Transform& transform, const glm::vec3& color);
 
 private:
     std::shared_ptr<Camera> pCamera;

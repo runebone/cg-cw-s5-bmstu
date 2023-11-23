@@ -28,12 +28,12 @@ void Renderer::render(std::shared_ptr<Scene> scene) {
 
     for (const auto& gameObject : scene->getGameObjects()) {
         if (gameObject->isRenderable()) {
-            render(gameObject->getMesh(), gameObject->getTransform());
+            render(gameObject->getMesh(), gameObject->getTransform(), gameObject->getColor());
         }
     }
 }
 
-void Renderer::render(const Mesh& mesh, const Transform& transform) {
+void Renderer::render(const Mesh& mesh, const Transform& transform, const glm::vec3& color) {
     pShader->use();
 
     glm::mat4 model = transform.getTransformMatrix();
@@ -47,7 +47,7 @@ void Renderer::render(const Mesh& mesh, const Transform& transform) {
 
     pShader->setVec3("lightPos", glm::vec3(1, 1, 1));
     pShader->setVec3("lightColor", glm::vec3(1, 1, 1));
-    pShader->setVec3("objectColor", glm::vec3(1, 1, 1));
+    pShader->setVec3("objectColor", color);
 
     mesh.render();
 }

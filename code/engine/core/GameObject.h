@@ -37,12 +37,17 @@ public:
 
     bool isRenderable() const { return mHasMesh; }
 
+    // Color
+    void setColor(const glm::vec3& color);
+    glm::vec3 getColor() const;
+
 private:
     Transform mTransform;
     Mesh mMesh;
     RigidBody mRigidBody;
     Light mLight;
     Camera mCamera;
+    glm::vec3 mColor;
 
     bool mHasTransform = 0;
     bool mHasMesh = 0;

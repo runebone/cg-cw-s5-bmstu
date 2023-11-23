@@ -139,6 +139,10 @@ ErrorCode Engine::initializeScene() {
     pScene->addGameObject(pUVSphere);
     pScene->addGameObject(pCube);
 
+    pTeapot->setColor({1, 0.5, 0.31});
+    pUVSphere->setColor({0.31, 0.78, 0.47});
+    pCube->setColor({0.53, 0.81, 0.92});
+
     return ErrorCode::Ok;
 }
 
