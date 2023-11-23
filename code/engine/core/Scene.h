@@ -18,10 +18,14 @@ public:
     std::shared_ptr<GameObject> getGameObject(const std::string& id) const;
     const std::vector<std::shared_ptr<GameObject>>& getGameObjects() const;
 
+    std::shared_ptr<GameObject> selectNextObject();
+    std::shared_ptr<GameObject> selectPrevObject();
+
     void update(f32 deltaTime);
 
 private:
     std::vector<std::shared_ptr<GameObject>> mGameObjects;
+    s32 mCurrentObjectIndex = -1;
 };
 
 #endif // __SCENE_H__

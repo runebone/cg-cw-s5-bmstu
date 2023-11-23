@@ -26,6 +26,11 @@ public:
     std::shared_ptr<Camera> getCamera() const;
     void setScene(std::shared_ptr<Scene> scene);
     std::shared_ptr<Scene> getScene() const;
+    void setSelectedObject(std::shared_ptr<GameObject> gameObject);
+    std::shared_ptr<GameObject> getSelectedObject() const;
+    void selectNextObject();
+    void selectPrevObject();
+    void resetSelectedObject(); // @XXX Unconsistent naming
 
 private:
     GameState();
@@ -41,6 +46,7 @@ private:
     GLFWwindow *pWindow = nullptr;
     std::shared_ptr<Camera> pCamera;
     std::shared_ptr<Scene> pScene;
+    std::shared_ptr<GameObject> pSelectedObject;
 };
 
 #endif // __GAME_STATE_H__

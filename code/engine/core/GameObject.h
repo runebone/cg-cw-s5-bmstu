@@ -42,6 +42,7 @@ public:
     glm::vec3 getColor() const;
 
 private:
+    // @XXX I know, it better be dynamic components
     Transform mTransform;
     Mesh mMesh;
     RigidBody mRigidBody;
@@ -53,6 +54,7 @@ private:
 public:
     u32  mRenderingMode = GL_TRIANGLES;
     bool mRenderByTriangles = false;
+    bool mSelected = 0;
 
 private:
     bool mHasTransform = 0;

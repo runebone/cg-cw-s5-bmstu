@@ -30,6 +30,32 @@ const std::vector<std::shared_ptr<GameObject>>& Scene::getGameObjects() const {
     return mGameObjects;
 }
 
+std::shared_ptr<GameObject> Scene::selectNextObject() {
+    if (mGameObjects.empty()) {
+        mCurrentObjectIndex = -1;
+        return nullptr;
+    }
+
+    mCurrentObjectIndex = (mCurrentObjectIndex + 1) % mGameObjects.size();
+
+    return mGameObjects[mCurrentObjectIndex];
+}
+
+std::shared_ptr<GameObject> Scene::selectPrevObject() {
+    if (mGameObjects.empty()) {
+        mCurrentObjectIndex = -1;
+        return nullptr;
+    }
+
+    if (mCurrentObjectIndex <= 0) {
+        mCurrentObjectIndex = mGameObjects.size() - 1;
+    } else {
+        --mCurrentObjectIndex;
+    }
+
+    return mGameObjects[mCurrentObjectIndex];
+}
+
 void Scene::update(float deltaTime) {
     for (auto& gameObject : mGameObjects) {
         gameObject->update(deltaTime);

@@ -55,5 +55,9 @@ void Renderer::render(std::shared_ptr<GameObject> gameObject) {
     pShader->setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
     pShader->setVec3("objectColor", color);
 
-    mesh.render(gameObject->mRenderingMode, gameObject->mRenderByTriangles);
+    if (gameObject->mSelected) {
+        mesh.render(GL_LINE_STRIP, true);
+    } else {
+        mesh.render(gameObject->mRenderingMode, gameObject->mRenderByTriangles);
+    }
 }

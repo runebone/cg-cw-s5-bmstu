@@ -2,6 +2,9 @@
 #include "UI.h"
 #include "GameState.h"
 
+static const int numKeys = GLFW_KEY_LAST + 1;
+static bool keyWasPressedLastFrame[numKeys]{false};
+
 void InputManager::processInput(GLFWwindow *window) {
     static GameState &gs = GameState::get();
 
@@ -43,6 +46,33 @@ void InputManager::processInput(GLFWwindow *window) {
     }
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
         cam->pos -= camSpeed * cam->up;
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS) {
+        if (!keyWasPressedLastFrame[GLFW_KEY_N]) {
+            gs.selectNextObject();
+            keyWasPressedLastFrame[GLFW_KEY_N] = true;
+        }
+    } else {
+        keyWasPressedLastFrame[GLFW_KEY_N] = false;
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
+        if (!keyWasPressedLastFrame[GLFW_KEY_P]) {
+            gs.selectPrevObject();
+            keyWasPressedLastFrame[GLFW_KEY_P] = true;
+        }
+    } else {
+        keyWasPressedLastFrame[GLFW_KEY_P] = false;
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
+        if (!keyWasPressedLastFrame[GLFW_KEY_R]) {
+            gs.resetSelectedObject();
+            keyWasPressedLastFrame[GLFW_KEY_R] = true;
+        }
+    } else {
+        keyWasPressedLastFrame[GLFW_KEY_R] = false;
     }
 }
 
