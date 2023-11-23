@@ -20,6 +20,9 @@ ErrorCode Engine::initialize() {
     rc = initializeScene();
     if (rc != ErrorCode::Ok) return rc;
 
+    rc = initializeUI();
+    if (rc != ErrorCode::Ok) return rc;
+
     mRunning = true;
 
     GameState &gs = GameState::get();
@@ -64,7 +67,12 @@ ErrorCode Engine::update() {
 }
 
 ErrorCode Engine::render() {
+    static GameState &gs = GameState::get();
+
     renderScene();
+    renderUI();
+
+    glfwSwapBuffers(gs.getWindow());
 
     return ErrorCode::Ok;
 }
@@ -105,7 +113,6 @@ ErrorCode Engine::initializeGraphicsAndGameState() {
     mRenderer.setCamera(gs.getCamera());
 
     Shader shader(CFG_SHADERS_DIR "basic_lighting.vert", CFG_SHADERS_DIR "basic_lighting.frag");
-    /* Shader shader(CFG_SHADERS_DIR "shader.vert", CFG_SHADERS_DIR "shader.frag"); */
 
     mRenderer.setShader(std::make_shared<Shader>(shader));
 
@@ -143,8 +150,16 @@ ErrorCode Engine::initializeScene() {
     pUVSphere->setColor({0.31, 0.78, 0.47});
     pCube->setColor({0.53, 0.81, 0.92});
 
-    pUVSphere->mRenderByTriangles = true;
-    pUVSphere->mRenderingMode = GL_LINE_STRIP;
+    /* pUVSphere->mRenderByTriangles = true; */
+    /* pUVSphere->mRenderingMode = GL_LINE_STRIP; */
+
+    return ErrorCode::Ok;
+}
+
+ErrorCode Engine::initializeUI() {
+    static GameState &gs = GameState::get();
+
+    UI::initialize(gs.getWindow());
 
     return ErrorCode::Ok;
 }
@@ -153,6 +168,10 @@ void Engine::renderScene() {
     static GameState &gs = GameState::get();
 
     mRenderer.render(gs.getScene());
+}
 
-    glfwSwapBuffers(gs.getWindow());
+void Engine::renderUI() {
+    static GameState &gs = GameState::get();
+
+    UI::render();
 }

@@ -28,4 +28,7 @@ int main() {
             return rc;
         }
     }
+    glfwTerminate();
+
+    return rc;
 }

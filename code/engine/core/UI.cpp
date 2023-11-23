@@ -5,28 +5,6 @@
 #include "../util/typedefs.h"
 #include "../config.h"
 
-UI::UI(GLFWwindow *window, ImGuiIO &io, std::function<void()> renderMenuFunc)
-    : mWindow(window), mIO(io),  mRenderMenuFunc(renderMenuFunc)
-{
-}
-
-void UI::render() {
-    // Start the Dear ImGui frame
-    ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplGlfw_NewFrame();
-    ImGui::NewFrame();
-
-    ImGui::SeparatorText("Частота кадров");
-    ImGui::Text("В среднем %.1f FPS (%.3f мс/кадр)", mIO.Framerate, 1000.0f / mIO.Framerate);
-    {
-        mRenderMenuFunc();
-    }
-
-    // Rendering
-    ImGui::Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-}
-
 void UI::initialize(GLFWwindow *window) {
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -43,4 +21,27 @@ void UI::initialize(GLFWwindow *window) {
     // Setup Platform/Renderer backends
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 330");
+}
+
+void UI::render(std::function<void()> renderMenuFunc) {
+    static ImGuiIO &mIO = ImGui::GetIO();
+
+    // Start the Dear ImGui frame
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+
+    ImGui::SeparatorText("Частота кадров");
+    ImGui::Text("В среднем %.1f FPS (%.3f мс/кадр)", mIO.Framerate, 1000.0f / mIO.Framerate);
+    {
+        renderMenuFunc();
+    }
+
+    // Rendering
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+void UI::render() {
+    UI::render([](){});
 }

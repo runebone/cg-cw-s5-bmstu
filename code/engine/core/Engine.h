@@ -10,6 +10,7 @@
 #include "Scene.h"
 #include "PhysicsEngine.h"
 #include "InputManager.h"
+#include "UI.h"
 
 class Engine {
 public:
@@ -32,9 +33,11 @@ private:
     ErrorCode initializeGraphicsAndGameState();
     ErrorCode initializePhysics();
     ErrorCode initializeScene();
+    ErrorCode initializeUI();
 
     void updateScene(f32 deltaTime);
     void renderScene();
+    void renderUI();
 };
 
 #endif // __ENGINE_H__
