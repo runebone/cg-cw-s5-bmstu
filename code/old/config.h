@@ -1,9 +1,9 @@
 #ifndef __CONFIG_H__
 #define __CONFIG_H__
 
-#define PROJECT_DIR "/home/human/University/cg-cw-s4-bmstu/"
+#define PROJECT_DIR "/home/human/University/cg-cw-s4-bmstu/code/"
 #define ASSETS_DIR PROJECT_DIR "assets/"
-#define SOURCE_DIR PROJECT_DIR "code/src/"
+#define SOURCE_DIR PROJECT_DIR "code/old/"
 
 #define OBJECTS_DIR ASSETS_DIR "objects/"
 #define FONTS_DIR ASSETS_DIR "fonts/"

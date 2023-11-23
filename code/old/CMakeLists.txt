@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(cgcw VERSION 1.0.0)
 
-set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
-set(DEPS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/deps)
+set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+set(DEPS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../deps)
 
 set(LIBS_DIR /nix/var/nix/profiles/per-user/human/profile/lib)
 set(INCS_DIR /nix/var/nix/profiles/per-user/human/profile/include)
