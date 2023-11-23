@@ -150,6 +150,10 @@ ErrorCode Engine::initializeScene() {
     pUVSphere->setColor({0.31, 0.78, 0.47});
     pCube->setColor({0.53, 0.81, 0.92});
 
+    pMonkey->setPos(glm::vec3(-1, 1, 1));
+    pMonkey->setScale(glm::vec3(0.5, 0.5, 0.5));
+    pScene->addGameObject(pMonkey);
+
     /* pUVSphere->mRenderByTriangles = true; */
     /* pUVSphere->mRenderingMode = GL_LINE_STRIP; */
 
