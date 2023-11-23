@@ -4,7 +4,7 @@
 #include "GameState.h"
 #include "../config.h"
 
-Engine::Engine() : mRunning(false), mLastFrameTime(0.0f) {}
+Engine::Engine() : mRunning(false) {}
 
 Engine::~Engine() {
     shutdown();
@@ -21,7 +21,9 @@ ErrorCode Engine::initialize() {
     if (rc != ErrorCode::Ok) return rc;
 
     mRunning = true;
-    mLastFrameTime = static_cast<f32>(glfwGetTime());
+
+    GameState &gs = GameState::get();
+    gs.mLastFrameTime = static_cast<f32>(glfwGetTime());
 
     return ErrorCode::Ok;
 }
@@ -50,8 +52,8 @@ ErrorCode Engine::update() {
     static GameState &gs = GameState::get();
 
     f32 currentFrameTime = static_cast<f32>(glfwGetTime());
-    f32 deltaTime = currentFrameTime - mLastFrameTime;
-    mLastFrameTime = currentFrameTime;
+    f32 deltaTime = currentFrameTime - gs.mLastFrameTime;
+    gs.mLastFrameTime = currentFrameTime;
 
     // @TODO Handle cases when deltaTime > some constant
 
@@ -103,6 +105,7 @@ ErrorCode Engine::initializeGraphicsAndGameState() {
     mRenderer.setCamera(gs.getCamera());
 
     Shader shader(CFG_SHADERS_DIR "basic_lighting.vert", CFG_SHADERS_DIR "basic_lighting.frag");
+    /* Shader shader(CFG_SHADERS_DIR "shader.vert", CFG_SHADERS_DIR "shader.frag"); */
 
     mRenderer.setShader(std::make_shared<Shader>(shader));
 

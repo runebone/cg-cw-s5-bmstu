@@ -6,6 +6,7 @@
 
 #include "Camera.h"
 #include "Scene.h"
+#include "../util/typedefs.h"
 
 class GameState {
 public:
@@ -27,8 +28,16 @@ public:
     std::shared_ptr<Scene> getScene() const;
 
 private:
-    GameState() {}
+    GameState();
 
+// @TODO Getters and setters
+public:
+    bool mFirstMouse;
+    f32  mLastX;
+    f32  mLastY;
+    f32  mLastFrameTime;
+
+private:
     GLFWwindow *pWindow = nullptr;
     std::shared_ptr<Camera> pCamera;
     std::shared_ptr<Scene> pScene;

@@ -69,7 +69,7 @@ void Mesh::setupMesh() {
 void Mesh::render() const {
     glBindVertexArray(VAO);
     // @XXX Hardcoded GL_TRIANGLES rendering method
-    glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(mIndices.size()), GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, static_cast<u32>(mIndices.size()), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
 

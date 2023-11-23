@@ -24,6 +24,7 @@ std::shared_ptr<Shader> Renderer::getShader() {
 
 void Renderer::render(std::shared_ptr<Scene> scene) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST); // @TODO Optional
 
     for (const auto& gameObject : scene->getGameObjects()) {
         if (gameObject->isRenderable()) {
@@ -43,6 +44,10 @@ void Renderer::render(const Mesh& mesh, const Transform& transform) {
     pShader->setMat4("model", model);
     pShader->setMat4("view", view);
     pShader->setMat4("projection", projection);
+
+    pShader->setVec3("lightPos", glm::vec3(1, 1, 1));
+    pShader->setVec3("lightColor", glm::vec3(1, 1, 1));
+    pShader->setVec3("objectColor", glm::vec3(1, 1, 1));
 
     mesh.render();
 }

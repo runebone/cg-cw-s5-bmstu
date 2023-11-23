@@ -1,5 +1,7 @@
 #include "GameState.h"
 
+GameState::GameState() : mFirstMouse(true), mLastFrameTime(0.0f), mLastX(0.0f), mLastY(0.0f) {}
+
 void GameState::setWindow(GLFWwindow *window) {
     pWindow = window;
 }

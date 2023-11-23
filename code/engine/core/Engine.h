@@ -25,7 +25,6 @@ public:
 
 private:
     bool mRunning;
-    f32 mLastFrameTime;
 
     Renderer mRenderer;
     PhysicsEngine mPhysicsEngine;
