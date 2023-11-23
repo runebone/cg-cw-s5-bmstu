@@ -8,7 +8,8 @@
 
 struct Vertex {
     glm::vec3 position;
-    glm::vec3 normal;
+    // NOTE If you don't initialize, you'll get UB
+    glm::vec3 normal = glm::vec3{0};
 };
 
 typedef glm::vec<3, Vertex> Face;
