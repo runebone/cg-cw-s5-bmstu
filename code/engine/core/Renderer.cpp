@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "GameState.h"
 
 Renderer::Renderer() {}
 
@@ -28,12 +29,16 @@ void Renderer::render(std::shared_ptr<Scene> scene) {
 
     for (const auto& gameObject : scene->getGameObjects()) {
         if (gameObject->isRenderable()) {
-            render(gameObject->getMesh(), gameObject->getTransform(), gameObject->getColor());
+            render(gameObject);
         }
     }
 }
 
-void Renderer::render(const Mesh& mesh, const Transform& transform, const glm::vec3& color) {
+void Renderer::render(std::shared_ptr<GameObject> gameObject) {
+    const Mesh& mesh = gameObject->getMesh();
+    const Transform& transform = gameObject->getTransform();
+    const glm::vec3& color = gameObject->getColor();
+
     pShader->use();
 
     glm::mat4 model = transform.getTransformMatrix();
@@ -45,9 +50,10 @@ void Renderer::render(const Mesh& mesh, const Transform& transform, const glm::v
     pShader->setMat4("view", view);
     pShader->setMat4("projection", projection);
 
-    pShader->setVec3("lightPos", glm::vec3(1, 1, 1));
-    pShader->setVec3("lightColor", glm::vec3(1, 1, 1));
+    pShader->setVec3("lightPos", glm::vec3(1.0f, 1.0f, 1.0f));
+    pShader->setVec3("viewPos", glm::vec3(1.0f, 1.0f, 1.0f));
+    pShader->setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
     pShader->setVec3("objectColor", color);
 
-    mesh.render();
+    mesh.render(gameObject->mRenderingMode, gameObject->mRenderByTriangles);
 }

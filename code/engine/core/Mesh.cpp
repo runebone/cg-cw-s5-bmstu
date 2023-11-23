@@ -66,11 +66,20 @@ void Mesh::setupMesh() {
     glBindVertexArray(0);
 }
 
-void Mesh::render() const {
+void Mesh::render(u32 mode, bool byTriangles) const {
     glBindVertexArray(VAO);
-    // @XXX Hardcoded GL_TRIANGLES rendering method
-    glDrawElements(GL_TRIANGLES, static_cast<u32>(mIndices.size()), GL_UNSIGNED_INT, 0);
+    if (!byTriangles) {
+        glDrawElements(mode, static_cast<u32>(mIndices.size()), GL_UNSIGNED_INT, 0);
+    } else {
+        for (u32 i = 0; i < mIndices.size(); i += 3) {
+            glDrawElements(mode, 3, GL_UNSIGNED_INT, (void*)(sizeof(GLuint)*i));
+        }
+    }
     glBindVertexArray(0);
+}
+
+void Mesh::render() const {
+    render(GL_TRIANGLES, false);
 }
 
 Face getFace(u32 index, std::vector<Vertex> vertices, std::vector<u32> indices) {

@@ -143,6 +143,9 @@ ErrorCode Engine::initializeScene() {
     pUVSphere->setColor({0.31, 0.78, 0.47});
     pCube->setColor({0.53, 0.81, 0.92});
 
+    pUVSphere->mRenderByTriangles = true;
+    pUVSphere->mRenderingMode = GL_LINE_STRIP;
+
     return ErrorCode::Ok;
 }
 

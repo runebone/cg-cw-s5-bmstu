@@ -49,6 +49,12 @@ private:
     Camera mCamera;
     glm::vec3 mColor;
 
+// @TODO: Getters setters
+public:
+    u32  mRenderingMode = GL_TRIANGLES;
+    bool mRenderByTriangles = false;
+
+private:
     bool mHasTransform = 0;
     bool mHasMesh = 0;
     bool mHasRigidBody = 0;
