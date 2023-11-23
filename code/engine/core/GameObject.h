@@ -2,6 +2,7 @@
 #define __GAME_OBJECT_H__
 
 #include <string>
+#include <memory>
 
 #include "../util/typedefs.h"
 #include "Transform.h"
@@ -68,5 +69,11 @@ private:
 
     std::string mId;
 };
+
+std::shared_ptr<GameObject> createCube(std::string id);
+std::shared_ptr<GameObject> createISOSphere(std::string id);
+std::shared_ptr<GameObject> createUVSphere(std::string id);
+std::shared_ptr<GameObject> createTeapot(std::string id);
+std::shared_ptr<GameObject> createMonkey(std::string id);
 
 #endif // __GAME_OBJECT_H__

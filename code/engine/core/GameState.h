@@ -22,17 +22,23 @@ public:
 
     void setWindow(GLFWwindow *window);
     GLFWwindow *getWindow() const;
+
     void setCamera(std::shared_ptr<Camera> camera);
     std::shared_ptr<Camera> getCamera() const;
+
     void setScene(std::shared_ptr<Scene> scene);
     std::shared_ptr<Scene> getScene() const;
+
     void setSelectedObject(std::shared_ptr<GameObject> gameObject);
     std::shared_ptr<GameObject> getSelectedObject() const;
     void selectNextObject();
     void selectPrevObject();
     void resetSelectedObject(); // @XXX Unconsistent naming
-    
     bool isObjectSelected() { return bool(pSelectedObject); }
+
+    void addObject(std::shared_ptr<GameObject> gameObject);
+    void removeObject(const std::string& id);
+    void selectObject(const std::string& id);
 
 private:
     GameState();

@@ -55,10 +55,38 @@ void UI::render() {
         const auto &pGameObject = gs.getSelectedObject();
 
         ImGui::Text("ID: %s", pGameObject->getId().c_str());
-        ImGui::ColorEdit3("Цвет", (float*)&pGameObject->mColor);
-        ImGui::InputFloat3("Положение", (float*)&pGameObject->mTransform.mPosition);
-        ImGui::InputFloat3("Поворот", (float*)&pGameObject->mTransform.mRotation);
-        ImGui::InputFloat3("Увеличение", (float*)&pGameObject->mTransform.mScale);
+        ImGui::ColorEdit3("Цвет", (f32*)&pGameObject->mColor);
+        ImGui::InputFloat3("Положение", (f32*)&pGameObject->mTransform.mPosition);
+        ImGui::InputFloat3("Поворот", (f32*)&pGameObject->mTransform.mRotation);
+        ImGui::InputFloat3("Увеличение", (f32*)&pGameObject->mTransform.mScale);
+    }
+
+    ImGui::SeparatorText("Добавить объект");
+    const char* items[] = { "Куб", "ISO Сфера", "UV Сфера", "Чайник", "Обезьяна" };
+    static s32 curItem = 0;
+    static u32 idCounter = 1;
+    ImGui::Combo("##", &curItem, items, IM_ARRAYSIZE(items));
+    ImGui::SameLine();
+    if (ImGui::Button("Добавить")) {
+        switch(curItem) {
+            case 0:
+                gs.addObject(createCube(std::to_string(idCounter)));
+                break;
+            case 1:
+                gs.addObject(createISOSphere(std::to_string(idCounter)));
+                break;
+            case 2:
+                gs.addObject(createUVSphere(std::to_string(idCounter)));
+                break;
+            case 3:
+                gs.addObject(createTeapot(std::to_string(idCounter)));
+                break;
+            case 4:
+                gs.addObject(createMonkey(std::to_string(idCounter)));
+                break;
+        }
+        gs.selectObject(std::to_string(idCounter));
+        ++idCounter;
     }
 
     ImGui::SeparatorText("Управление");
@@ -66,6 +94,7 @@ void UI::render() {
     ImGui::Text("ЛКМ - управление курсором");
     ImGui::Text("W, A, S, D - движение");
     ImGui::Text("N, P - выбор объекта");
+    ImGui::Text("X - удалить выбранный объект");
     ImGui::Text("H, L - перемещение объекта вдоль Ox");
     ImGui::Text("J, K - перемещение объекта вдоль Oy");
     ImGui::Text("I, O - перемещение объекта вдоль Oz");

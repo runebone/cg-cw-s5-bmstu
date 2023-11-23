@@ -38,7 +38,9 @@ void GameState::selectNextObject() {
         pSelectedObject->mSelected = false;
     }
     setSelectedObject(pScene->selectNextObject());
-    pSelectedObject->mSelected = true;
+    if (pSelectedObject) {
+        pSelectedObject->mSelected = true;
+    }
 }
 
 void GameState::selectPrevObject() {
@@ -46,7 +48,9 @@ void GameState::selectPrevObject() {
         pSelectedObject->mSelected = false;
     }
     setSelectedObject(pScene->selectPrevObject());
-    pSelectedObject->mSelected = true;
+    if (pSelectedObject) {
+        pSelectedObject->mSelected = true;
+    }
 }
 
 void GameState::resetSelectedObject() {
@@ -54,4 +58,22 @@ void GameState::resetSelectedObject() {
         pSelectedObject->mSelected = false;
     }
     pSelectedObject = nullptr;
+}
+
+void GameState::addObject(std::shared_ptr<GameObject> gameObject) {
+    pScene->addGameObject(gameObject);
+}
+
+void GameState::removeObject(const std::string& id) {
+    pScene->removeGameObject(id);
+}
+
+void GameState::selectObject(const std::string& id) {
+    if (pSelectedObject) {
+        pSelectedObject->mSelected = false;
+    }
+    setSelectedObject(pScene->getGameObject(id));
+    if (pSelectedObject) {
+        pSelectedObject->mSelected = true;
+    }
 }

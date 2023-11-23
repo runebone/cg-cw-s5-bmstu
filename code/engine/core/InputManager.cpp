@@ -105,6 +105,15 @@ void InputManager::processInput(GLFWwindow *window) {
         if (glfwGetKey(window, GLFW_KEY_RIGHT_BRACKET) == GLFW_PRESS) {
             pGameObject->setScale({s.x + sf, s.y + sf, s.z + sf});
         }
+        if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
+            if (!keyWasPressedLastFrame[GLFW_KEY_X]) {
+                gs.removeObject(pGameObject->getId());
+                gs.resetSelectedObject();
+                keyWasPressedLastFrame[GLFW_KEY_X] = true;
+            }
+        } else {
+            keyWasPressedLastFrame[GLFW_KEY_X] = false;
+        }
     }
 }
 
