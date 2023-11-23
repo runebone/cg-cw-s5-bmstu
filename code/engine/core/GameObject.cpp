@@ -84,3 +84,8 @@ std::shared_ptr<GameObject> createMonkey(std::string id) {
     return gameObject;
 }
 
+std::shared_ptr<GameObject> createPlane(std::string id) {
+    std::shared_ptr gameObject = std::make_shared<GameObject>(id);
+    gameObject->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "plane.obj"));
+    return gameObject;
+}
