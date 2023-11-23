@@ -43,7 +43,7 @@ public:
 
 private:
     // @XXX I know, it better be dynamic components
-    Transform mTransform;
+    /* Transform mTransform; */
     Mesh mMesh;
     RigidBody mRigidBody;
     Light mLight;
@@ -51,6 +51,7 @@ private:
 
 public: // @TODO remove public; needed to test UI colorbox
     glm::vec3 mColor;
+    Transform mTransform;
 
 // @TODO: Getters setters
 public:

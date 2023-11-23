@@ -19,7 +19,8 @@ public:
 
     glm::mat4 getTransformMatrix() const;
 
-private:
+/* private: */
+public: // @XXX public for UI
     glm::vec3 mPosition;
     glm::vec3 mRotation; // Euler angles
     glm::vec3 mScale;

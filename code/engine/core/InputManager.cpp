@@ -8,8 +8,7 @@ static bool keyWasPressedLastFrame[numKeys]{false};
 void InputManager::processInput(GLFWwindow *window) {
     static GameState &gs = GameState::get();
 
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS
-            || glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
+    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, GLFW_TRUE);
     }
     if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS) {
@@ -78,7 +77,9 @@ void InputManager::processInput(GLFWwindow *window) {
     if (gs.isObjectSelected()) {
         const auto &pGameObject = gs.getSelectedObject();
         glm::vec3 p = pGameObject->getPos();
+        glm::vec3 s = pGameObject->getScale();
         f32 dt = 2 * deltaTime;
+        f32 sf = 0.001;
 
         if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS) {
             pGameObject->setPos({p.x - dt, p.y, p.z});
@@ -97,6 +98,12 @@ void InputManager::processInput(GLFWwindow *window) {
         }
         if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
             pGameObject->setPos({p.x, p.y, p.z + dt});
+        }
+        if (glfwGetKey(window, GLFW_KEY_LEFT_BRACKET) == GLFW_PRESS) {
+            pGameObject->setScale({s.x - sf, s.y - sf, s.z - sf});
+        }
+        if (glfwGetKey(window, GLFW_KEY_RIGHT_BRACKET) == GLFW_PRESS) {
+            pGameObject->setScale({s.x + sf, s.y + sf, s.z + sf});
         }
     }
 }

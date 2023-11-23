@@ -54,7 +54,11 @@ void UI::render() {
     } else {
         const auto &pGameObject = gs.getSelectedObject();
 
-        ImGui::ColorEdit3("Цвет: ", (float*)&pGameObject->mColor);
+        ImGui::Text("ID: %s", pGameObject->getId().c_str());
+        ImGui::ColorEdit3("Цвет", (float*)&pGameObject->mColor);
+        ImGui::InputFloat3("Положение", (float*)&pGameObject->mTransform.mPosition);
+        ImGui::InputFloat3("Поворот", (float*)&pGameObject->mTransform.mRotation);
+        ImGui::InputFloat3("Увеличение", (float*)&pGameObject->mTransform.mScale);
     }
 
     ImGui::SeparatorText("Управление");
@@ -66,5 +70,6 @@ void UI::render() {
     ImGui::Text("J, K - перемещение объекта вдоль Oy");
     ImGui::Text("I, O - перемещение объекта вдоль Oz");
     ImGui::Text("R - сбросить выбор");
+    ImGui::Text("Q - выход");
     });
 }
