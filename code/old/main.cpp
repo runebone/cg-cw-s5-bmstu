@@ -386,6 +386,8 @@ void render_menu() {
         &g_use_depth_shader
     };
 
+    ImGui::ShowDemoWindow();
+
     ImGui::SeparatorText("Управление");
     ImGui::Text("Выбор режима отрисовки: 0 - 7");
     ImGui::Text("Движение: W, A, S, D");
