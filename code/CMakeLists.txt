@@ -17,6 +17,8 @@ set(SOURCE
     ${SOURCE_DIR}/core/FileLoader.h
     ${SOURCE_DIR}/core/GameObject.cpp
     ${SOURCE_DIR}/core/GameObject.h
+    ${SOURCE_DIR}/core/GameState.cpp
+    ${SOURCE_DIR}/core/GameState.h
     ${SOURCE_DIR}/core/InputManager.cpp
     ${SOURCE_DIR}/core/InputManager.h
     ${SOURCE_DIR}/core/Light.cpp

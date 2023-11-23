@@ -27,12 +27,10 @@ private:
     bool mRunning;
     f32 mLastFrameTime;
 
-    GLFWwindow *mWindow;
     Renderer mRenderer;
-    Scene mCurrentScene;
     PhysicsEngine mPhysicsEngine;
 
-    ErrorCode initializeGraphics();
+    ErrorCode initializeGraphicsAndGameState();
     ErrorCode initializePhysics();
     ErrorCode initializeScene();
 

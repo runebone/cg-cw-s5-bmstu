@@ -26,7 +26,7 @@ public:
     f32 fov = 90.0f / 2;
 
 private:
-    GLFWwindow *mWindow;
+    GLFWwindow *pWindow;
 };
 
 #endif // __CAMERA_H__

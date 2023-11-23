@@ -1,20 +1,17 @@
 #include "Engine.h"
 
 #include "FileLoader.h"
+#include "GameState.h"
 #include "../config.h"
 
-Engine::Engine() :
-    mRunning(false),
-    mLastFrameTime(0.0f),
-    mWindow(nullptr) {
-}
+Engine::Engine() : mRunning(false), mLastFrameTime(0.0f) {}
 
 Engine::~Engine() {
     shutdown();
 }
 
 ErrorCode Engine::initialize() {
-    ErrorCode rc = initializeGraphics();
+    ErrorCode rc = initializeGraphicsAndGameState();
     if (rc != ErrorCode::Ok) return rc;
 
     rc = initializePhysics();
@@ -34,11 +31,15 @@ bool Engine::isRunning() const {
 }
 
 ErrorCode Engine::processInput() {
+    static GameState &gs = GameState::get();
+
     glfwPollEvents();
 
-    InputManager::processInput(mWindow);
+    GLFWwindow *window = gs.getWindow();
 
-    if (glfwWindowShouldClose(mWindow)) {
+    InputManager::processInput(window);
+
+    if (glfwWindowShouldClose(window)) {
         shutdown();
     }
 
@@ -46,13 +47,16 @@ ErrorCode Engine::processInput() {
 }
 
 ErrorCode Engine::update() {
+    static GameState &gs = GameState::get();
+
     f32 currentFrameTime = static_cast<f32>(glfwGetTime());
     f32 deltaTime = currentFrameTime - mLastFrameTime;
+    mLastFrameTime = currentFrameTime;
 
     // @TODO Handle cases when deltaTime > some constant
 
     mPhysicsEngine.update(deltaTime);
-    mCurrentScene.update(deltaTime);
+    gs.getScene()->update(deltaTime);
 
     return ErrorCode::Ok;
 }
@@ -67,7 +71,9 @@ void Engine::shutdown() {
     mRunning = false;
 }
 
-ErrorCode Engine::initializeGraphics() {
+ErrorCode Engine::initializeGraphicsAndGameState() {
+    GameState &gs = GameState::get();
+
     if (!glfwInit()) {
         return ErrorCode::GLFWInitFailed;
     }
@@ -76,21 +82,25 @@ ErrorCode Engine::initializeGraphics() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    mWindow = glfwCreateWindow(1200, 800, CFG_WINDOW_NAME, NULL, NULL);
-    if (mWindow == nullptr) {
+    GLFWwindow *window = glfwCreateWindow(1200, 800, CFG_WINDOW_NAME, NULL, NULL);
+    if (window == nullptr) {
         glfwTerminate();
         return ErrorCode::WindowCreationFailed;
     }
 
-    glfwMakeContextCurrent(mWindow);
+    glfwMakeContextCurrent(window);
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
-    glfwSetFramebufferSizeCallback(mWindow, InputManager::framebufferSizeCallback);
-    glfwSetCursorPosCallback(mWindow, InputManager::mouseCallback);
+    glfwSetFramebufferSizeCallback(window, InputManager::framebufferSizeCallback);
+    glfwSetCursorPosCallback(window, InputManager::mouseCallback);
 
     glfwSwapInterval(0); // Disable VSync
 
-    mRenderer.setCamera(Camera(mWindow));
+    gs.setWindow(window);
+    gs.setCamera(std::make_shared<Camera>(window));
+    gs.setScene(std::make_shared<Scene>());
+
+    mRenderer.setCamera(gs.getCamera());
 
     Shader shader(CFG_SHADERS_DIR "basic_lighting.vert", CFG_SHADERS_DIR "basic_lighting.frag");
 
@@ -104,19 +114,35 @@ ErrorCode Engine::initializePhysics() {
 }
 
 ErrorCode Engine::initializeScene() {
-    GameObject teapot("teapot");
-    GameObject uvsphere("uvsphere");
-    GameObject monkey("monkey");
+    static GameState &gs = GameState::get();
 
-    teapot.setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "utah_teapot.obj"));
-    uvsphere.setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "uv_sphere.obj"));
-    monkey.setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "monkey.obj"));
+    std::shared_ptr pTeapot = std::make_shared<GameObject>("teapot");
+    std::shared_ptr pUVSphere = std::make_shared<GameObject>("uvsphere");
+    std::shared_ptr pMonkey = std::make_shared<GameObject>("monkey");
+    std::shared_ptr pCube = std::make_shared<GameObject>("cube");
+
+    pTeapot->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "utah_teapot.obj"));
+    pUVSphere->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "uv_sphere.obj"));
+    pMonkey->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "monkey.obj"));
+    pCube->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "cube.obj"));
+
+    pTeapot->setPos(glm::vec3(-1, -1, 1));
+    pTeapot->setScale(glm::vec3(0.3, 0.3, 0.3));
+
+    pUVSphere->setPos(glm::vec3(1, 1, -5));
+
+    auto pScene = gs.getScene();
+    pScene->addGameObject(pTeapot);
+    pScene->addGameObject(pUVSphere);
+    pScene->addGameObject(pCube);
 
     return ErrorCode::Ok;
 }
 
 void Engine::renderScene() {
-    mRenderer.render(mCurrentScene);
+    static GameState &gs = GameState::get();
 
-    glfwSwapBuffers(mWindow);
+    mRenderer.render(gs.getScene());
+
+    glfwSwapBuffers(gs.getWindow());
 }

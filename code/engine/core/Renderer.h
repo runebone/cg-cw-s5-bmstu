@@ -14,13 +14,17 @@ public:
     ~Renderer();
 
     void initialize();
-    void setCamera(const Camera& camera);
+
+    void setCamera(std::shared_ptr<Camera> camera);
+    std::shared_ptr<Camera> getCamera();
     void setShader(std::shared_ptr<Shader> shader);
-    void render(const Scene& scene);
+    std::shared_ptr<Shader> getShader();
+
+    void render(std::shared_ptr<Scene> scene);
     void render(const Mesh& mesh, const Transform& transform);
 
 private:
-    Camera mCamera;
+    std::shared_ptr<Camera> pCamera;
     std::shared_ptr<Shader> pShader;
 };
 
