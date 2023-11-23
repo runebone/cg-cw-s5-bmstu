@@ -6,7 +6,6 @@ in vec3 FragPos;
 
 uniform vec3 objectColor;
 
-void main()
-{
+void main() {
     FragColor = vec4(objectColor, 1.0);
 }
