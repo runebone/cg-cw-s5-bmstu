@@ -62,7 +62,7 @@ void UI::render() {
     }
 
     ImGui::SeparatorText("Добавить объект");
-    const char* items[] = { "Куб", "ISO Сфера", "UV Сфера", "Чайник", "Обезьяна", "Плоскость" };
+    const char* items[] = { "Куб", "ISO Сфера", "UV Сфера", "Чайник", "Обезьяна", "Симплекс" };
     static s32 curItem = 0;
     static u32 idCounter = 1;
     ImGui::Combo("##", &curItem, items, IM_ARRAYSIZE(items));
@@ -85,7 +85,7 @@ void UI::render() {
                 gs.addObject(createMonkey(std::to_string(idCounter)));
                 break;
             case 5:
-                gs.addObject(createPlane(std::to_string(idCounter)));
+                gs.addObject(createSimplex(std::to_string(idCounter)));
                 break;
         }
         gs.selectObject(std::to_string(idCounter));

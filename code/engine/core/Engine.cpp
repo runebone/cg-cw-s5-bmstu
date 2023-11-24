@@ -131,8 +131,8 @@ ErrorCode Engine::initializeScene() {
     std::shared_ptr pMonkey = std::make_shared<GameObject>("monkey");
     std::shared_ptr pCube = std::make_shared<GameObject>("cube");
 
-    pTeapot->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "utah_teapot.obj"));
-    pUVSphere->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "uv_sphere.obj"));
+    pTeapot->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "teapot.obj"));
+    pUVSphere->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "uvsphere.obj"));
     pMonkey->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "monkey.obj"));
     pCube->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "cube.obj"));
 

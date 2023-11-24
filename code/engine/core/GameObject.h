@@ -75,6 +75,6 @@ std::shared_ptr<GameObject> createISOSphere(std::string id);
 std::shared_ptr<GameObject> createUVSphere(std::string id);
 std::shared_ptr<GameObject> createTeapot(std::string id);
 std::shared_ptr<GameObject> createMonkey(std::string id);
-std::shared_ptr<GameObject> createPlane(std::string id);
+std::shared_ptr<GameObject> createSimplex(std::string id);
 
 #endif // __GAME_OBJECT_H__
