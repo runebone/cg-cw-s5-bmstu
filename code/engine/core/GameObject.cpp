@@ -56,40 +56,43 @@ void GameObject::update(f32 deltaTime) {
 
 ///////////////////////////////////////////////////////////////////////////////
 
+std::shared_ptr<GameObject> createSimplex(std::string id) {
+    std::shared_ptr gameObject = std::make_shared<GameObject>(id);
+    gameObject->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "simplex.obj"));
+    return gameObject;
+}
 std::shared_ptr<GameObject> createCube(std::string id) {
     std::shared_ptr gameObject = std::make_shared<GameObject>(id);
     gameObject->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "cube.obj"));
     return gameObject;
 }
-std::shared_ptr<GameObject> createISOSphere(std::string id) {
+std::shared_ptr<GameObject> createCone(std::string id) {
     std::shared_ptr gameObject = std::make_shared<GameObject>(id);
-    gameObject->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "collider_isosphere.obj"));
+    gameObject->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "cone.obj"));
+    return gameObject;
+}
+std::shared_ptr<GameObject> createIcoSphere(std::string id) {
+    std::shared_ptr gameObject = std::make_shared<GameObject>(id);
+    gameObject->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "icosphere.obj"));
     gameObject->setScale(glm::vec3(1.025, 1.025, 1.025));
     return gameObject;
 }
 std::shared_ptr<GameObject> createUVSphere(std::string id) {
     std::shared_ptr gameObject = std::make_shared<GameObject>(id);
-    /* gameObject->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "uvsphere.obj")); */
-    gameObject->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "collider_uvsphere.obj"));
-    return gameObject;
-}
-std::shared_ptr<GameObject> createTeapot(std::string id) {
-    std::shared_ptr gameObject = std::make_shared<GameObject>(id);
-    /* gameObject->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "teapot.obj")); */
-    gameObject->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "collider_teapot.obj"));
-    gameObject->setScale(glm::vec3(0.3, 0.3, 0.3));
+    gameObject->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "uvsphere.obj"));
     return gameObject;
 }
 std::shared_ptr<GameObject> createMonkey(std::string id) {
     std::shared_ptr gameObject = std::make_shared<GameObject>(id);
     /* gameObject->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "monkey.obj")); */
-    gameObject->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "collider_monkey.obj"));
+    gameObject->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "convexhull_monkey.obj"));
     gameObject->setScale(glm::vec3(0.5, 0.5, 0.5));
     return gameObject;
 }
-
-std::shared_ptr<GameObject> createSimplex(std::string id) {
+std::shared_ptr<GameObject> createTeapot(std::string id) {
     std::shared_ptr gameObject = std::make_shared<GameObject>(id);
-    gameObject->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "simplex.obj"));
+    /* gameObject->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "teapot.obj")); */
+    gameObject->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "convexhull_teapot.obj"));
+    gameObject->setScale(glm::vec3(0.3, 0.3, 0.3));
     return gameObject;
 }

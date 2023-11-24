@@ -1,5 +1,6 @@
 #include "UI.h"
 
+#include <functional>
 #include <imgui.h>
 
 #include "../util/typedefs.h"
@@ -62,32 +63,35 @@ void UI::render() {
     }
 
     ImGui::SeparatorText("Добавить объект");
-    const char* items[] = { "Куб", "ISO Сфера", "UV Сфера", "Чайник", "Обезьяна", "Симплекс" };
+
     static s32 curItem = 0;
     static u32 idCounter = 1;
-    ImGui::Combo("##", &curItem, items, IM_ARRAYSIZE(items));
+
+    struct Item {
+        const char* name;
+        std::function<void()> func;
+    };
+
+    Item items[] = {
+        { "Куб",       [](){ gs.addObject(createCube(std::to_string(idCounter))); } },
+        { "Ico Сфера", [](){ gs.addObject(createIcoSphere(std::to_string(idCounter))); } },
+        { "UV Сфера",  [](){ gs.addObject(createUVSphere(std::to_string(idCounter))); } },
+        { "Симплекс",  [](){ gs.addObject(createSimplex(std::to_string(idCounter))); } },
+        { "Конус",     [](){ gs.addObject(createCone(std::to_string(idCounter))); } },
+        { "Обезьяна",  [](){ gs.addObject(createMonkey(std::to_string(idCounter))); } },
+        { "Чайник",    [](){ gs.addObject(createTeapot(std::to_string(idCounter))); } },
+    };
+
+    int n = (int)(sizeof(items) / sizeof(*(items)));
+    const char* strItems[n];
+    for (u32 i = 0; i < n; i++) {
+        strItems[i] = items[i].name;
+    }
+
+    ImGui::Combo("##", &curItem, strItems, IM_ARRAYSIZE(items));
     ImGui::SameLine();
     if (ImGui::Button("Добавить")) {
-        switch(curItem) {
-            case 0:
-                gs.addObject(createCube(std::to_string(idCounter)));
-                break;
-            case 1:
-                gs.addObject(createISOSphere(std::to_string(idCounter)));
-                break;
-            case 2:
-                gs.addObject(createUVSphere(std::to_string(idCounter)));
-                break;
-            case 3:
-                gs.addObject(createTeapot(std::to_string(idCounter)));
-                break;
-            case 4:
-                gs.addObject(createMonkey(std::to_string(idCounter)));
-                break;
-            case 5:
-                gs.addObject(createSimplex(std::to_string(idCounter)));
-                break;
-        }
+        items[curItem].func();
         gs.selectObject(std::to_string(idCounter));
         ++idCounter;
     }
