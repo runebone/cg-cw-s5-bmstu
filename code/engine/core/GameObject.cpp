@@ -14,6 +14,7 @@ GameObject::~GameObject() {}
 
 void GameObject::setPos(const glm::vec3& position) {
     mTransform.setPos(position);
+    /* mAABBCollider.update(); // @DRY */
 }
 
 glm::vec3 GameObject::getPos() const {
@@ -22,6 +23,7 @@ glm::vec3 GameObject::getPos() const {
 
 void GameObject::setRotation(const glm::vec3& rotation) {
     mTransform.setRotation(rotation);
+    mAABBCollider.update(); // @DRY
 }
 
 glm::vec3 GameObject::getRotation() const {
@@ -30,6 +32,7 @@ glm::vec3 GameObject::getRotation() const {
 
 void GameObject::setScale(const glm::vec3& scale) {
     mTransform.setScale(scale);
+    /* mAABBCollider.update(); // @DRY */
 }
 
 glm::vec3 GameObject::getScale() const {
@@ -55,8 +58,6 @@ glm::vec3 GameObject::getColor() const {
 }
 
 void GameObject::update(f32 deltaTime) {
-    /* glm::vec3 r = getRotation(); */
-    /* setRotation({r.x, r.y + deltaTime, r.z}); */
 }
 
 void GameObject::genAABBColliderFromMesh() {

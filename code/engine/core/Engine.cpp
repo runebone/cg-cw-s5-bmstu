@@ -59,6 +59,7 @@ ErrorCode Engine::update() {
     gs.mLastFrameTime = currentFrameTime;
 
     // @TODO Handle cases when deltaTime > some constant
+    deltaTime = std::min(deltaTime, 0.1f);
     
     std::shared_ptr<Scene> scene = gs.getScene();
 
@@ -131,7 +132,7 @@ ErrorCode Engine::initializeScene() {
     std::shared_ptr pTeapot = std::make_shared<GameObject>("teapot");
     std::shared_ptr pUVSphere = std::make_shared<GameObject>("uvsphere");
     std::shared_ptr pMonkey = std::make_shared<GameObject>("monkey");
-    std::shared_ptr pCube = std::make_shared<GameObject>("cube");
+    std::shared_ptr pCube = std::make_shared<GameObject>("ground");
 
     pTeapot->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "teapot.obj"));
     pUVSphere->setMesh(FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "uvsphere.obj"));
@@ -149,16 +150,16 @@ ErrorCode Engine::initializeScene() {
     pScene->addGameObject(pCube);
 
     pTeapot->setColor({1, 0.5, 0.31});
-    pUVSphere->setColor({0.31, 0.78, 0.47});
+    pUVSphere->setColor({0.31, 0.78, 0.87});
 
-    pCube->setColor({0.53, 0.81, 0.92});
+    pCube->setColor({0.53, 0.81, 0.32});
     pCube->setPos({0, -2, 0});
-    pCube->setScale({1000, 0.1, 1000});
+    pCube->setScale({2000, 0.1, 2000});
     pCube->makeStatic();
 
-    pMonkey->setPos(glm::vec3(5, 1, 1));
+    pMonkey->setPos(glm::vec3(-1, 2, -3));
     pMonkey->setScale(glm::vec3(0.5, 0.5, 0.5));
-    /* pScene->addGameObject(pMonkey); */
+    pScene->addGameObject(pMonkey);
 
     return ErrorCode::Ok;
 }

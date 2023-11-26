@@ -1,5 +1,7 @@
 #include "Renderer.h"
 #include "GameState.h"
+#include "../config.h"
+#include "FileLoader.h"
 
 Renderer::Renderer() {}
 
@@ -63,9 +65,22 @@ void Renderer::render(std::shared_ptr<GameObject> gameObject) {
     pShader->setVec3("fogColor", glm::vec3(0.5f, 0.5f, 0.5f));
     pShader->setFloat("fogDensity", 0.05f);
 
+    // @DEBUG
+    const Mesh& dbgCube = FileLoader::loadMeshFromOBJ(CFG_OBJECTS_DIR "cube.obj");
+    const AABBCollider& c = gameObject->mAABBCollider;
+    glm::mat4 mat = glm::translate(glm::mat4(1.0f), c.getCenter());
+    mat = glm::scale(mat, c.max - c.min);
+    mat = glm::scale(mat, transform.getScale());
+
+    /* glm::mat4 mat = glm::scale(glm::mat4(1.0f), c.getMax() - c.getMin()); */
+    /* mat = glm::translate(mat, c.getCenter()); */
+
     if (gameObject->mSelected) {
         mesh.render(GL_LINE_STRIP, true);
     } else {
         mesh.render(gameObject->mRenderingMode, gameObject->mRenderByTriangles);
     }
+    pShader->setMat4("model", mat);
+    pShader->setVec3("objectColor", glm::vec3(0.0f, 1.0f, 0.0f));
+    dbgCube.render(GL_LINE_STRIP, true);
 }

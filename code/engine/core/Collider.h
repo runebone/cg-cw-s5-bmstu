@@ -13,20 +13,22 @@ public:
     AABBCollider(std::vector<glm::vec3> vertices);
 
     void update(std::vector<glm::vec3> vertices);
+    void update();
 
     void setTransform(Transform *transform)
     {
         pTransform = transform;
     }
 
-    glm::vec3 getMax();
-    glm::vec3 getMin();
-    glm::vec3 getCenter();
+    glm::vec3 getMax() const;
+    glm::vec3 getMin() const;
+    glm::vec3 getCenter() const;
 
-private:
+/* private: */ // @XXX need public for render
     Transform* pTransform;
     glm::vec3 max{0};
     glm::vec3 min{0};
+    std::vector<glm::vec3> mVertices;
 };
 
 class ConvexHullCollider {
