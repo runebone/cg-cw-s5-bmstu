@@ -10,6 +10,8 @@ set(INCS_DIR /nix/var/nix/profiles/per-user/human/profile/include)
 set(SOURCE
     ${SOURCE_DIR}/core/Camera.cpp
     ${SOURCE_DIR}/core/Camera.h
+    ${SOURCE_DIR}/core/Collider.cpp
+    ${SOURCE_DIR}/core/Collider.h
     ${SOURCE_DIR}/core/Engine.cpp
     ${SOURCE_DIR}/core/Engine.h
     ${SOURCE_DIR}/core/ErrorCode.h
