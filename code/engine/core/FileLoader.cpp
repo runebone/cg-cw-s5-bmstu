@@ -73,3 +73,34 @@ Mesh FileLoader::loadMeshFromOBJ(const std::string &filepath) {
 
     return Mesh(vertices, indices);
 }
+
+std::vector<glm::vec3> FileLoader::getVerticesFromOBJ(const std::string &filepath) {
+    std::fstream file(filepath);
+
+    assert(file.is_open());
+
+    std::stringstream ss;
+    ss << file.rdbuf();
+    file.close();
+
+    std::string line;
+    std::string prefix;
+    std::vector<glm::vec3> vertices;
+    glm::vec3 v;
+    f32 x, y, z;
+
+    while (std::getline(ss, line)) {
+        std::istringstream iss(line);
+
+        iss >> prefix;
+
+        if (prefix == "v") {
+            if (iss >> x >> y >> z) {
+                v = glm::vec3(x, y, z);
+                vertices.push_back(v);
+            }
+        }
+    }
+
+    return vertices;
+}
