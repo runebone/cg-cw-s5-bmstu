@@ -4,7 +4,10 @@
 #include "../config.h"
 
 // @XXX mCamera(nullptr)
-GameObject::GameObject(std::string id) : mId(id), mCamera(nullptr), mColor(1, 1, 1) {}
+GameObject::GameObject(std::string id) : mId(id), mCamera(nullptr), mColor(1, 1, 1) {
+    mAABBCollider.setTransform(&mTransform);
+    mConvexHullCollider.setTransform(&mTransform);
+}
 
 GameObject::~GameObject() {}
 
@@ -35,6 +38,7 @@ glm::vec3 GameObject::getScale() const {
 void GameObject::setMesh(Mesh&& mesh) {
     if (!mHasMesh) mHasMesh = true;
     mMesh = std::move(mesh);
+    genAABBColliderFromMesh(); // @XXX shouldn't be here probably
 }
 
 const Mesh& GameObject::getMesh() const {
@@ -50,8 +54,19 @@ glm::vec3 GameObject::getColor() const {
 }
 
 void GameObject::update(f32 deltaTime) {
-    glm::vec3 r = getRotation();
-    setRotation({r.x, r.y + deltaTime, r.z});
+    /* glm::vec3 r = getRotation(); */
+    /* setRotation({r.x, r.y + deltaTime, r.z}); */
+}
+
+void GameObject::genAABBColliderFromMesh() {
+    std::vector<glm::vec3> vertexPositions;
+    std::vector<Vertex> vertices = mMesh.getVertices();
+
+    for (auto& v : vertices) {
+        vertexPositions.push_back(v.position);
+    }
+
+    mAABBCollider.update(vertexPositions);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -78,6 +78,7 @@ void InputManager::processInput(GLFWwindow *window) {
         const auto &pGameObject = gs.getSelectedObject();
         glm::vec3 p = pGameObject->getPos();
         glm::vec3 s = pGameObject->getScale();
+        glm::vec3 r = pGameObject->getRotation();
         f32 dt = 2 * deltaTime;
         f32 sf = 0.001;
 
@@ -104,6 +105,24 @@ void InputManager::processInput(GLFWwindow *window) {
         }
         if (glfwGetKey(window, GLFW_KEY_RIGHT_BRACKET) == GLFW_PRESS) {
             pGameObject->setScale({s.x + sf, s.y + sf, s.z + sf});
+        }
+        if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
+            pGameObject->setRotation({r.x - dt, r.y, r.z});
+        }
+        if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+            pGameObject->setRotation({r.x, r.y - dt, r.z});
+        }
+        if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
+            pGameObject->setRotation({r.x, r.y + dt, r.z});
+        }
+        if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+            pGameObject->setRotation({r.x + dt, r.y, r.z});
+        }
+        if (glfwGetKey(window, GLFW_KEY_PAGE_DOWN) == GLFW_PRESS) {
+            pGameObject->setRotation({r.x, r.y, r.z - dt});
+        }
+        if (glfwGetKey(window, GLFW_KEY_PAGE_UP) == GLFW_PRESS) {
+            pGameObject->setRotation({r.x, r.y, r.z + dt});
         }
         if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
             if (!keyWasPressedLastFrame[GLFW_KEY_X]) {

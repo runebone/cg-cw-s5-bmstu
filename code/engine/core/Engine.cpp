@@ -59,9 +59,11 @@ ErrorCode Engine::update() {
     gs.mLastFrameTime = currentFrameTime;
 
     // @TODO Handle cases when deltaTime > some constant
+    
+    std::shared_ptr<Scene> scene = gs.getScene();
 
-    mPhysicsEngine.update(deltaTime);
-    gs.getScene()->update(deltaTime);
+    mPhysicsEngine.update(deltaTime, scene->getGameObjects());
+    scene->update(deltaTime);
 
     return ErrorCode::Ok;
 }

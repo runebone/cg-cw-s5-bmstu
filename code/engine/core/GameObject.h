@@ -10,6 +10,7 @@
 #include "RigidBody.h"
 #include "Light.h"
 #include "Camera.h"
+#include "Collider.h"
 
 class GameObject {
 public:
@@ -37,18 +38,27 @@ public:
     void update(f32 deltaTime);
 
     bool isRenderable() const { return mHasMesh; }
+    bool isCollidable() const { return mIsCollidable; }
+    bool hasRigidBody() const { return mHasRigidBody; }
 
     // Color
     void setColor(const glm::vec3& color);
     glm::vec3 getColor() const;
 
 private:
+    void genAABBColliderFromMesh();
+
+private:
     // @XXX I know, it better be dynamic components
     /* Transform mTransform; */
     Mesh mMesh;
-    RigidBody mRigidBody;
     Light mLight;
     Camera mCamera;
+
+public: // @XXX shouldn't be public probably
+    RigidBody mRigidBody;
+    AABBCollider mAABBCollider;
+    ConvexHullCollider mConvexHullCollider;
 
 public: // @TODO remove public; needed to test UI colorbox
     glm::vec3 mColor;
@@ -57,15 +67,16 @@ public: // @TODO remove public; needed to test UI colorbox
 // @TODO: Getters setters
 public:
     u32  mRenderingMode = GL_TRIANGLES;
-    bool mRenderByTriangles = false;
+    bool mRenderByTriangles = 0;
     bool mSelected = 0;
 
 private:
     bool mHasTransform = 0;
     bool mHasMesh = 0;
-    bool mHasRigidBody = 0;
     bool mHasLight = 0;
     bool mHasCamera = 0;
+    bool mHasRigidBody = 1;
+    bool mIsCollidable = 1;
 
     std::string mId;
 };

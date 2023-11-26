@@ -13,7 +13,10 @@ void Transform::setRotation(const glm::vec3& rotation) {
 }
 
 void Transform::setScale(const glm::vec3& scale) {
-    mScale = scale;
+    // @FIXME AABB doen't work right with negative scaling for some reason
+    if (scale.x >= 0 && scale.y >= 0 && scale.z >= 0) {
+        mScale = scale;
+    }
 }
 
 glm::vec3 Transform::getPos() const {

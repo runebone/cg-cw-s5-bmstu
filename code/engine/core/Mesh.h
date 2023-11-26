@@ -9,7 +9,7 @@
 struct Vertex {
     glm::vec3 position;
     // NOTE If you don't initialize, you'll get UB
-    glm::vec3 normal = glm::vec3{0};
+    glm::vec3 normal{0};
 };
 
 typedef glm::vec<3, Vertex> Face;
@@ -27,6 +27,8 @@ public:
 
     void render(u32 mode, bool byTriangles = false) const;
     void render() const;
+
+    std::vector<Vertex> getVertices() { return mVertices; }
 
 private:
     std::vector<Vertex> mVertices;
