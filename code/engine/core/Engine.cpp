@@ -150,7 +150,11 @@ ErrorCode Engine::initializeScene() {
 
     pTeapot->setColor({1, 0.5, 0.31});
     pUVSphere->setColor({0.31, 0.78, 0.47});
+
     pCube->setColor({0.53, 0.81, 0.92});
+    pCube->setPos({0, -2, 0});
+    pCube->setScale({1000, 0.1, 1000});
+    pCube->makeStatic();
 
     pMonkey->setPos(glm::vec3(-1, 1, 1));
     pMonkey->setScale(glm::vec3(0.5, 0.5, 0.5));

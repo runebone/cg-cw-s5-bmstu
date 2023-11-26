@@ -45,6 +45,10 @@ public:
     void setColor(const glm::vec3& color);
     glm::vec3 getColor() const;
 
+    void makeStatic() { mRigidBody.mType = BodyType::Static; }
+    void makeDynamic() { mRigidBody.mType = BodyType::Dynamic; }
+    void makeKinematic() { mRigidBody.mType = BodyType::Kinematic; }
+
 private:
     void genAABBColliderFromMesh();
 

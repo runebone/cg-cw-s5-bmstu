@@ -1,11 +1,11 @@
 #include "Transform.h"
 
-Transform::Transform() : mPosition(0.0f), mRotation(0.0f), mScale(1.0f) {}
+Transform::Transform() : mPos(0.0f), mRotation(0.0f), mScale(1.0f) {}
 
 Transform::~Transform() {}
 
 void Transform::setPos(const glm::vec3& position) {
-    mPosition = position;
+    mPos = position;
 }
 
 void Transform::setRotation(const glm::vec3& rotation) {
@@ -20,7 +20,7 @@ void Transform::setScale(const glm::vec3& scale) {
 }
 
 glm::vec3 Transform::getPos() const {
-    return mPosition;
+    return mPos;
 }
 
 glm::vec3 Transform::getRotation() const {
@@ -32,7 +32,7 @@ glm::vec3 Transform::getScale() const {
 }
 
 glm::mat4 Transform::getTransformMatrix() const {
-    glm::mat4 mat = glm::translate(glm::mat4(1.0f), mPosition);
+    glm::mat4 mat = glm::translate(glm::mat4(1.0f), mPos);
     mat = glm::rotate(mat, mRotation.x, glm::vec3(1, 0, 0));
     mat = glm::rotate(mat, mRotation.y, glm::vec3(0, 1, 0));
     mat = glm::rotate(mat, mRotation.z, glm::vec3(0, 0, 1));

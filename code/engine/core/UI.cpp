@@ -57,7 +57,7 @@ void UI::render() {
 
         ImGui::Text("ID: %s", pGameObject->getId().c_str());
         ImGui::ColorEdit3("Цвет", (f32*)&pGameObject->mColor);
-        ImGui::InputFloat3("Положение", (f32*)&pGameObject->mTransform.mPosition);
+        ImGui::InputFloat3("Положение", (f32*)&pGameObject->mTransform.mPos);
         ImGui::InputFloat3("Поворот", (f32*)&pGameObject->mTransform.mRotation);
         ImGui::InputFloat3("Увеличение", (f32*)&pGameObject->mTransform.mScale);
     }

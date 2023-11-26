@@ -21,7 +21,7 @@ public:
 
 /* private: */
 public: // @XXX public for UI
-    glm::vec3 mPosition;
+    glm::vec3 mPos;
     glm::vec3 mRotation; // Euler angles
     glm::vec3 mScale;
 };

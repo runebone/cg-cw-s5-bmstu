@@ -7,6 +7,7 @@
 GameObject::GameObject(std::string id) : mId(id), mCamera(nullptr), mColor(1, 1, 1) {
     mAABBCollider.setTransform(&mTransform);
     mConvexHullCollider.setTransform(&mTransform);
+    mRigidBody.pTransform = &mTransform;
 }
 
 GameObject::~GameObject() {}
