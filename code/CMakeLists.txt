@@ -25,8 +25,6 @@ set(SOURCE
     ${SOURCE_DIR}/core/Light.h
     ${SOURCE_DIR}/core/Mesh.cpp
     ${SOURCE_DIR}/core/Mesh.h
-    ${SOURCE_DIR}/core/PhysicsEngine.cpp
-    ${SOURCE_DIR}/core/PhysicsEngine.h
     ${SOURCE_DIR}/core/Renderer.cpp
     ${SOURCE_DIR}/core/Renderer.h
     ${SOURCE_DIR}/core/RigidBody.cpp
