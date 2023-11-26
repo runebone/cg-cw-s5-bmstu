@@ -21,6 +21,7 @@ public:
 
     glm::vec3 getMax();
     glm::vec3 getMin();
+    glm::vec3 getCenter();
 
 private:
     Transform* pTransform;

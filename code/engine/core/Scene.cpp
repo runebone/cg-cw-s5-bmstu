@@ -15,6 +15,8 @@ void Scene::removeGameObject(const std::string& id) {
         std::remove_if(mGameObjects.begin(), mGameObjects.end(),
                        [&id](const std::shared_ptr<GameObject>& obj) { return obj->getId() == id; }),
         mGameObjects.end());
+
+    printf("%s died\n", id.c_str()); // @DEBUG
 }
 
 std::shared_ptr<GameObject> Scene::getGameObject(const std::string& id) const {
@@ -57,7 +59,15 @@ std::shared_ptr<GameObject> Scene::selectPrevObject() {
 }
 
 void Scene::update(float deltaTime) {
+    std::vector<std::string> shouldDieList;
     for (auto& gameObject : mGameObjects) {
         gameObject->update(deltaTime);
+        // @XXX tmp
+        if (gameObject->mTransform.mPos.y < -1000) {
+            shouldDieList.push_back(gameObject->getId());
+        }
+    }
+    for (auto& id : shouldDieList) {
+        removeGameObject(id);
     }
 }

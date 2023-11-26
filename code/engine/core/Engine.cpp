@@ -156,9 +156,9 @@ ErrorCode Engine::initializeScene() {
     pCube->setScale({1000, 0.1, 1000});
     pCube->makeStatic();
 
-    pMonkey->setPos(glm::vec3(-1, 1, 1));
+    pMonkey->setPos(glm::vec3(5, 1, 1));
     pMonkey->setScale(glm::vec3(0.5, 0.5, 0.5));
-    pScene->addGameObject(pMonkey);
+    /* pScene->addGameObject(pMonkey); */
 
     return ErrorCode::Ok;
 }

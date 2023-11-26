@@ -1,5 +1,8 @@
 #include "PhysicsEngine.h"
 
+#include <algorithm>
+#include <cmath>
+
 PhysicsEngine::PhysicsEngine() {}
 
 PhysicsEngine::~PhysicsEngine() {}
@@ -38,7 +41,7 @@ void PhysicsEngine::detectCollisions() {
                     // @HERE
                 }
                 printf("%s collides with %s\n", objectA->getId().c_str(), objectB->getId().c_str());
-                mCollisions.push_back(CollisionInfo());
+                mCollisions.push_back({objectA, objectB});
             }
         }
     }
@@ -47,7 +50,67 @@ void PhysicsEngine::detectCollisions() {
     }
 }
 
+void resolveCollision(std::shared_ptr<GameObject> objectA, std::shared_ptr<GameObject> objectB) {
+    RigidBody& rigidBodyA = objectA->mRigidBody;
+    AABBCollider& colliderA = objectA->mAABBCollider;
+    Transform& transformA = objectA->mTransform;
+    glm::vec3 minA = colliderA.getMin();
+    glm::vec3 maxA = colliderA.getMax();
+    glm::vec3 centerA = colliderA.getCenter();
+
+    RigidBody& rigidBodyB = objectB->mRigidBody;
+    AABBCollider& colliderB = objectB->mAABBCollider;
+    Transform& transformB = objectB->mTransform;
+    glm::vec3 minB = colliderB.getMin();
+    glm::vec3 maxB = colliderB.getMax();
+    glm::vec3 centerB = colliderB.getCenter();
+
+    // Compute the relative mass ratio
+    float totalMass = rigidBodyA.mMass + rigidBodyB.mMass;
+    float ratioA = rigidBodyA.mMass / totalMass;
+    float ratioB = rigidBodyB.mMass / totalMass;
+
+    if (rigidBodyA.isStatic() || rigidBodyB.isStatic()) {
+        totalMass = INFINITY;
+        ratioA = rigidBodyA.isStatic() ? 1 : 0;
+        ratioB = rigidBodyB.isStatic() ? 1 : 0;
+    }
+
+    // Calculate penetration depth in each axis
+    float penetrationDepthX = std::min(maxA.x - minB.x, maxB.x - minA.x);
+    float penetrationDepthY = std::min(maxA.y - minB.y, maxB.y - minA.y);
+    float penetrationDepthZ = std::min(maxA.z - minB.z, maxB.z - minA.z);
+
+    // Determine the axis of least penetration
+    float minPenetration = std::min({penetrationDepthX, penetrationDepthY, penetrationDepthZ});
+
+    glm::vec3 collisionNormal;
+    if (minPenetration == penetrationDepthX) {
+        collisionNormal = (centerA.x > centerB.x) ? glm::vec3(1, 0, 0) : glm::vec3(-1, 0, 0);
+    } else if (minPenetration == penetrationDepthY) {
+        collisionNormal = (centerA.y > centerB.y) ? glm::vec3(0, 1, 0) : glm::vec3(0, -1, 0);
+    } else {
+        collisionNormal = (centerA.z > centerB.z) ? glm::vec3(0, 0, 1) : glm::vec3(0, 0, -1);
+    }
+
+    // Adjust positions
+    transformA.mPos += collisionNormal * minPenetration * ratioB;
+    transformB.mPos -= collisionNormal * minPenetration * ratioA;
+
+    // Adjust velocities (basic response, can be improved)
+    rigidBodyA.mVelocity -= collisionNormal * glm::dot(rigidBodyA.mVelocity, collisionNormal) * ratioB;
+    rigidBodyB.mVelocity += collisionNormal * glm::dot(rigidBodyB.mVelocity, collisionNormal) * ratioA;
+}
+
 void PhysicsEngine::resolveCollisions() {
+    std::shared_ptr<GameObject> objectA;
+    std::shared_ptr<GameObject> objectB;
+    for (u32 i = 0; i < mCollisions.size(); ++i) {
+        objectA = mCollisions[i].objectA;
+        objectB = mCollisions[i].objectB;
+
+        resolveCollision(objectA, objectB);
+    }
 }
 
 bool AABBCollideAABB(std::shared_ptr<GameObject> objectA, std::shared_ptr<GameObject> objectB) {

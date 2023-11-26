@@ -40,3 +40,9 @@ glm::vec3 AABBCollider::getMin() {
     glm::vec4 v{min, 1.0f};
     return m * v;
 }
+
+glm::vec3 AABBCollider::getCenter() {
+    glm::mat4 m = pTransform->getTransformMatrix();
+    glm::vec4 v{0.5f * (min + max), 1.0f};
+    return m * v;
+}
