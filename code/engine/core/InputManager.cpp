@@ -89,7 +89,7 @@ void InputManager::processInput(GLFWwindow *window) {
             pGameObject->setPos({p.x, p.y - dt, p.z});
         }
         if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS) {
-            pGameObject->setPos({p.x, p.y + dt, p.z});
+            pGameObject->setPos({p.x, p.y + 10 * dt, p.z});
         }
         if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS) {
             pGameObject->setPos({p.x + dt, p.y, p.z});

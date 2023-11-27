@@ -1,6 +1,7 @@
 #include "Engine.h"
 
 #include "FileLoader.h"
+#include "GameObject.h"
 #include "GameState.h"
 #include "../config.h"
 
@@ -142,7 +143,8 @@ ErrorCode Engine::initializeScene() {
     pTeapot->setPos(glm::vec3(-1, -1, 1));
     pTeapot->setScale(glm::vec3(0.3, 0.3, 0.3));
 
-    pUVSphere->setPos(glm::vec3(1, 1, -5));
+    pUVSphere->setPos(glm::vec3(1, 10, -5));
+    /* pUVSphere->setPos(glm::vec3(-1, 10, 1)); */
 
     auto pScene = gs.getScene();
     pScene->addGameObject(pTeapot);
@@ -152,11 +154,19 @@ ErrorCode Engine::initializeScene() {
     pTeapot->setColor({1, 0.5, 0.31});
     pUVSphere->setColor({0.31, 0.78, 0.87});
 
-    pCube->setColor({0.2, 0.2, 0.20});
+    pCube->setColor({0.2, 0.3, 0.15});
     pCube->setPos({0, -2, 0});
     pCube->setScale({2000, 0.1, 2000});
     pCube->makeStatic();
 
+    auto c = createCube("floor2");
+    c->setColor({0.2, 0.2, 0.2});
+    c->setPos({0, -10, 0});
+    c->setScale({2000, 0.1, 2000});
+    c->makeStatic();
+    pScene->addGameObject(c);
+
+    pMonkey->makeStatic();
     pMonkey->setPos(glm::vec3(-1, 2, -3));
     pMonkey->setScale(glm::vec3(0.5, 0.5, 0.5));
     pScene->addGameObject(pMonkey);
