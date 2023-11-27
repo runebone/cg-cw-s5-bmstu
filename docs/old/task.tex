@@ -1,34 +1,33 @@
 \thispagestyle{empty}
 
-\fontsize{12pt}{12pt}\selectfont
 \begin{center}
-    % \fbox
-    {
-        % \begin{minipage}{0.15\textwidth}
-        %     \includegraphics[width=\linewidth]{img/bmstu_logo.jpg}
-        % \end{minipage}
-        % \hfill
+    \fontsize{12pt}{12pt}\selectfont
+    \begin{minipage}{0.15\textwidth}
+        \includegraphics[width=\linewidth]{img/bmstu_logo.jpg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.80\textwidth}\centering\bfseries
+        {\linespread{1}\selectfont
+        {Министерство науки и высшего образования Российской Федерации}
 
-        % \vrule
-        % \hspace{0.2cm}
+        {Федеральное государственное бюджетное~образовательное~учреждение высшего образования}
 
-        \begin{minipage}{0.99\textwidth}\centering\bfseries
-            {
-                \linespread{1}\selectfont
-                {Министерство науки и высшего образования Российской Федерации}
+        {<<Московский государственный технический университет имени~Н.~Э.~Баумана (национальный~исследовательский~университет)>>}
 
-                {Федеральное государственное бюджетное~образовательное~учреждение высшего образования}
+        {(МГТУ им. Н.~Э.~Баумана)}
+        }
+    \end{minipage}
 
-                {<<Московский государственный технический университет имени~Н.~Э.~Баумана (национальный~исследовательский~университет)>>}
+    \vspace{0.5cm}
+    \rule{\linewidth}{0.4pt}
 
-                {(МГТУ им. Н.~Э.~Баумана)}
-            }
-        \end{minipage}
-    }
+    % \begin{flushleft}
+    %     {ФАКУЛЬТЕТ \uline{ИУ <<Информатика, искусственный интеллект и системы управления>> \hfill}}
 
-    \vspace{0.2cm}
+    %     \vspace{0.5cm}
 
-    \rule{\linewidth}{3.4pt}
+    %     {КАФЕДРА \uline{ИУ7 <<Программное обеспечение ЭВМ и информационные технологии>> \hfill}}
+    % \end{flushleft}
 \end{center}
 
 \fontsize{11pt}{11pt}\selectfont
@@ -37,13 +36,11 @@
 
         УТВЕРЖДАЮ \hspace{2.5cm}
 
-        % Заведующий кафедрой~\ulinetext[2cm]{(Индекс)}{ИУ7}
-        Заведующий кафедрой~\ulinetext[2cm]{}{ИУ7}
+        Заведующий кафедрой~\ulinetext[2cm]{(Индекс)}{ИУ7}
 
         \vspace{0.3cm}
 
-        % \ulinetext{}{} \ulinetext{\hfill (И. О. Фамилия)}{И. В. Рудаков}
-        \ulinetext{}{} \ulinetext{}{И. В. Рудаков}
+        \ulinetext{}{} \ulinetext{\hfill (И. О. Фамилия)}{И. В. Рудаков}
 
         \vspace{0.3cm}
 
@@ -54,69 +51,77 @@
 \begin{center}\linespread{1}\selectfont
     \Large{\textbf{ЗАДАНИЕ}}
 
-    \large{\textbf{на прохождение производственной практики}}
-
-    \large{\ulinetext[0.7\textwidth]{Тип практики}{Технологическая}}
+    \large{\textbf{на выполнение курсовой работы}}
 \end{center}
 
-\fontsize{14pt}{14pt}\selectfont
+\noindent по дисциплине \uline{\hspace{1cm} Компьютерная графика \hfill}
 
-\noindent Студент \uline{\hfill Рунов Константин Алексеевич \hfill} \ulinetext[1cm]{№ курса}{2} курса группы \ulinetext{индекс группы}{ИУ7-44Б}
-
-\vspace{0.3cm}
-
-\noindent в период с \ulinetext[1cm]{}{01}.\ulinetext[1cm]{}{07}.2023 г. по \ulinetext[1cm]{}{21}.\ulinetext[1cm]{}{07}.2023 г.
+\noindent Студент группы \ulinetext{}{ИУ7-54Б}
 
 \vspace{0.3cm}
 
-\noindent \textit{Предприятие:} \uline{\hfill НУК ИУ МГТУ им. Н. Э. Баумана \hfill}
+\noindent \ulinetext[\textwidth]{(Фамилия, имя, отчество)}{Рунов Константин Алексеевич}
 
 \vspace{0.3cm}
 
-% \noindent \textit{Подразделение:} \uline{\hfill}
+\noindent \begin{tabularx}{\linewidth}{@{}X@{}}
+Тема курсовой работы \uline{
+    Разработка программы для моделирования столкновений объектов в виртуальном пространстве.
+    \hfill
+    }
+\end{tabularx}
 
-% \vspace{0.3cm}
-
-% \noindent \textit{Руководитель практики от предприятия (наставник):}
-
-% \noindent \ulinetext[\linewidth]{(Фамилия Имя Отчество полностью, должность)}{\hfill}
-
-% \vspace{0.3cm}
-
-\noindent \textit{Руководитель практики от кафедры:}
-
-\noindent \ulinetext[\linewidth]{(Фамилия Имя Отчество полностью)
-% , должность)
-}{\hfill Куров Андрей Владимирович \hfill}
+% \noindent \uline{\hfill}
 
 \vspace{0.3cm}
 
-\noindent \textit{Задание:}
+\noindent Направленность КР (учебная, исследовательская, практическая, производственная, др.)
+\noindent \uline{\hfill учебная \hfill}
 
-\noindent \textbf{1.} Исследовать алгоритмы для разработки программы моделирования упругих столкновений объектов в пространстве.
+\noindent Источник тематики (кафедра, предприятие, НИР)
+\noindent \ulinetext[8.3cm]{}{\hfill каферда \hfill}
 
-\noindent \textbf{2.} Обосновать выбор алгоритмов,
-% и структур данных,
-которые будут использованы при разработке программного обеспечения для моделирования упругих столкновений объектов в пространстве.
+\vspace{0.3cm}
 
-\noindent \textbf{3.} Приступить к разработке программы для моделирования упругих столкновений объектов в пространстве.
+\noindent График выполнения работы: 25\% к \ulinetext[0.5cm]{}{4} нед., 50\% к \ulinetext[0.5cm]{}{7} нед., 75\% к \ulinetext[0.5cm]{}{11} нед., 100\% к \ulinetext[0.5cm]{}{14} нед.
+
+\vspace{0.3cm}
+
+% @{} to eliminate edges of tabular
+\noindent \begin{tabularx}{\linewidth}{@{}X@{}}
+    \textbf{\textit{Задание}} \uline{
+Разработать программу для моделирования столкновений объектов друг с другом. Пользователь должен иметь возможность создавать объекты: куб, шар, чайник, прямоугольный параллелепипед. Пользователь должен иметь возможность изменять свойста создаваемых объектов: размер, местоположение, цвет, масса, начальная скорость, а также иметь возможность изменять положение камеры и устанавливать значение гравитации. Программа должна моделировать реалистичное движение и столкновение объектов друг с другом, учитывая освещение сцены.
+        \hfill}
+\end{tabularx}
+
+\vspace{0.3cm}
+
+\noindent \textbf{\textit{Оформление курсовой работы:}}
+
+\noindent Расчётно-пояснительная записка на \uline{25-30} листах формата А4.
+
+% \noindent \uline{\hfill}
+
+% \noindent \uline{\hfill}
+
+\noindent \begin{tabularx}{\linewidth}{@{}X@{}}
+    \uline{
+Расчетно-пояснительная записка должна содержать постановку, введение, аналитическую часть, конструкторскую часть, технологическую часть, экспериментально-исследовательский раздел, заключение, список литературы, приложения.\hfill
+        \hfill}
+\end{tabularx}
+
+\vspace{0.3cm}
+
+\noindent Дата выдачи задания << \uline{\hspace{0.5cm}} >> \uline{\hspace{2cm}} \the\year \ г.
+
+\vspace{0.3cm}
+
+\noindent \textbf{Руководитель курсовой работы} \hfill \ulinetext{(Подпись, дата)}{} \ulinetext[4cm]{\hfill (И. О. Фамилия)}{\hfill А. А. Павельев}
+
+\vspace{0.3cm}
+
+\thispagestyle{empty}
+
+\noindent \textbf{Студент} \hfill \ulinetext{(Подпись, дата)}{} \ulinetext[4cm]{\hfill (И. О. Фамилия)}{\hfill К. А. Рунов}
 
 \vfill
-
-\noindent Дата выдачи задания <<\ulinetext[1cm]{}{01}>>\ulinetext{}{июля} 2023 г.
-
-\vspace{1cm}
-
-% \noindent Руководитель практики от предприятия \hfill \ulinetext[2cm]{}{}/\ulinetext[4cm]{}{}/
-
-% \vspace{0.3cm}
-
-\noindent Руководитель практики от кафедры \hfill \ulinetext[2cm]{}{}/\ulinetext[4cm]{}{\hfill Куров А. В. \hfill}/
-
-\vspace{0.3cm}
-
-\noindent Студент \hfill \ulinetext[2cm]{}{}/\ulinetext[4cm]{}{\hfill Рунов К. А. \hfill}/
-
-\vfill
-
-% \noindent Дата выдачи задания << \uline{\hspace{0.5cm}} >> \uline{\hspace{2cm}} \the\year \ г.
