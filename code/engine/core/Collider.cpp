@@ -68,21 +68,33 @@ void AABBCollider::update() {
 }
 
 glm::vec3 AABBCollider::getMax() const {
-    glm::mat4 m = pTransform->getTransformMatrix();
+    glm::vec3 pos = pTransform->getPos();
+    glm::vec3 scale = pTransform->getScale();
+    glm::mat4 m = glm::translate(glm::mat4(1.0f), pos);
+    m = glm::scale(m, scale);
+    /* glm::mat4 m = pTransform->getTransformMatrix(); */
     glm::vec4 v{max, 1.0f};
     return m * v;
     /* return max; */
 }
 
 glm::vec3 AABBCollider::getMin() const {
-    glm::mat4 m = pTransform->getTransformMatrix();
+    glm::vec3 pos = pTransform->getPos();
+    glm::vec3 scale = pTransform->getScale();
+    glm::mat4 m = glm::translate(glm::mat4(1.0f), pos);
+    m = glm::scale(m, scale);
+    /* glm::mat4 m = pTransform->getTransformMatrix(); */
     glm::vec4 v{min, 1.0f};
     return m * v;
     /* return min; */
 }
 
 glm::vec3 AABBCollider::getCenter() const {
-    glm::mat4 m = pTransform->getTransformMatrix();
+    glm::vec3 pos = pTransform->getPos();
+    glm::vec3 scale = pTransform->getScale();
+    glm::mat4 m = glm::translate(glm::mat4(1.0f), pos);
+    m = glm::scale(m, scale);
+    /* glm::mat4 m = pTransform->getTransformMatrix(); */
     glm::vec4 v{0.5f * (min + max), 1.0f};
     return m * v;
     /* return 0.5f * (min + max); */
