@@ -152,7 +152,7 @@ ErrorCode Engine::initializeScene() {
     pTeapot->setColor({1, 0.5, 0.31});
     pUVSphere->setColor({0.31, 0.78, 0.87});
 
-    pCube->setColor({0.53, 0.81, 0.32});
+    pCube->setColor({0.2, 0.2, 0.20});
     pCube->setPos({0, -2, 0});
     pCube->setScale({2000, 0.1, 2000});
     pCube->makeStatic();

@@ -55,7 +55,7 @@ void Renderer::render(std::shared_ptr<GameObject> gameObject) {
     pShader->setMat4("projection", projection);
 
     // phong.frag, fog.frag
-    pShader->setVec3("lightPos", glm::vec3(1.0f, 1.0f, 1.0f));
+    pShader->setVec3("lightPos", glm::vec3(1.0f, 1000.0f, 1.0f));
     pShader->setVec3("viewPos", glm::vec3(1.0f, 1.0f, 1.0f));
     pShader->setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
     pShader->setVec3("objectColor", color);
