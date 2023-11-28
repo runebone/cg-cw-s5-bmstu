@@ -42,6 +42,7 @@ void PhysicsEngine::detectCollisions() {
                 }
                 printf("%s collides with %s\n", objectA->getId().c_str(), objectB->getId().c_str());
                 mCollisions.push_back({objectA, objectB});
+                mCollisions.push_back({objectB, objectA});
             }
         }
     }
