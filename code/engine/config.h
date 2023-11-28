@@ -12,4 +12,11 @@
 
 #define CFG_WINDOW_NAME "Runov IU7-54B Engine"
 
+#include <glm/glm.hpp>
+
+extern float gTargetFPS;
+extern glm::vec3 gGravity;
+extern float gStaticFrictionCoef;
+extern float gKineticFrictionCoef;
+
 #endif // __CONFIG_H__

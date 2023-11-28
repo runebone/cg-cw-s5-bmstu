@@ -83,22 +83,22 @@ void InputManager::processInput(GLFWwindow *window) {
         f32 sf = 0.001;
 
         if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS) {
-            pGameObject->setPos({p.x - dt, p.y, p.z});
+            pGameObject->setPos({p.x - 5 * dt, p.y, p.z});
         }
         if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS) {
-            pGameObject->setPos({p.x, p.y - dt, p.z});
+            pGameObject->setPos({p.x, p.y - 10 * dt, p.z});
         }
         if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS) {
             pGameObject->setPos({p.x, p.y + 10 * dt, p.z});
         }
         if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS) {
-            pGameObject->setPos({p.x + dt, p.y, p.z});
+            pGameObject->setPos({p.x + 5 * dt, p.y, p.z});
         }
         if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS) {
-            pGameObject->setPos({p.x, p.y, p.z - dt});
+            pGameObject->setPos({p.x, p.y, p.z - 5 * dt});
         }
         if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
-            pGameObject->setPos({p.x, p.y, p.z + dt});
+            pGameObject->setPos({p.x, p.y, p.z + 5 * dt});
         }
         if (glfwGetKey(window, GLFW_KEY_LEFT_BRACKET) == GLFW_PRESS) {
             pGameObject->setScale({s.x - sf, s.y - sf, s.z - sf});

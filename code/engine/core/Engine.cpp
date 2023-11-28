@@ -145,6 +145,7 @@ ErrorCode Engine::initializeScene() {
 
     pUVSphere->setPos(glm::vec3(1, 10, -5));
     /* pUVSphere->setPos(glm::vec3(-1, 10, 1)); */
+    pUVSphere->mRigidBody.setMass(10);
 
     auto pScene = gs.getScene();
     pScene->addGameObject(pTeapot);
@@ -155,8 +156,8 @@ ErrorCode Engine::initializeScene() {
     pUVSphere->setColor({0.31, 0.78, 0.87});
 
     pCube->setColor({0.2, 0.3, 0.15});
-    pCube->setPos({0, -2, 0});
-    pCube->setScale({2000, 0.1, 2000});
+    pCube->setPos({0, -52, 0});
+    pCube->setScale({2000, 100.1, 2000});
     pCube->makeStatic();
 
     auto c = createCube("floor2");
@@ -164,9 +165,9 @@ ErrorCode Engine::initializeScene() {
     c->setPos({0, -10, 0});
     c->setScale({2000, 0.1, 2000});
     c->makeStatic();
-    pScene->addGameObject(c);
+    /* pScene->addGameObject(c); */
 
-    pMonkey->makeStatic();
+    /* pMonkey->makeStatic(); */
     pMonkey->setPos(glm::vec3(-1, 2, -3));
     pMonkey->setScale(glm::vec3(0.5, 0.5, 0.5));
     pScene->addGameObject(pMonkey);

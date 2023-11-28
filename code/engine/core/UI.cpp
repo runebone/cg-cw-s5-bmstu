@@ -48,20 +48,6 @@ void UI::render() {
     static GameState &gs = GameState::get();
 
     UI::render([](){
-    ImGui::SeparatorText("Свойства выбранного объекта");
-
-    if (!gs.isObjectSelected()) {
-        ImGui::Text("Выберите объект на N или P.");
-    } else {
-        const auto &pGameObject = gs.getSelectedObject();
-
-        ImGui::Text("ID: %s", pGameObject->getId().c_str());
-        ImGui::ColorEdit3("Цвет", (f32*)&pGameObject->mColor);
-        ImGui::InputFloat3("Положение", (f32*)&pGameObject->mTransform.mPos);
-        ImGui::InputFloat3("Поворот", (f32*)&pGameObject->mTransform.mRotation);
-        ImGui::InputFloat3("Увеличение", (f32*)&pGameObject->mTransform.mScale);
-    }
-
     ImGui::SeparatorText("Добавить объект");
 
     static s32 curItem = 0;
@@ -96,16 +82,49 @@ void UI::render() {
         ++idCounter;
     }
 
+    ImGui::SeparatorText("Свойства выбранного объекта");
+
+    if (!gs.isObjectSelected()) {
+        ImGui::Text("Выберите объект на N или P.");
+    } else {
+        const auto &pGameObject = gs.getSelectedObject();
+
+        ImGui::Text("ID: %s", pGameObject->getId().c_str());
+        ImGui::ColorEdit3("Цвет", (f32*)&pGameObject->mColor);
+        ImGui::Text("Геометрические свойства");
+        ImGui::InputFloat3("Положение", (f32*)&pGameObject->mTransform.mPos);
+        ImGui::InputFloat3("Поворот", (f32*)&pGameObject->mTransform.mRotation);
+        ImGui::InputFloat3("Увеличение", (f32*)&pGameObject->mTransform.mScale);
+        ImGui::Text("Физические свойства");
+        ImGui::InputFloat("Масса", (f32*)&pGameObject->mRigidBody.mMass);
+        ImGui::InputFloat3("Скорость", (f32*)&pGameObject->mRigidBody.mVelocity);
+        ImGui::InputFloat3("Ускорение", (f32*)&pGameObject->mRigidBody.mAcceleration);
+        ImGui::InputFloat3("Сила", (f32*)&pGameObject->mRigidBody.mForce);
+    }
+
+    ImGui::SeparatorText("Прочее");
+    ImGui::Text("Максимальная частота кадров\n(0 = неограничено)");
+    ImGui::InputFloat("###", (f32*)&gTargetFPS);
+    ImGui::Text("Гравитация");
+    ImGui::InputFloat3("####", (f32*)&gGravity);
+
+    static bool showCtrl = false;
     ImGui::SeparatorText("Управление");
-    ImGui::Text("ПКМ - управление камерой");
-    ImGui::Text("ЛКМ - управление курсором");
-    ImGui::Text("W, A, S, D - движение");
-    ImGui::Text("N, P - выбор объекта");
-    ImGui::Text("X - удалить выбранный объект");
-    ImGui::Text("H, L - перемещение объекта вдоль Ox");
-    ImGui::Text("J, K - перемещение объекта вдоль Oy");
-    ImGui::Text("I, O - перемещение объекта вдоль Oz");
-    ImGui::Text("R - сбросить выбор");
-    ImGui::Text("Q - выход");
+    ImGui::Checkbox("Показать управление", &showCtrl);
+    if (showCtrl)
+    {
+        ImGui::Begin("Controls");
+        ImGui::Text("ПКМ - управление камерой");
+        ImGui::Text("ЛКМ - управление курсором");
+        ImGui::Text("W, A, S, D - движение");
+        ImGui::Text("N, P - выбор объекта");
+        ImGui::Text("X - удалить выбранный объект");
+        ImGui::Text("H, L - перемещение объекта вдоль Ox");
+        ImGui::Text("J, K - перемещение объекта вдоль Oy");
+        ImGui::Text("I, O - перемещение объекта вдоль Oz");
+        ImGui::Text("R - сбросить выбор");
+        ImGui::Text("Q - выход");
+        ImGui::End();
+    }
     });
 }

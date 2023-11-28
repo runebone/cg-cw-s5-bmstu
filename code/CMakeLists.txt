@@ -41,6 +41,8 @@ set(SOURCE
     ${SOURCE_DIR}/core/Transform.h
     ${SOURCE_DIR}/core/UI.cpp
     ${SOURCE_DIR}/core/UI.h
+    ${SOURCE_DIR}/config.cpp
+    ${SOURCE_DIR}/config.h
     )
 
 

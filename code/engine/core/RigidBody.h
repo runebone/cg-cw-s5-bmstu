@@ -19,6 +19,8 @@ public:
     void applyForce(const glm::vec3& force);
     void update(f32 deltaTime);
 
+    void setMass(f32 mass) { mMass = mass; }
+
     bool isStatic() { return mType == BodyType::Static; }
 
 // @TODO private; getter, setters, etc

@@ -1,9 +1,10 @@
 #include "RigidBody.h"
+#include "../config.h"
 
 RigidBody::RigidBody() 
         : mType(BodyType::Dynamic), 
           mVelocity(glm::vec3(0.0f)), 
-          mAcceleration(glm::vec3(0.0f, -9.81f, 0.0f)),
+          mAcceleration(gGravity),
           mForce(glm::vec3(0.0f)), 
           mMass(1.0f), 
           pTransform(nullptr) {}
@@ -32,5 +33,5 @@ void RigidBody::update(f32 deltaTime) {
 
         // Reset forces
         mForce = glm::vec3(0.0f);
-        mAcceleration = glm::vec3(0.0f, -9.81f, 0.0f); // Reset to gravity
+        mAcceleration = gGravity; // Reset to gravity
 }
