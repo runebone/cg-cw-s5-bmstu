@@ -14,7 +14,7 @@ $(PDF) : $(MAIN).tex *.tex report/*.tex
 
 bib: $(MAIN).tex *.tex report/*.tex
 	xelatex $(FLAGS) $<
-	bibtex $(MAIN).aux
+	# bibtex $(MAIN).aux
 	biber $(MAIN).bcf
 	xelatex $(FLAGS) $<
 	xelatex $(FLAGS) $<
