@@ -7,10 +7,7 @@
 #include "../util/typedefs.h"
 #include "ErrorCode.h"
 #include "Renderer.h"
-#include "Scene.h"
 #include "PhysicsEngine.h"
-#include "InputManager.h"
-#include "UI.h"
 
 class Engine {
 public:

@@ -1,5 +1,8 @@
 #include "Engine.h"
 
+#include "Scene.h"
+#include "InputManager.h"
+#include "UI.h"
 #include "FileLoader.h"
 #include "GameObject.h"
 #include "GameState.h"
