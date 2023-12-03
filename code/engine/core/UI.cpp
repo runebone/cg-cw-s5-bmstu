@@ -18,7 +18,7 @@ void UI::initialize(GLFWwindow *window) {
     io.FontDefault = font;
 
     // Setup Dear ImGui style
-    ImGui::StyleColorsLight();
+    /* ImGui::StyleColorsLight(); */
 
     // Setup Platform/Renderer backends
     ImGui_ImplGlfw_InitForOpenGL(window, true);
