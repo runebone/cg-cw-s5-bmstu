@@ -27,6 +27,7 @@ std::shared_ptr<Shader> Renderer::getShader() {
 
 void Renderer::render(std::shared_ptr<Scene> scene) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(0.06f, 0.12f, 0.20f, 1.0f);
     glEnable(GL_DEPTH_TEST); // @TODO Optional
 
     for (const auto& gameObject : scene->getGameObjects()) {
