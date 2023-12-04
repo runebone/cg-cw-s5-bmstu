@@ -8,6 +8,7 @@ GameObject::GameObject(std::string id) : mId(id), mCamera(nullptr), mColor(1, 1,
     mAABBCollider.setTransform(&mTransform);
     mConvexHullCollider.setTransform(&mTransform);
     mRigidBody.pTransform = &mTransform;
+    mRigidBody.pAABBCollider = &mAABBCollider; // @XXX There must be a better way
 }
 
 GameObject::~GameObject() {}
@@ -58,6 +59,7 @@ glm::vec3 GameObject::getColor() const {
 }
 
 void GameObject::update(f32 deltaTime) {
+    /* mRigidBody.applyForce(glm::vec3(1, 0, 0), glm::vec3(0, 0, 0)); */
 }
 
 void GameObject::genAABBColliderFromMesh() {

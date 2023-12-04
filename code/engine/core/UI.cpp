@@ -100,6 +100,17 @@ void UI::render() {
         ImGui::InputFloat3("Скорость", (f32*)&pGameObject->mRigidBody.mVelocity);
         ImGui::InputFloat3("Ускорение", (f32*)&pGameObject->mRigidBody.mAcceleration);
         ImGui::InputFloat3("Сила", (f32*)&pGameObject->mRigidBody.mForce);
+        ImGui::InputFloat3("Угловая скорость", (f32*)&pGameObject->mRigidBody.mAngularVelocity);
+        ImGui::InputFloat3("Угловое ускорение", (f32*)&pGameObject->mRigidBody.mAngularAcceleration);
+        ImGui::InputFloat3("Крутящий момент", (f32*)&pGameObject->mRigidBody.mTorque);
+
+        static glm::vec3 force = glm::vec3(0.0f);
+        static glm::vec3 pointOfApplication = glm::vec3(0.0f);
+        ImGui::InputFloat3("Сила##", (f32*)&force);
+        ImGui::InputFloat3("Точка приложения", (f32*)&pointOfApplication);
+        if (ImGui::Button("Приложить силу")) {
+            pGameObject->mRigidBody.applyForce(force, pointOfApplication);
+        }
     }
 
     ImGui::SeparatorText("Прочее");

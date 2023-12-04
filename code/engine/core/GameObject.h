@@ -49,6 +49,9 @@ public:
     void makeDynamic() { mRigidBody.mType = BodyType::Dynamic; }
     void makeKinematic() { mRigidBody.mType = BodyType::Kinematic; }
 
+    void setHasRigidBody(bool value) { mHasRigidBody = value; }
+    void setIsCollidable(bool value) { mIsCollidable = value; }
+
 private:
     void genAABBColliderFromMesh();
 
