@@ -8,7 +8,6 @@
 #include "Transform.h"
 #include "Mesh.h"
 #include "RigidBody.h"
-#include "Light.h"
 #include "Camera.h"
 #include "Collider.h"
 
@@ -59,7 +58,6 @@ private:
     // @XXX I know, it better be dynamic components
     /* Transform mTransform; */
     Mesh mMesh;
-    Light mLight;
     Camera mCamera;
 
 public: // @XXX shouldn't be public probably
@@ -80,7 +78,6 @@ public:
 private:
     bool mHasTransform = 0;
     bool mHasMesh = 0;
-    bool mHasLight = 0;
     bool mHasCamera = 0;
     bool mHasRigidBody = 1;
     bool mIsCollidable = 1;
