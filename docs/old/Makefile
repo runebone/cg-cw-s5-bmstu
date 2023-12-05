@@ -7,6 +7,10 @@ all:
 	# mkdir -p out
 	# mv report/*.aux *.aux *.log *.out *.toc *.bbl *.blg $(MAIN).bcf $(MAIN).run.xml *.synctex.gz out
 
+fast:
+	xelatex $(FLAGS) $<
+	mv $(MAIN).pdf $(PDF)
+
 $(PDF) : $(MAIN).tex *.tex report/*.tex
 	xelatex $(FLAGS) $<
 	xelatex $(FLAGS) $<
