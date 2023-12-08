@@ -23,8 +23,6 @@ set(SOURCE
     ${SOURCE_DIR}/core/GameState.h
     ${SOURCE_DIR}/core/InputManager.cpp
     ${SOURCE_DIR}/core/InputManager.h
-    ${SOURCE_DIR}/core/Light.cpp
-    ${SOURCE_DIR}/core/Light.h
     ${SOURCE_DIR}/core/Mesh.cpp
     ${SOURCE_DIR}/core/Mesh.h
     ${SOURCE_DIR}/core/PhysicsEngine.cpp
