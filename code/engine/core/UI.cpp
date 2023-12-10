@@ -62,8 +62,8 @@ void UI::render() {
         { "Куб",       [](){ gs.addObject(createCube(std::to_string(idCounter))); } },
         { "Ico Сфера", [](){ gs.addObject(createIcoSphere(std::to_string(idCounter))); } },
         { "UV Сфера",  [](){ gs.addObject(createUVSphere(std::to_string(idCounter))); } },
-        { "Симплекс",  [](){ gs.addObject(createSimplex(std::to_string(idCounter))); } },
-        { "Конус",     [](){ gs.addObject(createCone(std::to_string(idCounter))); } },
+        /* { "Симплекс",  [](){ gs.addObject(createSimplex(std::to_string(idCounter))); } }, */
+        /* { "Конус",     [](){ gs.addObject(createCone(std::to_string(idCounter))); } }, */
         { "Обезьяна",  [](){ gs.addObject(createMonkey(std::to_string(idCounter))); } },
         { "Чайник",    [](){ gs.addObject(createTeapot(std::to_string(idCounter))); } },
     };

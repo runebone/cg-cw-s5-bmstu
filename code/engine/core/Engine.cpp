@@ -173,7 +173,14 @@ ErrorCode Engine::initializeScene() {
     /* pMonkey->makeStatic(); */
     pMonkey->setPos(glm::vec3(-1, 2, -3));
     pMonkey->setScale(glm::vec3(0.5, 0.5, 0.5));
-    pScene->addGameObject(pMonkey);
+    /* pScene->addGameObject(pMonkey); */
+
+    /* auto dbgRedCube = createCube("dbgRed"); */
+    /* dbgRedCube->setColor({1, 0, 0}); */
+    /* dbgRedCube->setScale({0.1, 0.1, 0.1}); */
+    /* dbgRedCube->setHasRigidBody(false); */
+    /* dbgRedCube->setIsCollidable(false); */
+    /* pScene->addGameObject(dbgRedCube); */
 
     return ErrorCode::Ok;
 }

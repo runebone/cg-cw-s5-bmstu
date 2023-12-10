@@ -101,6 +101,22 @@ void resolveCollision(std::shared_ptr<GameObject> objectA, std::shared_ptr<GameO
     // Adjust velocities (basic response, can be improved)
     rigidBodyA.mVelocity -= collisionNormal * glm::dot(rigidBodyA.mVelocity, collisionNormal) * ratioB;
     rigidBodyB.mVelocity += collisionNormal * glm::dot(rigidBodyB.mVelocity, collisionNormal) * ratioA;
+
+    if (false) {
+        glm::vec3 relativeVelocity = rigidBodyB.mVelocity - rigidBodyA.mVelocity;
+        float frictionCoefficient = 0.95f;
+        glm::vec3 frictionForce = -frictionCoefficient * relativeVelocity;
+
+        rigidBodyA.applyForce(-frictionForce);
+        rigidBodyB.applyForce(frictionForce);
+
+        glm::vec3 relativeAngularVelocity = rigidBodyB.mAngularVelocity - rigidBodyA.mAngularVelocity;
+        float angularFrictionCoefficient = 0.95f;
+        glm::vec3 angularFrictionForce = -angularFrictionCoefficient * relativeAngularVelocity;
+
+        rigidBodyA.applyTorque(-frictionForce);
+        rigidBodyB.applyTorque(frictionForce);
+    }
 }
 
 void PhysicsEngine::resolveCollisions() {

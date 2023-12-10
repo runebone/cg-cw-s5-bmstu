@@ -78,11 +78,17 @@ void Renderer::render(std::shared_ptr<GameObject> gameObject) {
     /* mat = glm::translate(mat, c.getCenter()); */
 
     if (gameObject->mSelected) {
-        mesh.render(GL_LINE_STRIP, true);
+        /* mesh.render(GL_LINE_STRIP, true); */
+        pShader->setVec3("objectColor", glm::vec3(1.0f, 0.0f, 0.0f));
+        mesh.render(gameObject->mRenderingMode, gameObject->mRenderByTriangles);
     } else {
         mesh.render(gameObject->mRenderingMode, gameObject->mRenderByTriangles);
     }
     pShader->setMat4("model", mat);
-    pShader->setVec3("objectColor", glm::vec3(0.0f, 1.0f, 0.0f));
+    if (gameObject->mSelected) {
+        pShader->setVec3("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
+    } else {
+        pShader->setVec3("objectColor", glm::vec3(0.0f, 0.0f, 0.0f));
+    }
     dbgCube.render(GL_LINE_STRIP, true);
 }
