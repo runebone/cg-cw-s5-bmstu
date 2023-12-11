@@ -1,0 +1,55 @@
+<mxfile host="Electron" modified="2023-12-11T11:23:06.194Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.3 Chrome/118.0.5993.54 Electron/27.0.0 Safari/537.36" etag="cUbqxfnB2V15C44UWzdF" version="22.0.3" type="device">
+  <diagram name="Page-1" id="4vrx_cQsE0F1brCG3pJP">
+    <mxGraphModel dx="683" dy="17" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="cPYu4br0cxx3NQ4pbdQv-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="cPYu4br0cxx3NQ4pbdQv-1" target="cPYu4br0cxx3NQ4pbdQv-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cPYu4br0cxx3NQ4pbdQv-1" value="Начало" style="html=1;shape=stencil(xVVNb4MwDP01HJmAaFV7nFh37GWTdnapgaghQU7Wj3+/0IAGAzqayyQO+D3yXuzYJGCpLqHGIIkkVBiw1yBJPpAqLsEosoFlSgevIheeXbhZuxB0jZlx2AmIw16gY7QhdcQzP5hWgcsSiZuGZdsgerHfNA9LMyWlFeFK6gHT460YcGnXRhcnFj09O5trG7uotg4VGqQB+pPczgFB8ubtFC9zevdwGmbU+f7l9Pm4U+zntPWpXvzbLF5YwZ1HYhN2683CA/Oy69Qfz86rmCO7xdnN2LHUInMDyNI9ZMeC1Jc8TG6yhma4R0RHV+qEs+19L/1OQHDZE+j+OY8oAGX2hVoF1q6h6zC+hHDhOiRloKnCQF8AFRhanTAXUAwofUase3B79NPbXXlkHHko/GPGHiecCaXxzhhYfNRkN3SmM1maK8I7LZtzIdzVNDcNI4Eb6i7KG/AN);whiteSpace=wrap;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="370" y="420" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cPYu4br0cxx3NQ4pbdQv-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="cPYu4br0cxx3NQ4pbdQv-2" target="cPYu4br0cxx3NQ4pbdQv-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cPYu4br0cxx3NQ4pbdQv-2" value="intersectedX = A.min.x &amp;lt;=&lt;br&gt;&amp;lt;= B.max.x AND a.max.x &amp;gt;=&lt;br&gt;&amp;gt;= B.min.x" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=0;" vertex="1" parent="1">
+          <mxGeometry x="340" y="500" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cPYu4br0cxx3NQ4pbdQv-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="cPYu4br0cxx3NQ4pbdQv-3" target="cPYu4br0cxx3NQ4pbdQv-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cPYu4br0cxx3NQ4pbdQv-3" value="intersectedY = A.min.y &amp;lt;=&lt;br&gt;&amp;lt;= B.max.y AND a.max.y &amp;gt;=&lt;br&gt;&amp;gt;= B.min.y" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=0;" vertex="1" parent="1">
+          <mxGeometry x="340" y="580" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cPYu4br0cxx3NQ4pbdQv-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="cPYu4br0cxx3NQ4pbdQv-4" target="cPYu4br0cxx3NQ4pbdQv-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cPYu4br0cxx3NQ4pbdQv-4" value="intersectedZ = A.min.z &amp;lt;=&lt;br&gt;&amp;lt;= B.max.z AND a.max.z &amp;gt;=&lt;br&gt;&amp;gt;= B.min.z" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=0;" vertex="1" parent="1">
+          <mxGeometry x="340" y="660" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cPYu4br0cxx3NQ4pbdQv-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cPYu4br0cxx3NQ4pbdQv-5" target="cPYu4br0cxx3NQ4pbdQv-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cPYu4br0cxx3NQ4pbdQv-5" value="collisionDetected = intersectedX AND intersectedY AND intersectedZ" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="740" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cPYu4br0cxx3NQ4pbdQv-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="cPYu4br0cxx3NQ4pbdQv-6" target="cPYu4br0cxx3NQ4pbdQv-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cPYu4br0cxx3NQ4pbdQv-6" value="Вернуть collisionDetected" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=0;" vertex="1" parent="1">
+          <mxGeometry x="340" y="820" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cPYu4br0cxx3NQ4pbdQv-7" value="Конец" style="html=1;shape=stencil(xVVNb4MwDP01HJmAaFV7nFh37GWTdnapgaghQU7Wj3+/0IAGAzqayyQO+D3yXuzYJGCpLqHGIIkkVBiw1yBJPpAqLsEosoFlSgevIheeXbhZuxB0jZlx2AmIw16gY7QhdcQzP5hWgcsSiZuGZdsgerHfNA9LMyWlFeFK6gHT460YcGnXRhcnFj09O5trG7uotg4VGqQB+pPczgFB8ubtFC9zevdwGmbU+f7l9Pm4U+zntPWpXvzbLF5YwZ1HYhN2683CA/Oy69Qfz86rmCO7xdnN2LHUInMDyNI9ZMeC1Jc8TG6yhma4R0RHV+qEs+19L/1OQHDZE+j+OY8oAGX2hVoF1q6h6zC+hHDhOiRloKnCQF8AFRhanTAXUAwofUase3B79NPbXXlkHHko/GPGHiecCaXxzhhYfNRkN3SmM1maK8I7LZtzIdzVNDcNI4Eb6i7KG/AN);whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="370" y="900" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cPYu4br0cxx3NQ4pbdQv-14" value="Вход:&lt;br&gt;&amp;nbsp; &amp;nbsp; A, B -- AABB-оболочки объектов&lt;br&gt;Выход:&lt;br&gt;&amp;nbsp; &amp;nbsp; Флаг обнаружения коллизии" style="html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;" vertex="1" parent="1">
+          <mxGeometry x="520.0000000000002" y="420" width="20" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cPYu4br0cxx3NQ4pbdQv-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1.303;entryY=0.494;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;dashed=1;" edge="1" parent="1" source="cPYu4br0cxx3NQ4pbdQv-14" target="cPYu4br0cxx3NQ4pbdQv-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
