@@ -16,7 +16,7 @@ typedef glm::vec<3, Vertex> Face;
 
 class Mesh {
 public:
-    Mesh();
+    Mesh(); // = delete;
     Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
     ~Mesh();
 
@@ -33,6 +33,8 @@ public:
 private:
     std::vector<Vertex> mVertices;
     std::vector<u32> mIndices;
+
+public: // @DEBUG
     u32 VAO, VBO, EBO;
 
     void setupMesh();

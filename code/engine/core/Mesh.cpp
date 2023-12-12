@@ -5,7 +5,9 @@
 #define GL_DEBUG
 #include "../util/glcall.h"
 
-Mesh::Mesh() {}
+Mesh::Mesh() : VAO(0), VBO(0), EBO(0) {
+    setupMesh();
+}
 
 Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices)
     : mVertices(vertices), mIndices(indices), VAO(0), VBO(0), EBO(0) {
