@@ -18,8 +18,18 @@ void GameObject::setPos(const glm::vec3& position) {
     /* mAABBCollider.update(); // @DRY */
 }
 
+void GameObject::translate(const glm::vec3& translation) {
+    auto p = mTransform.getPos();
+    mTransform.setPos(p + translation);
+}
+
 glm::vec3 GameObject::getPos() const {
     return mTransform.getPos();
+}
+
+void GameObject::rotate(const glm::vec3& rotation) {
+    auto r = mTransform.getRotation();
+    mTransform.setPos(r + rotation);
 }
 
 void GameObject::setRotation(const glm::vec3& rotation) {

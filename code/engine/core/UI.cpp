@@ -15,7 +15,7 @@ void UI::initialize(GLFWwindow *window) {
     ImGuiIO& io = ImGui::GetIO();
 
     const char *font_filename = CFG_MAIN_FONT;
-    ImFont* font = io.Fonts->AddFontFromFileTTF(font_filename, 24.0f, NULL, io.Fonts->GetGlyphRangesCyrillic());
+    ImFont* font = io.Fonts->AddFontFromFileTTF(font_filename, 20.0f, NULL, io.Fonts->GetGlyphRangesCyrillic());
     io.FontDefault = font;
 
     // Setup Dear ImGui style
@@ -80,6 +80,24 @@ void UI::render() {
     if (ImGui::Button("Добавить")) {
         items[curItem].func();
         gs.selectObject(std::to_string(idCounter));
+
+        const auto &pGameObject = gs.getSelectedObject();
+        glm::vec3 p = pGameObject->getPos();
+        std::shared_ptr<Camera> pCam = gs.getCamera();
+        f32 x = pCam->pos.x;
+        f32 y = pCam->pos.y;
+        f32 z = pCam->pos.z;
+        f32 dx = pCam->front.x * 10;
+        f32 dy = pCam->front.y * 10;
+        f32 dz = pCam->front.z * 10;
+        pGameObject->setPos({p.x + x + dx, p.y + y + dy, p.z + z + dz});
+
+        /* glm::vec3 direction; */
+        /* direction.x = cos(glm::radians(pCam->yaw)) * cos(glm::radians(pCam->pitch)); */
+        /* direction.y = sin(glm::radians(pCam->pitch)); */
+        /* direction.z = sin(glm::radians(pCam->yaw)) * cos(glm::radians(pCam->pitch)); */
+        /* pGameObject->rotate(direction); */
+
         ++idCounter;
     }
 
@@ -130,6 +148,20 @@ void UI::render() {
     ImGui::SameLine();
     if (ImGui::Button("Создать")) {
         bm::createCubeOfCubes(nc);
+    }
+
+    ImGui::SeparatorText("Плоскость кубов");
+    static int np = 5;
+    ImGui::Text("Размер");
+    ImGui::SliderInt("#####", &np, 1, 9);
+    ImGui::SameLine();
+    if (ImGui::Button("Создать##")) {
+        bm::createPlaneOfCubes(np);
+    }
+
+    ImGui::SeparatorText("Сцена");
+    if (ImGui::Button("Очистить")) {
+        gs.getScene()->clean();
     }
 
     static bool showCtrl = false;

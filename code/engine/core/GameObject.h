@@ -19,9 +19,11 @@ public:
     std::string getId() const { return mId; }
 
     // Transform component
+    void translate(const glm::vec3& translation);
     void setPos(const glm::vec3& position);
     glm::vec3 getPos() const;
 
+    void rotate(const glm::vec3& rotation);
     void setRotation(const glm::vec3& rotation);
     glm::vec3 getRotation() const;
 

@@ -71,3 +71,16 @@ void Scene::update(float deltaTime) {
         removeGameObject(id);
     }
 }
+
+void Scene::clean() {
+    std::vector<std::string> shouldDieList;
+    for (auto& gameObject : mGameObjects) {
+        std::string id = gameObject->getId();
+        if (id != "ground") {
+            shouldDieList.push_back(gameObject->getId());
+        }
+    }
+    for (auto& id : shouldDieList) {
+        removeGameObject(id);
+    }
+}

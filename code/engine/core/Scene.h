@@ -22,6 +22,7 @@ public:
     std::shared_ptr<GameObject> selectPrevObject();
 
     void update(f32 deltaTime);
+    void clean();
 
 private:
     std::vector<std::shared_ptr<GameObject>> mGameObjects;

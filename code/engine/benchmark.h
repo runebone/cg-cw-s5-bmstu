@@ -3,6 +3,7 @@
 
 namespace bm {
     void createCubeOfCubes(int n);
+    void createPlaneOfCubes(int n);
 }
 
 #endif // __BENCHMARK_H__

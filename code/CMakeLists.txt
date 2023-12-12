@@ -41,6 +41,8 @@ set(SOURCE
     ${SOURCE_DIR}/core/UI.h
     ${SOURCE_DIR}/config.cpp
     ${SOURCE_DIR}/config.h
+    ${SOURCE_DIR}/benchmark.cpp
+    ${SOURCE_DIR}/benchmark.h
     )
 
 
