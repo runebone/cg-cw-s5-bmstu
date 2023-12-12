@@ -2,6 +2,9 @@
 
 #include <glad.h>
 
+#define GL_DEBUG
+#include "../util/glcall.h"
+
 Mesh::Mesh() {}
 
 Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices)
@@ -10,9 +13,9 @@ Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>&
 }
 
 Mesh::~Mesh() {
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
+    GL_CALL(glDeleteVertexArrays(1, &VAO));
+    GL_CALL(glDeleteBuffers(1, &VBO));
+    GL_CALL(glDeleteBuffers(1, &EBO));
 }
 
 Mesh::Mesh(Mesh&& other) noexcept
@@ -25,9 +28,9 @@ Mesh::Mesh(Mesh&& other) noexcept
 
 Mesh& Mesh::operator=(Mesh&& other) noexcept {
     if (this != &other) {
-        glDeleteVertexArrays(1, &VAO);
-        glDeleteBuffers(1, &VBO);
-        glDeleteBuffers(1, &EBO);
+        GL_CALL(glDeleteVertexArrays(1, &VAO));
+        GL_CALL(glDeleteBuffers(1, &VBO));
+        GL_CALL(glDeleteBuffers(1, &EBO));
 
         mVertices = std::move(other.mVertices);
         mIndices = std::move(other.mIndices);
@@ -43,39 +46,39 @@ Mesh& Mesh::operator=(Mesh&& other) noexcept {
 }
 
 void Mesh::setupMesh() {
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
+    GL_CALL(glGenVertexArrays(1, &VAO));
+    GL_CALL(glGenBuffers(1, &VBO));
+    GL_CALL(glGenBuffers(1, &EBO));
 
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    GL_CALL(glBindVertexArray(VAO));
+    GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, VBO));
 
-    glBufferData(GL_ARRAY_BUFFER, mVertices.size() * sizeof(Vertex), &mVertices[0], GL_STATIC_DRAW);
+    GL_CALL(glBufferData(GL_ARRAY_BUFFER, mVertices.size() * sizeof(Vertex), &mVertices[0], GL_STATIC_DRAW));
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, mIndices.size() * sizeof(u32), &mIndices[0], GL_STATIC_DRAW);
+    GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO));
+    GL_CALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, mIndices.size() * sizeof(u32), &mIndices[0], GL_STATIC_DRAW));
 
     // Vertex positions
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+    GL_CALL(glEnableVertexAttribArray(0));
+    GL_CALL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0));
 
     // Vertex normals
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
+    GL_CALL(glEnableVertexAttribArray(1));
+    GL_CALL(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal)));
 
-    glBindVertexArray(0);
+    GL_CALL(glBindVertexArray(0));
 }
 
 void Mesh::render(u32 mode, bool byTriangles) const {
-    glBindVertexArray(VAO);
+    GL_CALL(glBindVertexArray(VAO));
     if (!byTriangles) {
-        glDrawElements(mode, static_cast<u32>(mIndices.size()), GL_UNSIGNED_INT, 0);
+        GL_CALL(glDrawElements(mode, static_cast<u32>(mIndices.size()), GL_UNSIGNED_INT, 0));
     } else {
         for (u32 i = 0; i < mIndices.size(); i += 3) {
-            glDrawElements(mode, 3, GL_UNSIGNED_INT, (void*)(sizeof(GLuint)*i));
+            GL_CALL(glDrawElements(mode, 3, GL_UNSIGNED_INT, (void*)(sizeof(GLuint)*i)));
         }
     }
-    glBindVertexArray(0);
+    GL_CALL(glBindVertexArray(0));
 }
 
 void Mesh::render() const {
