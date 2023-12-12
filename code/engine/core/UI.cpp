@@ -14,7 +14,7 @@ void UI::initialize(GLFWwindow *window) {
     ImGuiIO& io = ImGui::GetIO();
 
     const char *font_filename = CFG_MAIN_FONT;
-    ImFont* font = io.Fonts->AddFontFromFileTTF(font_filename, 16.0f, NULL, io.Fonts->GetGlyphRangesCyrillic());
+    ImFont* font = io.Fonts->AddFontFromFileTTF(font_filename, 24.0f, NULL, io.Fonts->GetGlyphRangesCyrillic());
     io.FontDefault = font;
 
     // Setup Dear ImGui style
@@ -89,7 +89,7 @@ void UI::render() {
     } else {
         const auto &pGameObject = gs.getSelectedObject();
 
-        ImGui::Text("ID: %s", pGameObject->getId().c_str());
+        ImGui::Text("ID: %s, VAO: %d", pGameObject->getId().c_str(), pGameObject->getMesh().VAO);
         ImGui::ColorEdit3("Цвет", (f32*)&pGameObject->mColor);
         ImGui::Text("Геометрические свойства");
         ImGui::InputFloat3("Положение", (f32*)&pGameObject->mTransform.mPos);
@@ -100,17 +100,17 @@ void UI::render() {
         ImGui::InputFloat3("Скорость", (f32*)&pGameObject->mRigidBody.mVelocity);
         ImGui::InputFloat3("Ускорение", (f32*)&pGameObject->mRigidBody.mAcceleration);
         ImGui::InputFloat3("Сила", (f32*)&pGameObject->mRigidBody.mForce);
-        ImGui::InputFloat3("Угловая скорость", (f32*)&pGameObject->mRigidBody.mAngularVelocity);
-        ImGui::InputFloat3("Угловое ускорение", (f32*)&pGameObject->mRigidBody.mAngularAcceleration);
-        ImGui::InputFloat3("Крутящий момент", (f32*)&pGameObject->mRigidBody.mTorque);
+        /* ImGui::InputFloat3("Угловая скорость", (f32*)&pGameObject->mRigidBody.mAngularVelocity); */
+        /* ImGui::InputFloat3("Угловое ускорение", (f32*)&pGameObject->mRigidBody.mAngularAcceleration); */
+        /* ImGui::InputFloat3("Крутящий момент", (f32*)&pGameObject->mRigidBody.mTorque); */
 
-        static glm::vec3 force = glm::vec3(0.0f);
-        static glm::vec3 pointOfApplication = glm::vec3(0.0f);
-        ImGui::InputFloat3("Сила##", (f32*)&force);
-        ImGui::InputFloat3("Точка приложения", (f32*)&pointOfApplication);
-        if (ImGui::Button("Приложить силу")) {
-            pGameObject->mRigidBody.applyForce(force, pointOfApplication);
-        }
+        /* static glm::vec3 force = glm::vec3(0.0f); */
+        /* static glm::vec3 pointOfApplication = glm::vec3(0.0f); */
+        /* ImGui::InputFloat3("Сила##", (f32*)&force); */
+        /* ImGui::InputFloat3("Точка приложения", (f32*)&pointOfApplication); */
+        /* if (ImGui::Button("Приложить силу")) { */
+        /*     pGameObject->mRigidBody.applyForce(force, pointOfApplication); */
+        /* } */
     }
 
     ImGui::SeparatorText("Прочее");
@@ -118,6 +118,9 @@ void UI::render() {
     ImGui::InputFloat("###", (f32*)&gTargetFPS);
     ImGui::Text("Гравитация");
     ImGui::InputFloat3("####", (f32*)&gGravity);
+
+    ImGui::SeparatorText("Отладочная информация");
+    ImGui::Checkbox("AABB", &gRenderAABB);
 
     static bool showCtrl = false;
     ImGui::SeparatorText("Управление");

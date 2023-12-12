@@ -18,5 +18,6 @@ extern float gTargetFPS;
 extern glm::vec3 gGravity;
 extern float gStaticFrictionCoef;
 extern float gKineticFrictionCoef;
+extern bool gRenderAABB;
 
 #endif // __CONFIG_H__

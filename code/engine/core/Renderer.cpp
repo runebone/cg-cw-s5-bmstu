@@ -90,5 +90,7 @@ void Renderer::render(std::shared_ptr<GameObject> gameObject) {
     } else {
         pShader->setVec3("objectColor", glm::vec3(0.0f, 0.0f, 0.0f));
     }
-    dbgCube.render(GL_LINE_STRIP, true);
+    if (gRenderAABB) {
+        dbgCube.render(GL_LINE_STRIP, true);
+    }
 }
