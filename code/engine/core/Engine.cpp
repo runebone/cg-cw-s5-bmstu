@@ -151,8 +151,8 @@ ErrorCode Engine::initializeScene() {
     pUVSphere->mRigidBody.setMass(10);
 
     auto pScene = gs.getScene();
-    pScene->addGameObject(pTeapot);
-    pScene->addGameObject(pUVSphere);
+    /* pScene->addGameObject(pTeapot); */
+    /* pScene->addGameObject(pUVSphere); */
     pScene->addGameObject(pCube);
 
     pTeapot->setColor({1, 0.5, 0.31});

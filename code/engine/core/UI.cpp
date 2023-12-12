@@ -6,6 +6,7 @@
 #include "../util/typedefs.h"
 #include "../config.h"
 #include "GameState.h"
+#include "../benchmark.h"
 
 void UI::initialize(GLFWwindow *window) {
     // Setup Dear ImGui context
@@ -121,6 +122,15 @@ void UI::render() {
 
     ImGui::SeparatorText("Отладочная информация");
     ImGui::Checkbox("AABB", &gRenderAABB);
+
+    ImGui::SeparatorText("Куб кубов");
+    static int nc = 5;
+    ImGui::Text("Размер");
+    ImGui::SliderInt("#####", &nc, 1, 9);
+    ImGui::SameLine();
+    if (ImGui::Button("Создать")) {
+        bm::createCubeOfCubes(nc);
+    }
 
     static bool showCtrl = false;
     ImGui::SeparatorText("Управление");
