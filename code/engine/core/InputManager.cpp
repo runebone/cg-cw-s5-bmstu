@@ -23,6 +23,13 @@ void InputManager::processInput(GLFWwindow *window) {
     f32 deltaTime = static_cast<f32>(glfwGetTime()) - gs.mLastFrameTime;
     f32 camSpeed = static_cast<f32>(5 * deltaTime);
 
+    if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
+        camSpeed *= 5;
+        cam->fov = 60.0f;
+    } else {
+        cam->fov = 45.0f; // @XXX Meeeeeeeeeh every fraaaaaame
+    }
+
     // Camera control
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
         auto k = -cam->front.y / cam->up.y;
