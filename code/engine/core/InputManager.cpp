@@ -23,7 +23,8 @@ void InputManager::processInput(GLFWwindow *window) {
     f32 deltaTime = static_cast<f32>(glfwGetTime()) - gs.mLastFrameTime;
     f32 camSpeed = static_cast<f32>(5 * deltaTime);
 
-    if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
+    if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS
+            || glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
         camSpeed *= 5;
         cam->fov = 60.0f;
     } else {

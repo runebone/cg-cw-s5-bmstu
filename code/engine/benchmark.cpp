@@ -63,3 +63,30 @@ void bm::createPlaneOfCubes(int n) {
 
     countCalls++;
 }
+
+void bm::createLineOfCubes(int n) {
+    static int countCalls = 0;
+
+    GameState &gs = GameState::get();
+
+    std::shared_ptr<Camera> pCam = gs.getCamera();
+    f32 x = pCam->pos.x;
+    f32 y = pCam->pos.y;
+    f32 z = pCam->pos.z;
+    f32 dx = pCam->front.x * 10;
+    f32 dy = pCam->front.y * 10;
+    f32 dz = pCam->front.z * 10;
+    x += dx;
+    y += dy;
+    z += dz;
+
+    for (int k = 0; k < n; k++) {
+        std::stringstream ss;
+        ss << "bmL" << countCalls << k;
+        std::shared_ptr<GameObject> obj = createCube(ss.str());
+        obj->setPos({x, y, z + -2 * k});
+        gs.addObject(obj);
+    }
+
+    countCalls++;
+}

@@ -159,6 +159,15 @@ void UI::render() {
         bm::createPlaneOfCubes(np);
     }
 
+    ImGui::SeparatorText("Линия кубов");
+    static int nl = 5;
+    ImGui::Text("Размер");
+    ImGui::SliderInt("#####", &nl, 1, 9);
+    ImGui::SameLine();
+    if (ImGui::Button("Создать##1")) {
+        bm::createLineOfCubes(nl);
+    }
+
     ImGui::SeparatorText("Сцена");
     if (ImGui::Button("Очистить")) {
         gs.getScene()->clean();
