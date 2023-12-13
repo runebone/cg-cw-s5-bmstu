@@ -60,12 +60,12 @@ def process_and_plot_data(file_paths):
 # ]
 
 file_paths = [
-    "test_01.csv",
-    "test_02.csv",
-    "test_03.csv",
-    "test_04.csv",
-    "test_05.csv",
-    "test_06.csv",
+    "tests/test_01.csv",
+    "tests/test_02.csv",
+    "tests/test_03.csv",
+    "tests/test_04.csv",
+    "tests/test_05.csv",
+    "tests/test_06.csv",
 ]
 
 process_and_plot_data(file_paths)
