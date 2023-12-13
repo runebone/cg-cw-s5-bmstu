@@ -150,8 +150,8 @@ void bm::createLineOfCubes(int n) {
     for (int k = 0; k < n; k++) {
         std::stringstream ss;
         ss << "bmL" << countCalls << k;
-        /* std::shared_ptr<GameObject> obj = createCube(ss.str()); */
-        std::shared_ptr<GameObject> obj = createTeapot(ss.str());
+        std::shared_ptr<GameObject> obj = createCube(ss.str());
+        /* std::shared_ptr<GameObject> obj = createTeapot(ss.str()); */
         obj->setPos({x, y, z + -2 * k});
         gs.addObject(obj);
     }
