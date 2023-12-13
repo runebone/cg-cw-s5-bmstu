@@ -1,5 +1,6 @@
 #include "core/Engine.h"
 #include "config.h"
+#include "benchmark.h"
 
 #include <thread>
 #include <chrono>
@@ -11,6 +12,12 @@ int main() {
 
     if (rc != ErrorCode::Ok) {
         return rc;
+    }
+
+    /* bm::logfile.open(CFG_BENCHMARK_FILE); */
+    if (!bm::logfile.is_open()) {
+        std::cerr << "Error: Failed to open the file for writing." << std::endl;
+        return -1;
     }
 
     while (gameEngine.isRunning()) {
@@ -28,7 +35,10 @@ int main() {
             return rc;
         }
 
+        
+        long start = bm::get_cpu_time_ns();
         rc = gameEngine.render();
+        gRenderTime = bm::get_cpu_time_ns() - start;
 
         if (rc != ErrorCode::Ok) {
             return rc;
@@ -41,6 +51,8 @@ int main() {
         }
     }
     glfwTerminate();
+
+    bm::logfile.close();
 
     return rc;
 }

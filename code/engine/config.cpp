@@ -7,3 +7,4 @@ float gKineticFrictionCoef = 0.3f;
 bool gRenderAABB = false;
 int gDrawCalls = 0;
 bool gRenderByTriangles = false;
+long gRenderTime = 0;

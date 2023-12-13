@@ -9,6 +9,8 @@
 #include "core/UI.h"
 #include "config.h"
 
+std::ofstream bm::logfile(CFG_BENCHMARK_FILE);
+
 long bm::get_cpu_time_ns()
 {
 	struct timespec t;
@@ -23,24 +25,24 @@ long bm::get_cpu_time_ns()
 
 void bm::log()
 {
-    static std::ofstream output(CFG_BENCHMARK_FILE);
+    /* static std::ofstream output(CFG_BENCHMARK_FILE); */
     static bool init = false;
 
     if (init == false) {
-        if (!output.is_open()) {
+        if (!logfile.is_open()) {
             std::cerr << "Error: Failed to open the file for writing." << std::endl;
             return;
         }
         init = true;
-        output << "n_objects,n_triangles,n_collisions,n_draw_calls,fps";
-        output << "\n";
+        logfile << "n_objects,n_triangles,n_collisions,n_draw_calls,time_ns";
+        logfile << "\n";
     }
 
-    output.open(CFG_BENCHMARK_FILE, std::ios_base::app);
-    if (!output.is_open()) {
-        std::cerr << "Error: Failed to open the file for writing." << std::endl;
-        return;
-    }
+    /* output.open(CFG_BENCHMARK_FILE, std::ios_base::app); */
+    /* if (!output.is_open()) { */
+    /*     std::cerr << "Error: Failed to open the file for writing." << std::endl; */
+    /*     return; */
+    /* } */
 
     GameState &gs = GameState::get();
     std::shared_ptr<Scene> scene = gs.getScene();
@@ -55,16 +57,16 @@ void bm::log()
     int nc = gs.getPhysicsEngine()->getNumberOfCollisions();
     int ndc = gs.getRenderer()->getDrawCalls();
 
-    static ImGuiIO &mIO = ImGui::GetIO();
-    f32 fps = mIO.Framerate;
+    /* static ImGuiIO &mIO = ImGui::GetIO(); */
+    /* f32 fps = mIO.Framerate; */
 
-    output << objects.size() << ",";
-    output << nt << ",";
-    output << nc << ",";
-    output << ndc << ",";
-    output << fps << "\n";
+    logfile << objects.size() << ",";
+    logfile << nt << ",";
+    logfile << nc << ",";
+    logfile << ndc << ",";
+    logfile << gRenderTime << "\n";
 
-    output.close();
+    /* output.close(); */
 }
 
 void bm::createCubeOfCubes(int n) {
