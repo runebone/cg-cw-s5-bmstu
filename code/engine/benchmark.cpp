@@ -1,8 +1,71 @@
 #include "benchmark.h"
 
+#include <iostream>
+#include <fstream>
 #include <sstream>
+
 #include "core/GameState.h"
 #include "core/GameObject.h"
+#include "core/UI.h"
+#include "config.h"
+
+long bm::get_cpu_time_ns()
+{
+	struct timespec t;
+
+	if (clock_gettime(CLOCK_THREAD_CPUTIME_ID, &t)) {
+		std::cerr << "Невозможно получить время.\n";
+		return -1;
+	}
+
+	return t.tv_sec * 1'000'000'000LL + t.tv_nsec;
+}
+
+void bm::log()
+{
+    static std::ofstream output(CFG_BENCHMARK_FILE);
+    static bool init = false;
+
+    if (init == false) {
+        if (!output.is_open()) {
+            std::cerr << "Error: Failed to open the file for writing." << std::endl;
+            return;
+        }
+        init = true;
+        output << "n_objects,n_triangles,n_collisions,n_draw_calls,fps";
+        output << "\n";
+    }
+
+    output.open(CFG_BENCHMARK_FILE, std::ios_base::app);
+    if (!output.is_open()) {
+        std::cerr << "Error: Failed to open the file for writing." << std::endl;
+        return;
+    }
+
+    GameState &gs = GameState::get();
+    std::shared_ptr<Scene> scene = gs.getScene();
+    const std::vector<std::shared_ptr<GameObject>> &objects = scene->getGameObjects();
+
+    int nt = 0;
+    for (auto &obj : objects) {
+        const Mesh &mesh = obj->getMesh();
+        nt += mesh.getNumberOfTriangles();
+    }
+
+    int nc = gs.getPhysicsEngine()->getNumberOfCollisions();
+    int ndc = gs.getRenderer()->mDrawCalls;
+
+    static ImGuiIO &mIO = ImGui::GetIO();
+    f32 fps = mIO.Framerate;
+
+    output << objects.size() << ",";
+    output << nt << ",";
+    output << nc << ",";
+    output << ndc << ",";
+    output << fps << "\n";
+
+    output.close();
+}
 
 void bm::createCubeOfCubes(int n) {
     static int countCalls = 0;

@@ -25,6 +25,22 @@ std::shared_ptr<Scene> GameState::getScene() const {
     return pScene;
 }
 
+void GameState::setPhysicsEngine(std::shared_ptr<PhysicsEngine> physicsEngine) {
+    pPhysicsEngine = physicsEngine;
+}
+
+std::shared_ptr<PhysicsEngine> GameState::getPhysicsEngine() const {
+    return pPhysicsEngine;
+}
+
+void GameState::setRenderer(std::shared_ptr<Renderer> renderer) {
+    pRenderer = renderer;
+}
+
+std::shared_ptr<Renderer> GameState::getRenderer() const {
+    return pRenderer;
+}
+
 void GameState::setSelectedObject(std::shared_ptr<GameObject> gameObject) {
     pSelectedObject = gameObject;
 }

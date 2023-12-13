@@ -19,5 +19,8 @@ extern glm::vec3 gGravity;
 extern float gStaticFrictionCoef;
 extern float gKineticFrictionCoef;
 extern bool gRenderAABB;
+extern int gDrawCalls;
+
+#define CFG_BENCHMARK_FILE CFG_PROJECT_DIR "benchmark.csv"
 
 #endif // __CONFIG_H__

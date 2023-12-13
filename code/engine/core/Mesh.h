@@ -25,10 +25,13 @@ public:
     Mesh(Mesh&&) noexcept;
     Mesh& operator=(Mesh&&) noexcept; 
 
-    void render(u32 mode, bool byTriangles = false) const;
+    /* void render(u32 mode, bool byTriangles = false) const; */
+    void render(u32 mode, bool byTriangles = true) const;
     void render() const;
 
     std::vector<Vertex> getVertices() { return mVertices; }
+
+    int getNumberOfTriangles() const { return mIndices.size() / 3; }
 
 private:
     std::vector<Vertex> mVertices;

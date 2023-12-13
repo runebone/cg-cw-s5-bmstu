@@ -8,7 +8,10 @@
 #include "GameState.h"
 #include "../config.h"
 
-Engine::Engine() : mRunning(false) {}
+Engine::Engine() : mRunning(false) {
+    pRenderer = std::make_shared<Renderer>();
+    pPhysicsEngine = std::make_shared<PhysicsEngine>();
+}
 
 Engine::~Engine() {
     shutdown();
@@ -67,7 +70,8 @@ ErrorCode Engine::update() {
     
     std::shared_ptr<Scene> scene = gs.getScene();
 
-    mPhysicsEngine.update(deltaTime, scene->getGameObjects());
+    /* mPhysicsEngine.update(deltaTime, scene->getGameObjects()); */
+    pPhysicsEngine->update(deltaTime, scene->getGameObjects());
     scene->update(deltaTime);
 
     return ErrorCode::Ok;
@@ -116,12 +120,15 @@ ErrorCode Engine::initializeGraphicsAndGameState() {
     gs.setWindow(window);
     gs.setCamera(std::make_shared<Camera>(window));
     gs.setScene(std::make_shared<Scene>());
+    gs.setPhysicsEngine(pPhysicsEngine);
 
-    mRenderer.setCamera(gs.getCamera());
+    /* mRenderer.setCamera(gs.getCamera()); */
+    pRenderer->setCamera(gs.getCamera());
 
     Shader shader(CFG_SHADERS_DIR "basic.vert", CFG_SHADERS_DIR "phong.frag");
 
-    mRenderer.setShader(std::make_shared<Shader>(shader));
+    /* mRenderer.setShader(std::make_shared<Shader>(shader)); */
+    pRenderer->setShader(std::make_shared<Shader>(shader));
 
     return ErrorCode::Ok;
 }
@@ -196,7 +203,8 @@ ErrorCode Engine::initializeUI() {
 void Engine::renderScene() {
     static GameState &gs = GameState::get();
 
-    mRenderer.render(gs.getScene());
+    /* mRenderer.render(gs.getScene()); */
+    pRenderer->render(gs.getScene());
 }
 
 void Engine::renderUI() {

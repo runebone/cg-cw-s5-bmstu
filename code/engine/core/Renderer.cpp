@@ -30,11 +30,13 @@ void Renderer::render(std::shared_ptr<Scene> scene) {
     glClearColor(0.06f, 0.12f, 0.20f, 1.0f);
     glEnable(GL_DEPTH_TEST); // @TODO Optional
 
+    gDrawCalls = 0;
     for (const auto& gameObject : scene->getGameObjects()) {
         if (gameObject->isRenderable()) {
             render(gameObject);
         }
     }
+    mDrawCalls = gDrawCalls;
 }
 
 void Renderer::render(std::shared_ptr<GameObject> gameObject) {

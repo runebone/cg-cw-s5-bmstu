@@ -24,8 +24,10 @@ public:
 private:
     bool mRunning;
 
-    Renderer mRenderer;
-    PhysicsEngine mPhysicsEngine;
+    /* Renderer mRenderer; */
+    std::shared_ptr<Renderer> pRenderer;
+    /* PhysicsEngine mPhysicsEngine; */
+    std::shared_ptr<PhysicsEngine> pPhysicsEngine;
 
     ErrorCode initializeGraphicsAndGameState();
     ErrorCode initializePhysics();

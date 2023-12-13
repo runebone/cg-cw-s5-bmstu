@@ -1,12 +1,20 @@
 #include "InputManager.h"
 #include "UI.h"
 #include "GameState.h"
+#include "../benchmark.h"
 
 static const int numKeys = GLFW_KEY_LAST + 1;
 static bool keyWasPressedLastFrame[numKeys]{false};
 
 void InputManager::processInput(GLFWwindow *window) {
     static GameState &gs = GameState::get();
+
+    if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS) {
+        bm::log();
+    }
+    if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+        gs.getScene()->clean();
+    }
 
     if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, GLFW_TRUE);

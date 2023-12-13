@@ -6,6 +6,8 @@
 
 #include "Camera.h"
 #include "Scene.h"
+#include "PhysicsEngine.h"
+#include "Renderer.h"
 #include "../util/typedefs.h"
 
 class GameState {
@@ -28,6 +30,10 @@ public:
 
     void setScene(std::shared_ptr<Scene> scene);
     std::shared_ptr<Scene> getScene() const;
+    void setPhysicsEngine(std::shared_ptr<PhysicsEngine> physicsEngine);
+    std::shared_ptr<PhysicsEngine> getPhysicsEngine() const;
+    void setRenderer(std::shared_ptr<Renderer> renderer);
+    std::shared_ptr<Renderer> getRenderer() const;
 
     void setSelectedObject(std::shared_ptr<GameObject> gameObject);
     std::shared_ptr<GameObject> getSelectedObject() const;
@@ -55,6 +61,8 @@ private:
     std::shared_ptr<Camera> pCamera;
     std::shared_ptr<Scene> pScene;
     std::shared_ptr<GameObject> pSelectedObject;
+    std::shared_ptr<PhysicsEngine> pPhysicsEngine;
+    std::shared_ptr<Renderer> pRenderer;
 };
 
 #endif // __GAME_STATE_H__

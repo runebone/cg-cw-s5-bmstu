@@ -29,6 +29,7 @@ bool AABBCollideAABB(std::shared_ptr<GameObject> objectA, std::shared_ptr<GameOb
 bool GJK(std::shared_ptr<GameObject> objectA, std::shared_ptr<GameObject> objectB);
 
 void PhysicsEngine::detectCollisions() {
+    mNumberOfCollisions = 0;
     mCollisions.clear();
     std::shared_ptr<GameObject> objectA;
     std::shared_ptr<GameObject> objectB;
@@ -43,6 +44,7 @@ void PhysicsEngine::detectCollisions() {
                 printf("%s collides with %s\n", objectA->getId().c_str(), objectB->getId().c_str());
                 mCollisions.push_back({objectA, objectB});
                 mCollisions.push_back({objectB, objectA});
+                mNumberOfCollisions++;
             }
         }
     }

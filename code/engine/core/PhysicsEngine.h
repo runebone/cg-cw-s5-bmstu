@@ -20,6 +20,7 @@ public:
     PhysicsEngine();
     ~PhysicsEngine();
 
+    int getNumberOfCollisions() { return mNumberOfCollisions; }
     void update(f32 deltaTime, const std::vector<std::shared_ptr<GameObject>>& gameObjects);
 
 private:
@@ -29,6 +30,8 @@ private:
     void updatePhysics(f32 deltaTime, const std::vector<std::shared_ptr<GameObject>>& gameObjects);
     void detectCollisions();
     void resolveCollisions();
+
+    int mNumberOfCollisions;
 };
 
 #endif // __PHYSICS_ENGINE_H__

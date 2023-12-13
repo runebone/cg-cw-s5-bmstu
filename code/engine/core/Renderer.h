@@ -23,6 +23,8 @@ public:
     void render(std::shared_ptr<Scene> scene);
     void render(std::shared_ptr<GameObject> gameObject);
 
+    int mDrawCalls = 0;
+
 private:
     std::shared_ptr<Camera> pCamera;
     std::shared_ptr<Shader> pShader;
