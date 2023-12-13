@@ -6,6 +6,7 @@ def process_and_plot_data(file_paths):
     # perm = [2, 4, 1, 5, 3, 0]
     colors = ['tab:red', 'tab:orange', 'tab:green', 'tab:blue', 'tab:purple', 'tab:pink']
     markers = ['+', '^', 's', 'o', 'x', 'D']
+    line_styles = ['-', '--', '-.', ':', (0, (5, 10)), (0, (3, 10, 1, 10))]
 
     _, axes = plt.subplots(2, 2, figsize=(14, 10))
 
@@ -19,10 +20,10 @@ def process_and_plot_data(file_paths):
 
         # grouped_data['time_ns'] = list(map(lambda x: x / 10, grouped_data['time_ns']))
 
-        axes[0, 0].plot(grouped_data['n_objects'], grouped_data['n_triangles'], marker=markers[i], color=colors[i], label=f'Тест {fi+1}')
-        axes[0, 1].plot(grouped_data['n_objects'], grouped_data['n_collisions'], marker=markers[i], color=colors[i], label=f'Тест {fi+1}')
-        axes[1, 0].plot(grouped_data['n_objects'], grouped_data['n_draw_calls'], marker=markers[i], color=colors[i], label=f'Тест {fi+1}')
-        axes[1, 1].plot(grouped_data['n_objects'], grouped_data['time_ns'], marker=markers[i], color=colors[i], label=f'Тест {fi+1}')
+        axes[0, 0].plot(grouped_data['n_objects'], grouped_data['n_triangles'], marker=markers[i], color=colors[i], label=f'Тест {fi+1}', linestyle=line_styles[i])
+        axes[0, 1].plot(grouped_data['n_objects'], grouped_data['n_collisions'], marker=markers[i], color=colors[i], label=f'Тест {fi+1}', linestyle=line_styles[i])
+        axes[1, 0].plot(grouped_data['n_objects'], grouped_data['n_draw_calls'], marker=markers[i], color=colors[i], label=f'Тест {fi+1}', linestyle=line_styles[i])
+        axes[1, 1].plot(grouped_data['n_objects'], grouped_data['time_ns'], marker=markers[i], color=colors[i], label=f'Тест {fi+1}', linestyle=line_styles[i])
 
     # axes[0, 0].set_title('Average Number of Triangles vs Number of Objects')
     axes[0, 0].set_xlabel('Количество объектов')
