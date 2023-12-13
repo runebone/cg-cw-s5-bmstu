@@ -91,6 +91,7 @@ void bm::createCubeOfCubes(int n) {
                 std::stringstream ss;
                 ss << "bmC" << countCalls << i << j << k;
                 std::shared_ptr<GameObject> obj = createCube(ss.str());
+                /* std::shared_ptr<GameObject> obj = createTeapot(ss.str()); */
                 obj->setPos({x + -2 * j, y + 2 * i, z + -2 * k});
                 gs.addObject(obj);
             }
@@ -121,6 +122,7 @@ void bm::createPlaneOfCubes(int n) {
             std::stringstream ss;
             ss << "bmP" << countCalls << j << k;
             std::shared_ptr<GameObject> obj = createCube(ss.str());
+            /* std::shared_ptr<GameObject> obj = createTeapot(ss.str()); */
             obj->setPos({x + -2 * j, y, z + -2 * k});
             gs.addObject(obj);
         }
@@ -148,7 +150,8 @@ void bm::createLineOfCubes(int n) {
     for (int k = 0; k < n; k++) {
         std::stringstream ss;
         ss << "bmL" << countCalls << k;
-        std::shared_ptr<GameObject> obj = createCube(ss.str());
+        /* std::shared_ptr<GameObject> obj = createCube(ss.str()); */
+        std::shared_ptr<GameObject> obj = createTeapot(ss.str());
         obj->setPos({x, y, z + -2 * k});
         gs.addObject(obj);
     }
