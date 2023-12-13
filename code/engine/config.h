@@ -20,6 +20,7 @@ extern float gStaticFrictionCoef;
 extern float gKineticFrictionCoef;
 extern bool gRenderAABB;
 extern int gDrawCalls;
+extern bool gRenderByTriangles;
 
 #define CFG_BENCHMARK_FILE CFG_PROJECT_DIR "benchmark.csv"
 

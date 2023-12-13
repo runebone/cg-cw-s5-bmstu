@@ -10,6 +10,7 @@
 #include "RigidBody.h"
 #include "Camera.h"
 #include "Collider.h"
+#include "../config.h"
 
 class GameObject {
 public:
@@ -74,7 +75,8 @@ public: // @TODO remove public; needed to test UI colorbox
 // @TODO: Getters setters
 public:
     u32  mRenderingMode = GL_TRIANGLES;
-    bool mRenderByTriangles = 0;
+    /* bool mRenderByTriangles = 0; */
+    bool &mRenderByTriangles = gRenderByTriangles;
     bool mSelected = 0;
 
 private:

@@ -74,10 +74,10 @@ void Mesh::setupMesh() {
 void Mesh::render(u32 mode, bool byTriangles) const {
     GL_CALL(glBindVertexArray(VAO));
     if (!byTriangles) {
-        GL_CALL(glDrawElements(mode, static_cast<u32>(mIndices.size()), GL_UNSIGNED_INT, 0));
+        CNT_GL_CALL(glDrawElements(mode, static_cast<u32>(mIndices.size()), GL_UNSIGNED_INT, 0));
     } else {
         for (u32 i = 0; i < mIndices.size(); i += 3) {
-            GL_CALL(glDrawElements(mode, 3, GL_UNSIGNED_INT, (void*)(sizeof(GLuint)*i)));
+            CNT_GL_CALL(glDrawElements(mode, 3, GL_UNSIGNED_INT, (void*)(sizeof(GLuint)*i)));
         }
     }
     GL_CALL(glBindVertexArray(0));

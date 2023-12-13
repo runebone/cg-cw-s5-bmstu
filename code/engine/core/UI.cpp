@@ -140,6 +140,7 @@ void UI::render() {
 
     ImGui::SeparatorText("Отладочная информация");
     ImGui::Checkbox("AABB", &gRenderAABB);
+    ImGui::Checkbox("gRenderByTriangles", &gRenderByTriangles);
 
     ImGui::SeparatorText("Куб кубов");
     static int nc = 5;
