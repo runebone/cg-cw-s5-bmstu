@@ -7,8 +7,6 @@ Renderer::Renderer() {}
 
 Renderer::~Renderer() {}
 
-void Renderer::initialize() {}
-
 void Renderer::setCamera(std::shared_ptr<Camera> camera) {
     pCamera = camera;
 }

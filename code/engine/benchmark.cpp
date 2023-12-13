@@ -53,7 +53,7 @@ void bm::log()
     }
 
     int nc = gs.getPhysicsEngine()->getNumberOfCollisions();
-    int ndc = gs.getRenderer()->mDrawCalls;
+    int ndc = gs.getRenderer()->getDrawCalls();
 
     static ImGuiIO &mIO = ImGui::GetIO();
     f32 fps = mIO.Framerate;

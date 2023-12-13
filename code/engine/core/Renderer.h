@@ -13,8 +13,6 @@ public:
     Renderer();
     ~Renderer();
 
-    void initialize();
-
     void setCamera(std::shared_ptr<Camera> camera);
     std::shared_ptr<Camera> getCamera();
     void setShader(std::shared_ptr<Shader> shader);
@@ -23,11 +21,12 @@ public:
     void render(std::shared_ptr<Scene> scene);
     void render(std::shared_ptr<GameObject> gameObject);
 
-    int mDrawCalls = 0;
+    int getDrawCalls() { return mDrawCalls; }
 
 private:
     std::shared_ptr<Camera> pCamera;
     std::shared_ptr<Shader> pShader;
+    int mDrawCalls = 0;
 };
 
 #endif // __RENDERER_H__

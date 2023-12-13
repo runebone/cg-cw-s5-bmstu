@@ -121,6 +121,7 @@ ErrorCode Engine::initializeGraphicsAndGameState() {
     gs.setCamera(std::make_shared<Camera>(window));
     gs.setScene(std::make_shared<Scene>());
     gs.setPhysicsEngine(pPhysicsEngine);
+    gs.setRenderer(pRenderer);
 
     /* mRenderer.setCamera(gs.getCamera()); */
     pRenderer->setCamera(gs.getCamera());
