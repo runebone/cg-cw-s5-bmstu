@@ -11,12 +11,13 @@ def generate_tables(file_paths):
         print(specific_rows)
 
 file_paths = [
-    "tests/test_01.csv",
-    "tests/test_02.csv",
-    "tests/test_03.csv",
-    "tests/test_04.csv",
-    "tests/test_05.csv",
-    "tests/test_06.csv",
+        "benchmark.csv"
+    # "tests/test_01.csv",
+    # "tests/test_02.csv",
+    # "tests/test_03.csv",
+    # "tests/test_04.csv",
+    # "tests/test_05.csv",
+    # "tests/test_06.csv",
 ]
 
 generate_tables(file_paths)

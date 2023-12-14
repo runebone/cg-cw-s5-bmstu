@@ -12,8 +12,8 @@ def process_and_plot_data(file_paths):
 
     # for i, file in enumerate(file_paths):
     for fi, i in enumerate([2, 4, 1, 5, 3, 0]):
-        # if fi in [4, 5]: continue
-        if fi in [0, 1, 2]: continue
+        if fi in [4, 5]: continue
+        # if fi in [0, 1, 2]: continue
         # data = pd.read_csv(file)
         data = pd.read_csv(file_paths[fi])
         grouped_data = data.groupby('n_objects')[['n_triangles', 'n_collisions', 'n_draw_calls', 'time_ns']].mean().reset_index()
@@ -61,7 +61,8 @@ def process_and_plot_data(file_paths):
 # ]
 
 file_paths = [
-    "tests/test_01.csv",
+    # "tests/test_01.csv",
+    "benchmark.csv",
     "tests/test_02.csv",
     "tests/test_03.csv",
     "tests/test_04.csv",

@@ -29,6 +29,7 @@ int main() {
             return rc;
         }
 
+        long start = bm::get_cpu_time_ns();
         rc = gameEngine.update();
 
         if (rc != ErrorCode::Ok) {
@@ -36,7 +37,7 @@ int main() {
         }
 
         
-        long start = bm::get_cpu_time_ns();
+        /* long start = bm::get_cpu_time_ns(); */
         rc = gameEngine.render();
         gRenderTime = bm::get_cpu_time_ns() - start;
 
