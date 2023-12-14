@@ -18,8 +18,36 @@
 
 \subsection{Влияние количества объектов на скорость генерации кадра}
 
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth]{img/cube-static-triangles.png}
+	\caption{Проведение тестов 1, 2}
+	\label{fig:cst}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth]{img/cube-collision.png}
+	\caption{Проведение теста 3}
+	\label{fig:cc}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth]{img/teapot-static.png}
+	\caption{Проведение тестов 4, 5}
+	\label{fig:ts}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth]{img/teapot-collision.png}
+	\caption{Проведение теста 6}
+	\label{fig:tc}
+\end{figure}
+
 \begin{table}[H]
-    \caption{Тест 1}
+    \caption{Количественные данные, полученные в результате проведения теста 1}
     \label{tab:test1}
     \begin{adjustbox}{width=1\textwidth}
         \input{lst/tex/table_01.tex}
@@ -27,7 +55,7 @@
 \end{table}
 
 \begin{table}[H]
-    \caption{Тест 2}
+    \caption{Количественные данные, полученные в результате проведения теста 2}
     \label{tab:test2}
     \begin{adjustbox}{width=1\textwidth}
         \input{lst/tex/table_02.tex}
@@ -35,7 +63,7 @@
 \end{table}
 
 \begin{table}[H]
-    \caption{Тест 3}
+    \caption{Количественные данные, полученные в результате проведения теста 3}
     \label{tab:test3}
     \begin{adjustbox}{width=1\textwidth}
         \input{lst/tex/table_03.tex}
@@ -43,7 +71,7 @@
 \end{table}
 
 \begin{table}[H]
-    \caption{Тест 4}
+    \caption{Количественные данные, полученные в результате проведения теста 4}
     \label{tab:test4}
     \begin{adjustbox}{width=1\textwidth}
         \input{lst/tex/table_04.tex}
@@ -51,7 +79,7 @@
 \end{table}
 
 \begin{table}[H]
-    \caption{Тест 5}
+    \caption{Количественные данные, полученные в результате проведения теста 5}
     \label{tab:test5}
     \begin{adjustbox}{width=1\textwidth}
         \input{lst/tex/table_05.tex}
@@ -59,7 +87,7 @@
 \end{table}
 
 \begin{table}[H]
-    \caption{Тест 6}
+    \caption{Количественные данные, полученные в результате проведения теста 6}
     \label{tab:test6}
     \begin{adjustbox}{width=1\textwidth}
         \input{lst/tex/table_06.tex}
@@ -68,16 +96,58 @@
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{img/tests-1234.pdf}
-	\caption{TODO}
-	\label{fig:test1234}
+    \includegraphics[width=0.9\textwidth]{img/1234/plot_triangles.pdf}
+	\caption{Зависимость количества треугольников от количества объектов в тестах 1 -- 4}
+	\label{fig:1234:tr}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{img/tests-456.pdf}
-	\caption{TODO}
-    \label{fig:test456}
+    \includegraphics[width=0.9\textwidth]{img/1234/plot_collisions.pdf}
+	\caption{Зависимость количества коллизий от количества объектов в тестах 1 -- 4}
+	\label{fig:1234:col}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.9\textwidth]{img/1234/plot_draw_calls.pdf}
+	\caption{Зависимость количества вызовов функций отрисовки OpenGL от количества объектов в тестах 1 -- 4}
+	\label{fig:1234:dc}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.9\textwidth]{img/1234/plot_time.pdf}
+	\caption{Зависимость времени генерации кадра от количесва объектов в тестах 1 -- 4}
+	\label{fig:1234:time}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.9\textwidth]{img/456/plot_triangles.pdf}
+	\caption{Зависимость количества треугольников от количества объектов в тестах 4 -- 6}
+	\label{fig:456:tr}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.9\textwidth]{img/456/plot_collisions.pdf}
+	\caption{Зависимость количества коллизий от количества объектов в тестах 4 -- 6}
+	\label{fig:456:col}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.9\textwidth]{img/456/plot_draw_calls.pdf}
+	\caption{Зависимость количества вызовов функций отрисовки OpenGL от количества объектов в тестах 4 -- 6}
+	\label{fig:456:dc}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.9\textwidth]{img/456/plot_time.pdf}
+	\caption{Зависимость времени генерации кадра от количесва объектов в тестах 4 -- 6}
+	\label{fig:456:time}
 \end{figure}
 
 % \subsubsection{Вывод}
