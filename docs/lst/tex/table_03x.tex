@@ -1,0 +1,12 @@
+% \begin{tabular}{rrrrr}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\begin{tabular}{|P{.20\textwidth}|P{.20\textwidth}|P{.20\textwidth}|P{.20\textwidth}|P{.20\textwidth}|}
+\hline
+ Количество объектов & Количество треугольников & Количество коллизий & Количество вызовов функций отрисовки OpenGL & Время генерации кадра, мс\\
+\hline
+        26 &   312 &  24.95 &  26 &  2.35 \\ \hline
+        46 &   552 &  43.00 &  46 &  4.72 \\ \hline
+        86 &  1032 & 113.60 &  86 & 11.72 \\ \hline
+       106 &  1272 & 149.59 & 106 & 16.17 \\ \hline
+       126 &  1512 & 190.76 & 126 & 21.83 \\ \hline
+\end{tabular}
