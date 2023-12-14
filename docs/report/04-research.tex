@@ -16,40 +16,14 @@
 Тестирование проводилось на компьютере, включенном в сеть электропитания.
 Во время тестирования ноутбук был нагружен только встроенными приложениями окружения, а также непосредственно самим тестируемым приложением.
 
-\subsection{Влияние количества объектов на скорость генерации кадра}
+\subsection{Средства проведения опытов}
 
-\begin{figure}[H]
-	\centering
-    \includegraphics[width=\textwidth]{img/cube-static-triangles.png}
-	\caption{Проведение тестов 1, 2}
-	\label{fig:cst}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-    \includegraphics[width=\textwidth]{img/cube-collision.png}
-	\caption{Проведение теста 3}
-	\label{fig:cc}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-    \includegraphics[width=\textwidth]{img/teapot-static.png}
-	\caption{Проведение тестов 4, 5}
-	\label{fig:ts}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-    \includegraphics[width=\textwidth]{img/teapot-collision.png}
-	\caption{Проведение теста 6}
-	\label{fig:tc}
-\end{figure}
+В листинге \ref{lst:get_time} приведена функция, используемая для получения процессорного времени в рамках проведения опытов. В листинге \ref{lst:bench_time} приведён пример её использования в рамках проведения опытов.
 
 \begin{code}
     \begin{lstinputlisting}[
             label={lst:get_time},
-            caption={TODO},
+            caption={Функция получения процессорного времени},
         ]{lst/get_time.cpp}
     \end{lstinputlisting}
 \end{code}
@@ -57,13 +31,143 @@
 \begin{code}
     \begin{lstinputlisting}[
             label={lst:bench_time},
-            caption={TODO},
+            caption={Проведение замеров времени},
         ]{lst/bench_time.cpp}
     \end{lstinputlisting}
 \end{code}
 
+gRenderTime --- глобальная переменная, из которой по запросу проводилось считывание времени генерации кадра в процессе проведения опытов.
+
+\subsection{Описание проводимых опытов}
+
+Далее следует описание опытов, проведённых в рамках исследования.
+
+\subsubsection{Опыт 1}
+
+Цель опыта --- получить <<базовое>> время генерации кадра, с которым впоследствии будет сравниваться времени генерации кадра из других опытов.
+
+Характеристики опыта:
+\begin{itemize}
+    \item Количество объектов на сцене: $1 + 5 N, N = \overline{0; 25}$
+    \item Типы объектов сцены: $1 + 5 N$ кубов
+    \item Общее количество треугольников объектов сцены: $12 \cdot (1 + 5 N)$
+    \item Столкновения: Нет
+    \item Количество вызовов OpenGL-функций отрисовки: $1 + 5 N$
+\end{itemize}
+
+\subsubsection{Опыт 2}
+
+Цель опыта --- определение влияния количества вызовов OpenGL-функций отрисовки на время генерации кадра, в случае, когда сцена состоит из одних кубов.
+
+Предположение --- чем больше вызовов OpenGL-функций, тем дольше будет генерироваться кадр.
+
+Характеристики опыта:
+\begin{itemize}
+    \item Количество объектов на сцене: $1 + 5 N, N = \overline{0; 25}$
+    \item Типы объектов сцены: $1 + 5 N$ кубов
+    \item Общее количество треугольников объектов сцены: $12 \cdot (1 + 5 N)$
+    \item Столкновения: Нет
+    \item Количество вызовов OpenGL-функций отрисовки: $12 \cdot (1 + 5 N)$
+\end{itemize}
+
+\subsubsection{Опыт 3}
+
+Цель опыта --- определение влияния количества столкновений на время рендеринга.
+
+Предположение --- количество столкновений не влияет на время рендеринга, потому что время выполнения функции $engine.update()$ в рамках проведения опыта не учитывается.
+
+Характеристики опыта:
+\begin{itemize}
+    \item Количество объектов на сцене: $1 + 5 N, N = \overline{0; 25}$
+    \item Типы объектов сцены: $1 + 5 N$ кубов
+    \item Общее количество треугольников объектов сцены: $12 \cdot (1 + 5 N)$
+    \item Столкновения: Да
+    \item Количество вызовов OpenGL-функций отрисовки: $1 + 5 N$
+\end{itemize}
+
+\subsubsection{Опыт 4}
+
+Цель опыта --- определение влияния количества треугольников моделей объектов сцены на время генерации кадра.
+
+Предположение --- чем больше треугольников в моделях объектов, тем дольше будет генерироваться кадр.
+
+Характеристики опыта:
+\begin{itemize}
+    \item Количество объектов на сцене: $1 + 5 N, N = \overline{0; 25}$
+    \item Типы объектов сцены: $1$ куб, $5 N$ чайников
+    \item Общее количество треугольников объектов сцены: $12 + 6320 \cdot 5 N$
+    \item Столкновения: Нет
+    \item Количество вызовов OpenGL-функций отрисовки: $1 + 5 N$
+\end{itemize}
+
+\subsubsection{Опыт 5}
+
+Цель опыта --- определение влияния количества вызовов OpenGL-функций отрисовки на время генерации кадра, в случае, когда сцена состоит преимущественно из моделей с большим количеством треугольников.
+
+Предположение --- чем больше вызовов OpenGL-функций, тем дольше будет генерироваться кадр.
+
+Характеристики опыта:
+\begin{itemize}
+    \item Количество объектов на сцене: $1 + 5 N, N = \overline{0; 25}$
+    \item Типы объектов сцены: $1$ куб, $5 N$ чайников
+    \item Общее количество треугольников объектов сцены: $12 + 6320 \cdot 5 N$
+    \item Столкновения: Нет
+    \item Количество вызовов OpenGL-функций отрисовки: $12 + 6320 \cdot 5 N$
+\end{itemize}
+
+\subsubsection{Опыт 6}
+
+Цель опыта --- определение влияния количества столкновений на время рендеринга, в случае, когда сцена состоит преимущественно из моделей с большим количеством треугольников.
+
+Предположение --- количество столкновений не влияет на время рендеринга, потому что время выполнения функции $engine.update()$ в рамках проведения опыта не учитывается.
+
+Характеристики опыта:
+\begin{itemize}
+    \item Количество объектов на сцене: $1 + 5 N, N = \overline{0; 25}$
+    \item Типы объектов сцены: $1$ куб, $5 N$ чайников
+    \item Общее количество треугольников объектов сцены: $12 + 6320 \cdot 5 N$
+    \item Столкновения: Да
+    \item Количество вызовов OpenGL-функций отрисовки: $1 + 5 N$
+\end{itemize}
+
+\subsection{Проведение опытов}
+
+На рисунках \ref{fig:cst} -- \ref{fig:tc} представлены снимки экрана, сделанные во время проведения опытов.
+В таблицах \ref{tab:test1} -- \ref{tab:test6} представлены количественные данные, полученные в результате проведения опытов.
+На рисунках \ref{fig:1234:tr} -- \ref{fig:456:time} представлены графики, построенные по результатам проведённых опытов.
+
+\newpage
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth]{img/cube-static-triangles.png}
+	\caption{Проведение опытов 1, 2}
+	\label{fig:cst}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth]{img/cube-collision.png}
+	\caption{Проведение опыта 3}
+	\label{fig:cc}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth]{img/teapot-static.png}
+	\caption{Проведение опытов 4, 5}
+	\label{fig:ts}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth]{img/teapot-collision.png}
+	\caption{Проведение опыта 6}
+	\label{fig:tc}
+\end{figure}
+
 \begin{table}[H]
-    \caption{Количественные данные, полученные в результате проведения теста 1}
+    \caption{Количественные данные, полученные в результате проведения опыта 1}
     \label{tab:test1}
     \begin{adjustbox}{width=1\textwidth}
         \input{lst/tex/table_01.tex}
@@ -71,7 +175,7 @@
 \end{table}
 
 \begin{table}[H]
-    \caption{Количественные данные, полученные в результате проведения теста 2}
+    \caption{Количественные данные, полученные в результате проведения опыта 2}
     \label{tab:test2}
     \begin{adjustbox}{width=1\textwidth}
         \input{lst/tex/table_02.tex}
@@ -79,7 +183,7 @@
 \end{table}
 
 \begin{table}[H]
-    \caption{Количественные данные, полученные в результате проведения теста 3}
+    \caption{Количественные данные, полученные в результате проведения опыта 3}
     \label{tab:test3}
     \begin{adjustbox}{width=1\textwidth}
         \input{lst/tex/table_03.tex}
@@ -95,7 +199,7 @@
 % \end{table}
 
 \begin{table}[H]
-    \caption{Количественные данные, полученные в результате проведения теста 4}
+    \caption{Количественные данные, полученные в результате проведения опыта 4}
     \label{tab:test4}
     \begin{adjustbox}{width=1\textwidth}
         \input{lst/tex/table_04.tex}
@@ -103,7 +207,7 @@
 \end{table}
 
 \begin{table}[H]
-    \caption{Количественные данные, полученные в результате проведения теста 5}
+    \caption{Количественные данные, полученные в результате проведения опыта 5}
     \label{tab:test5}
     \begin{adjustbox}{width=1\textwidth}
         \input{lst/tex/table_05.tex}
@@ -111,7 +215,7 @@
 \end{table}
 
 \begin{table}[H]
-    \caption{Количественные данные, полученные в результате проведения теста 6}
+    \caption{Количественные данные, полученные в результате проведения опыта 6}
     \label{tab:test6}
     \begin{adjustbox}{width=1\textwidth}
         \input{lst/tex/table_06.tex}
@@ -123,56 +227,56 @@
 \begin{figure}[H]
 	\centering
     \includegraphics[width=0.9\textwidth]{img/1234/plot_triangles.pdf}
-	\caption{Зависимость количества треугольников от количества объектов в тестах 1 -- 4}
+	\caption{Зависимость количества треугольников от количества объектов в опытах 1 -- 4}
 	\label{fig:1234:tr}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
     \includegraphics[width=0.9\textwidth]{img/1234/plot_collisions.pdf}
-	\caption{Зависимость количества коллизий от количества объектов в тестах 1 -- 4}
+	\caption{Зависимость количества коллизий от количества объектов в опытах 1 -- 4}
 	\label{fig:1234:col}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
     \includegraphics[width=0.9\textwidth]{img/1234/plot_draw_calls.pdf}
-	\caption{Зависимость количества вызовов функций отрисовки OpenGL от количества объектов в тестах 1 -- 4}
+	\caption{Зависимость количества вызовов OpenGL-функций отрисовки от количества объектов в опытах 1 -- 4}
 	\label{fig:1234:dc}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
     \includegraphics[width=0.9\textwidth]{img/1234/plot_time.pdf}
-	\caption{Зависимость времени генерации кадра от количесва объектов в тестах 1 -- 4}
+	\caption{Зависимость времени генерации кадра от количесва объектов в опытах 1 -- 4}
 	\label{fig:1234:time}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
     \includegraphics[width=0.9\textwidth]{img/456/plot_triangles.pdf}
-	\caption{Зависимость количества треугольников от количества объектов в тестах 4 -- 6}
+	\caption{Зависимость количества треугольников от количества объектов в опытах 4 -- 6}
 	\label{fig:456:tr}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
     \includegraphics[width=0.9\textwidth]{img/456/plot_collisions.pdf}
-	\caption{Зависимость количества коллизий от количества объектов в тестах 4 -- 6}
+	\caption{Зависимость количества коллизий от количества объектов в опытах 4 -- 6}
 	\label{fig:456:col}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
     \includegraphics[width=0.9\textwidth]{img/456/plot_draw_calls.pdf}
-	\caption{Зависимость количества вызовов функций отрисовки OpenGL от количества объектов в тестах 4 -- 6}
+	\caption{Зависимость количества вызовов OpenGL-функций отрисовки от количества объектов в опытах 4 -- 6}
 	\label{fig:456:dc}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
     \includegraphics[width=0.9\textwidth]{img/456/plot_time.pdf}
-	\caption{Зависимость времени генерации кадра от количесва объектов в тестах 4 -- 6}
+	\caption{Зависимость времени генерации кадра от количесва объектов в опытах 4 -- 6}
 	\label{fig:456:time}
 \end{figure}
 
@@ -189,12 +293,6 @@
 % 	\caption{Зависимость времени генерации кадра от количесва объектов в тестах 1, 2, 3*, 4}
 % 	\label{fig:1234:timex}
 % \end{figure}
-
-% \subsubsection{Вывод}
-
-\subsection{Влияние типов объектов на скорость генерации кадра}
-
-% \subsubsection{Вывод}
 
 \subsection*{Вывод}
 
