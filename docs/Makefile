@@ -1,8 +1,8 @@
 PDF = index.pdf
 MAIN = main
 # FLAGS = -shell-escape
-# CC = pdflatex
-CC = xelatex
+CC = pdflatex
+# CC = xelatex
 FLAGS = 
 SHIT = *.aux *.log *.out *.toc *.bbl *.blg
 
