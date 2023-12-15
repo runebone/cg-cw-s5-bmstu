@@ -4,9 +4,15 @@ MAIN = main
 CC = pdflatex
 # CC = xelatex
 FLAGS = 
-SHIT = *.aux *.log *.out *.toc *.bbl *.blg
+SHIT = *.aux *.log *.out *.toc *.bbl *.blg *.nav *.snm
 
 all: bib
+
+pres : pres.tex preamble.tex
+	-$(CC) $(FLAGS) $<
+	-$(CC) $(FLAGS) $<
+	-mv pres.pdf $(PDF)
+	make moveout
 
 $(PDF) : $(MAIN).tex *.tex report/*.tex
 	make resurrect
