@@ -48,6 +48,7 @@ def process_and_plot_data(file_paths):
     for ax in axes.flat:
         ax.legend()
 
+    plt.grid(True)
     plt.tight_layout()
     plt.show()
 
