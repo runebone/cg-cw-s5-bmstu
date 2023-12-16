@@ -1,4 +1,5 @@
 PDF = index.pdf
+RUNOV = Runov-IU7-54B-RPZ-CW.pdf
 MAIN = main
 # FLAGS = -shell-escape
 CC = pdflatex
@@ -27,7 +28,7 @@ bib: $(MAIN).tex *.tex report/*.tex
 	-bibtex $(MAIN).aux > /dev/null
 	-$(CC) $(FLAGS) $<  # > /dev/null
 	-$(CC) $(FLAGS) $<  > /dev/null
-	-mv $(MAIN).pdf $(PDF)
+	-mv $(MAIN).pdf $(RUNOV)
 	make moveout
 
 moveout:
