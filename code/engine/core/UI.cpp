@@ -108,12 +108,28 @@ void UI::render() {
     } else {
         const auto &pGameObject = gs.getSelectedObject();
 
+        glm::vec3 temp = pGameObject->mTransform.mScale;
+
         ImGui::Text("ID: %s, VAO: %d", pGameObject->getId().c_str(), pGameObject->getMesh().VAO);
         ImGui::ColorEdit3("Цвет", (f32*)&pGameObject->mColor);
         ImGui::Text("Геометрические свойства");
         ImGui::InputFloat3("Положение", (f32*)&pGameObject->mTransform.mPos);
         ImGui::InputFloat3("Поворот", (f32*)&pGameObject->mTransform.mRotation);
-        ImGui::InputFloat3("Увеличение", (f32*)&pGameObject->mTransform.mScale);
+        /* ImGui::InputFloat3("Увеличение", (f32*)&pGameObject->mTransform.mScale); */
+        ImGui::InputFloat3("Увеличение", (f32*)&temp);
+        if (temp.x < 0 || temp.y < 0 || temp.z < 0) {
+            if (temp.x < 0) {
+                temp.x = 0;
+            }
+            if (temp.y < 0) {
+                temp.y = 0;
+            }
+            if (temp.z < 0) {
+                temp.z = 0;
+            }
+        } if (temp.x >= 0 && temp.y >= 0 && temp.z >= 0) {
+            pGameObject->mTransform.mScale = temp;
+        }
         ImGui::Text("Физические свойства");
         ImGui::InputFloat("Масса", (f32*)&pGameObject->mRigidBody.mMass);
         ImGui::InputFloat3("Скорость", (f32*)&pGameObject->mRigidBody.mVelocity);

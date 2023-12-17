@@ -96,7 +96,7 @@ void InputManager::processInput(GLFWwindow *window) {
         glm::vec3 s = pGameObject->getScale();
         glm::vec3 r = pGameObject->getRotation();
         f32 dt = 2 * deltaTime;
-        f32 sf = 0.001;
+        f32 sf = 0.01;
 
         if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS) {
             pGameObject->setPos({p.x - 5 * dt, p.y, p.z});
@@ -117,7 +117,9 @@ void InputManager::processInput(GLFWwindow *window) {
             pGameObject->setPos({p.x, p.y, p.z + 5 * dt});
         }
         if (glfwGetKey(window, GLFW_KEY_LEFT_BRACKET) == GLFW_PRESS) {
-            pGameObject->setScale({s.x - sf, s.y - sf, s.z - sf});
+            if ((s.x - sf) >= 0 && (s.y - sf) >= 0 && (s.z - sf) >= 0) {
+                pGameObject->setScale({s.x - sf, s.y - sf, s.z - sf});
+            }
         }
         if (glfwGetKey(window, GLFW_KEY_RIGHT_BRACKET) == GLFW_PRESS) {
             pGameObject->setScale({s.x + sf, s.y + sf, s.z + sf});
